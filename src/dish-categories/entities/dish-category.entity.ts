@@ -26,9 +26,7 @@ export class DishCategory {
   isActive: boolean;
 
   //muchas categorias tienen una restaurante
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.dishCategories, {
-    eager: true,
-  })
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.dishCategories)
   @JoinColumn({ name: 'restaurant_id' })
   restaurant: Restaurant;
 
