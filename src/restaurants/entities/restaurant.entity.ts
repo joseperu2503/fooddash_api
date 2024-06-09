@@ -1,10 +1,12 @@
 import { Category } from 'src/categories/entities/category.entity';
+import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -52,6 +54,9 @@ export class Restaurant {
   })
   @JoinColumn({ name: 'category_id' })
   category: Category;
+
+  @OneToMany(() => DishCategory, (dishCategory) => dishCategory.restaurant)
+  dishCategories: DishCategory[];
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;

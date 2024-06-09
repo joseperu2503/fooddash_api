@@ -1,9 +1,11 @@
 import { CreateCategoryDto } from 'src/categories/dto/create-category.dto';
+import { CreateDishCategoryDto } from 'src/dish-categories/dto/create-dish-category.dto';
 import { CreateRestaurantDto } from 'src/restaurants/dto/create-restaurant.dto';
 
 interface SeedData {
   restaurants: CreateRestaurantDto[];
   categories: CreateCategoryDto[];
+  dishCategories: CreateDishCategoryDto[];
 }
 
 export const initialData: SeedData = {
@@ -104,6 +106,24 @@ export const initialData: SeedData = {
       name: 'Dessert',
       image:
         'https://files.joseperezgil.com/images/delivery/categories/cake_3d.png',
+    },
+  ],
+  dishCategories: [
+    {
+      name: 'Entradas y Piqueos',
+      restaurantId: 2,
+    },
+    {
+      name: 'Sopas',
+      restaurantId: 2,
+    },
+    {
+      name: 'Sanguches',
+      restaurantId: 2,
+    },
+    {
+      name: 'Jugos y Bebidas',
+      restaurantId: 2,
     },
   ],
 };
