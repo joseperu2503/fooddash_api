@@ -1,16 +1,9 @@
-interface SeedRestaurant {
-  name: string;
-  address: string;
-  logo: string;
-  backdrop: string;
-  latitude: number;
-  longitude: number;
-  openTime: string;
-  closeTime: string;
-}
+import { CreateCategoryDto } from 'src/categories/dto/create-category.dto';
+import { CreateRestaurantDto } from 'src/restaurants/dto/create-restaurant.dto';
 
 interface SeedData {
-  restaurants: SeedRestaurant[];
+  restaurants: CreateRestaurantDto[];
+  categories: CreateCategoryDto[];
 }
 
 export const initialData: SeedData = {
@@ -25,6 +18,7 @@ export const initialData: SeedData = {
       longitude: -77.07831458896082,
       openTime: '09:00',
       closeTime: '18:30',
+      categoryId: 1,
     },
     {
       name: 'Tanta',
@@ -36,6 +30,7 @@ export const initialData: SeedData = {
       longitude: -77.00409797064822,
       openTime: '09:00',
       closeTime: '18:30',
+      categoryId: 1,
     },
     {
       name: 'Maketto',
@@ -47,6 +42,7 @@ export const initialData: SeedData = {
       longitude: -77.04578402675554,
       openTime: '09:00',
       closeTime: '18:30',
+      categoryId: 1,
     },
     {
       name: 'Osso Burger',
@@ -58,6 +54,7 @@ export const initialData: SeedData = {
       longitude: -77.05241361704311,
       openTime: '09:00',
       closeTime: '18:30',
+      categoryId: 1,
     },
     {
       name: 'La Bodega de La Trattoria',
@@ -69,6 +66,44 @@ export const initialData: SeedData = {
       longitude: -77.03899318147967,
       openTime: '09:00',
       closeTime: '18:30',
+      categoryId: 1,
+    },
+  ],
+  categories: [
+    {
+      name: 'Pizza',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/pizza_3d.png',
+    },
+    {
+      name: 'Burger',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/burger_3d.png',
+    },
+    {
+      name: 'Taco',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/taco_3d.png',
+    },
+    {
+      name: 'Sushi',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/sushi_3d.png',
+    },
+    {
+      name: 'Coffee',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/coffee_3d.png',
+    },
+    {
+      name: 'Fried Chicken',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/fried_chicken_3d.png',
+    },
+    {
+      name: 'Dessert',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/cake_3d.png',
     },
   ],
 };

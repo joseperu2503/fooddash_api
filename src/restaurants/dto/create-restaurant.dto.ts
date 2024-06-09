@@ -1,9 +1,8 @@
 import {
-  IsDate,
-  IsDateString,
+  IsInt,
   IsNumber,
+  IsPositive,
   IsString,
-  IsTimeZone,
   IsUrl,
   Matches,
   MinLength,
@@ -12,35 +11,39 @@ import {
 export class CreateRestaurantDto {
   @IsString()
   @MinLength(1)
-  name: string;
+  readonly name: string;
 
   @IsString()
   @MinLength(1)
-  address: string;
+  readonly address: string;
 
   @IsString()
   @IsUrl()
-  logo: string;
+  readonly logo: string;
 
   @IsString()
   @IsUrl()
-  backdrop: string;
+  readonly backdrop: string;
+
+  @IsInt()
+  @IsPositive()
+  readonly categoryId: number;
 
   @IsNumber()
-  latitude: number;
+  readonly latitude: number;
 
   @IsNumber()
-  longitude: number;
+  readonly longitude: number;
 
   @Matches(/^([01]\d|2[0-3]):?([0-5]\d)$/, {
     message: (validationArguments) =>
       `${validationArguments.property} must be a valid time in HH:mm format`,
   })
-  openTime: string;
+  readonly openTime: string;
 
   @Matches(/^([01]\d|2[0-3]):?([0-5]\d)$/, {
     message: (validationArguments) =>
       `${validationArguments.property} must be a valid time in HH:mm format`,
   })
-  closeTime: string;
+  readonly closeTime: string;
 }

@@ -1,9 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Category } from 'src/categories/entities/category.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('restaurants')
 export class Restaurant {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column('text', {
     unique: true,
@@ -27,12 +36,26 @@ export class Restaurant {
 
   @Column('bool', {
     default: true,
+    name: 'is_active',
   })
   isActive: boolean;
 
-  @Column('time')
+  @Column('time', { name: 'open_time' })
   openTime: string;
 
-  @Column('time')
+  @Column('time', { name: 'close_time' })
   closeTime: string;
+
+  //muchos restaurantes tienen una categoria
+  @ManyToOne(() => Category, (category) => category.restaurants, {
+    eager: true,
+  })
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
+
+  @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
+  updatedAt: Date;
 }
