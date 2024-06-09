@@ -15,6 +15,23 @@ export class RestaurantsService {
     private readonly restaurantRepository: Repository<Restaurant>,
   ) {}
 
+  async findAll() {
+    try {
+      const products = await this.restaurantRepository.find();
+      return products.map((product) => ({
+        ...product,
+        distance: 1500,
+        time: 40,
+        record: 4.6,
+        recordPeople: 340,
+        tags: ['Burger', 'Chicken', 'Fast Food'],
+        delivery: 4.2,
+      }));
+    } catch (error) {
+      this.handleDbExceptions(error);
+    }
+  }
+
   async create(createRestaurantDto: CreateRestaurantDto) {
     try {
       const restaurant = this.restaurantRepository.create(createRestaurantDto);
@@ -30,5 +47,14 @@ export class RestaurantsService {
       throw new BadRequestException(error.detail);
     }
     throw new InternalServerErrorException();
+  }
+
+  async deleteAllRestaurants() {
+    const query = this.restaurantRepository.createQueryBuilder('restaurants');
+    try {
+      return await query.delete().where({}).execute();
+    } catch (error) {
+      this.handleDbExceptions(error);
+    }
   }
 }
