@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 
@@ -6,13 +6,18 @@ import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
+  @Post()
+  create(@Body() createRestaurantDto: CreateRestaurantDto) {
+    return this.restaurantsService.create(createRestaurantDto);
+  }
+
   @Get()
   findAll() {
     return this.restaurantsService.findAll();
   }
 
-  @Post()
-  create(@Body() createRestaurantDto: CreateRestaurantDto) {
-    return this.restaurantsService.create(createRestaurantDto);
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.restaurantsService.findOne(+id);
   }
 }

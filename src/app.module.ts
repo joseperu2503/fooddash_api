@@ -5,6 +5,7 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
 import { SeedModule } from './seed/seed.module';
 import { CategoriesModule } from './categories/categories.module';
 import { DishCategoriesModule } from './dish-categories/dish-categories.module';
+import { DishesModule } from './dishes/dishes.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { DishCategoriesModule } from './dish-categories/dish-categories.module';
     SeedModule,
     CategoriesModule,
     DishCategoriesModule,
+    DishesModule,
   ],
 })
 export class AppModule {}

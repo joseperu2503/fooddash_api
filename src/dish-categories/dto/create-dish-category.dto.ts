@@ -1,15 +1,9 @@
-import {
-  IsInt,
-  IsNotEmpty,
-  IsPositive,
-  IsString,
-  IsUrl,
-} from 'class-validator';
+import { IsInt, IsNotEmpty, IsPositive, IsString } from 'class-validator';
 
 export class CreateDishCategoryDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  readonly name: string;
 
   @IsInt()
   @IsPositive()

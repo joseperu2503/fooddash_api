@@ -5,6 +5,7 @@ import { Restaurant } from './entities/restaurant.entity';
 import { Repository } from 'typeorm';
 import { CategoriesService } from 'src/categories/categories.service';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
 
 @Injectable()
 export class RestaurantsService {
@@ -44,7 +45,10 @@ export class RestaurantsService {
   }
 
   async findOne(id: number) {
-    const restaurant = await this.restaurantRepository.findOneBy({ id });
+    const restaurant = await this.restaurantRepository.findOne({
+      relations: ['dishCategories', 'dishCategories.dishes'],
+      where: { id },
+    });
     if (!restaurant) {
       throw new NotFoundException(`Restaurant ${id} not found`);
     }

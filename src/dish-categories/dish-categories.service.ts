@@ -5,37 +5,40 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DishCategory } from './entities/dish-category.entity';
 import { Repository } from 'typeorm';
 import { RestaurantsService } from 'src/restaurants/restaurants.service';
+import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 
 @Injectable()
 export class DishCategoriesService {
   constructor(
     @InjectRepository(DishCategory)
-    private readonly categoryDishRepository: Repository<DishCategory>,
+    private readonly dishCategoryRepository: Repository<DishCategory>,
     private restaurantsService: RestaurantsService,
   ) {}
 
   async create(createDishCategoryDto: CreateDishCategoryDto) {
-    const dishCategory = this.categoryDishRepository.create(
+    const dishCategory: DishCategory = this.dishCategoryRepository.create(
       createDishCategoryDto,
     );
 
-    const restaurant = await this.restaurantsService.findOne(
+    const restaurant: Restaurant = await this.restaurantsService.findOne(
       createDishCategoryDto.restaurantId,
     );
 
     dishCategory.restaurant = restaurant;
 
-    await this.categoryDishRepository.save(dishCategory);
+    await this.dishCategoryRepository.save(dishCategory);
     return dishCategory;
   }
 
   async findAll() {
-    const dishCategory = await this.categoryDishRepository.find();
-    return dishCategory;
+    const dishCategories: DishCategory[] =
+      await this.dishCategoryRepository.find();
+    return dishCategories;
   }
 
   async findOne(id: number) {
-    const dishCategory = await this.categoryDishRepository.findOneBy({ id });
+    const dishCategory: DishCategory =
+      await this.dishCategoryRepository.findOneBy({ id });
     if (!dishCategory) {
       throw new NotFoundException(`Dish Category ${id} not found`);
     }
@@ -43,20 +46,20 @@ export class DishCategoriesService {
   }
 
   async update(id: number, updateDishCategoryDto: UpdateDishCategoryDto) {
-    const dishCategory = await this.findOne(id);
+    const dishCategory: DishCategory = await this.findOne(id);
 
     if (updateDishCategoryDto.restaurantId) {
-      const restaurant = await this.restaurantsService.findOne(
+      const restaurant: Restaurant = await this.restaurantsService.findOne(
         updateDishCategoryDto.restaurantId,
       );
 
       dishCategory.restaurant = restaurant;
     }
-    this.categoryDishRepository.merge(dishCategory, updateDishCategoryDto);
-    return this.categoryDishRepository.save(dishCategory);
+    this.dishCategoryRepository.merge(dishCategory, updateDishCategoryDto);
+    return this.dishCategoryRepository.save(dishCategory);
   }
 
   remove(id: number) {
-    return this.categoryDishRepository.delete(id);
+    return this.dishCategoryRepository.delete(id);
   }
 }
