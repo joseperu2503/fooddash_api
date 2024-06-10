@@ -1,11 +1,11 @@
-import { CreateCategoryDto } from 'src/categories/dto/create-category.dto';
+import { CreateRestaurantCategoryDto } from 'src/categories/dto/create-restaurant-category.dto';
 import { CreateDishCategoryDto } from 'src/dish-categories/dto/create-dish-category.dto';
 import { CreateDishDto } from 'src/dishes/dto/create-dish.dto';
 import { CreateRestaurantDto } from 'src/restaurants/dto/create-restaurant.dto';
 
 interface SeedData {
   restaurants: CreateRestaurantDto[];
-  categories: CreateCategoryDto[];
+  categories: CreateRestaurantCategoryDto[];
   dishCategories: CreateDishCategoryDto[];
   dishes: CreateDishDto[];
 }

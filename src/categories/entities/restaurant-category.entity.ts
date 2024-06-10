@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity('categories')
-export class Category {
+export class RestaurantCategory {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -23,11 +23,11 @@ export class Category {
 
   @Column('bool', {
     default: true,
-    name:'is_active'
+    name: 'is_active',
   })
   isActive: boolean;
 
-  @OneToMany(() => Restaurant, (restaurant) => restaurant.category)
+  @OneToMany(() => Restaurant, (restaurant) => restaurant.restaurantCategory)
   restaurants: Restaurant[];
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })

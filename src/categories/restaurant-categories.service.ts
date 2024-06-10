@@ -1,18 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CreateRestaurantCategoryDto } from './dto/create-restaurant-category.dto';
+import { UpdateRestaurantCategoryDto } from './dto/update-restaurant-category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category } from './entities/category.entity';
+import { RestaurantCategory } from './entities/restaurant-category.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class CategoriesService {
+export class RestaurantCategoriesService {
   constructor(
-    @InjectRepository(Category)
-    private readonly categoryRepository: Repository<Category>,
+    @InjectRepository(RestaurantCategory)
+    private readonly categoryRepository: Repository<RestaurantCategory>,
   ) {}
 
-  async create(createCategoryDto: CreateCategoryDto) {
+  async create(createCategoryDto: CreateRestaurantCategoryDto) {
     const category = this.categoryRepository.create(createCategoryDto);
     await this.categoryRepository.save(category);
     return category;
@@ -31,7 +31,7 @@ export class CategoriesService {
     return category;
   }
 
-  async update(id: number, updateCategoryDto: UpdateCategoryDto) {
+  async update(id: number, updateCategoryDto: UpdateRestaurantCategoryDto) {
     const category = await this.findOne(id);
     this.categoryRepository.merge(category, updateCategoryDto);
     return this.categoryRepository.save(category);

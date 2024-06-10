@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { SeedModule } from './seed/seed.module';
-import { CategoriesModule } from './categories/categories.module';
+import { RestaurantCategoriesModule } from './categories/restaurant-categories.module';
 import { DishCategoriesModule } from './dish-categories/dish-categories.module';
 import { DishesModule } from './dishes/dishes.module';
 
@@ -22,7 +22,7 @@ import { DishesModule } from './dishes/dishes.module';
     }),
     RestaurantsModule,
     SeedModule,
-    CategoriesModule,
+    RestaurantCategoriesModule,
     DishCategoriesModule,
     DishesModule,
   ],

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { initialData } from './data/seed-data';
 import { RestaurantsService } from 'src/restaurants/restaurants.service';
-import { CategoriesService } from 'src/categories/categories.service';
+import { RestaurantCategoriesService } from 'src/categories/restaurant-categories.service';
 import { DataSource } from 'typeorm';
 import { DishCategoriesService } from 'src/dish-categories/dish-categories.service';
 import { DishesService } from 'src/dishes/dishes.service';
@@ -10,7 +10,7 @@ import { DishesService } from 'src/dishes/dishes.service';
 export class SeedService {
   constructor(
     private readonly restaurantsService: RestaurantsService,
-    private readonly categoriesService: CategoriesService,
+    private readonly categoriesService: RestaurantCategoriesService,
     private readonly dishCategoriesService: DishCategoriesService,
     private readonly dishesService: DishesService,
     private readonly dataSource: DataSource,

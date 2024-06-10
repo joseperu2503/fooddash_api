@@ -1,4 +1,4 @@
-import { Category } from 'src/categories/entities/category.entity';
+import { RestaurantCategory } from 'src/categories/entities/restaurant-category.entity';
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
 import {
   Column,
@@ -49,11 +49,15 @@ export class Restaurant {
   closeTime: string;
 
   //muchos restaurantes tienen una categoria
-  @ManyToOne(() => Category, (category) => category.restaurants, {
-    eager: true,
-  })
-  @JoinColumn({ name: 'category_id' })
-  category: Category;
+  @ManyToOne(
+    () => RestaurantCategory,
+    (restaurantcategory) => restaurantcategory.restaurants,
+    {
+      eager: true,
+    },
+  )
+  @JoinColumn({ name: 'restaurant_category_id' })
+  restaurantCategory: RestaurantCategory;
 
   @OneToMany(() => DishCategory, (dishCategory) => dishCategory.restaurant)
   dishCategories: DishCategory[];

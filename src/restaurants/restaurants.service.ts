@@ -3,16 +3,15 @@ import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Restaurant } from './entities/restaurant.entity';
 import { Repository } from 'typeorm';
-import { CategoriesService } from 'src/categories/categories.service';
+import { RestaurantCategoriesService } from 'src/categories/restaurant-categories.service';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
 
 @Injectable()
 export class RestaurantsService {
   constructor(
     @InjectRepository(Restaurant)
     private readonly restaurantRepository: Repository<Restaurant>,
-    private categoriesService: CategoriesService,
+    private categoriesService: RestaurantCategoriesService,
   ) {}
 
   async create(createRestaurantDto: CreateRestaurantDto) {
@@ -21,7 +20,7 @@ export class RestaurantsService {
       createRestaurantDto.categoryId,
     );
 
-    restaurant.category = category;
+    restaurant.restaurantCategory = category;
 
     await this.restaurantRepository.save(restaurant);
     return restaurant;
@@ -61,7 +60,7 @@ export class RestaurantsService {
       const category = await this.categoriesService.findOne(
         UpdateRestaurantDto.categoryId,
       );
-      restaurant.category = category;
+      restaurant.restaurantCategory = category;
     }
 
     this.restaurantRepository.merge(restaurant, UpdateRestaurantDto);
