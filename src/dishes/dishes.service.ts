@@ -38,7 +38,9 @@ export class DishesService {
     if (!dish) {
       throw new NotFoundException(`Dish  ${id} not found`);
     }
-    return dish;
+    return {
+      ...dish,
+    };
   }
 
   async update(id: number, updateDishDto: UpdateDishDto) {
