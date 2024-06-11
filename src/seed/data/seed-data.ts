@@ -127,6 +127,22 @@ export const initialData: SeedData = {
       name: 'Jugos y Bebidas',
       restaurantId: 2,
     },
+    {
+      name: 'Pakettes',
+      restaurantId: 3,
+    },
+    {
+      name: 'Snacks',
+      restaurantId: 3,
+    },
+    {
+      name: 'Maki',
+      restaurantId: 3,
+    },
+    {
+      name: 'Extras',
+      restaurantId: 3,
+    },
   ],
   dishes: [
     {
@@ -364,6 +380,159 @@ export const initialData: SeedData = {
       dishCategoryId: 4,
       image: 'https://images.rappi.pe/products/481992-1595348406475.jpg',
       price: 16.0,
+      stock: 15,
+    },
+    {
+      name: 'Paketitto',
+      description:
+        '18 piezas de maki (06 piezas de Acebichado, 06 piezas de Avocado, 06 piezas de Luiggi)',
+      dishCategoryId: 5,
+      image:
+        'https://images.rappi.pe/products/9bdaa954-5146-4237-850d-f712d8f6ac00-1692741564835.png',
+      price: 44.22,
+      stock: 15,
+    },
+    {
+      name: 'Makiman',
+      description: '48 piezas de maki en 4 sabores a elección.',
+      dishCategoryId: 5,
+      image:
+        'https://images.rappi.pe/products/0dfddaba-32b6-4f29-a41d-c46eaec8e9df-1692741843308.png',
+      price: 126.16,
+      stock: 15,
+    },
+    {
+      name: 'Medio Makiman',
+      description: '24 piezas de maki en 4 sabores a elección',
+      dishCategoryId: 5,
+      image:
+        'https://images.rappi.pe/products/a9439273-a5d2-4297-9178-d0298b93ac9e-1692741908823.png',
+      price: 73.04,
+      stock: 15,
+    },
+    {
+      name: 'Cebiche Marciano',
+      description:
+        'Pesca del día, leche de tigre marciana de culantro, chalaca con ají charapita, patacones.',
+      dishCategoryId: 6,
+      image:
+        'https://images.rappi.pe/products/316aeca7-f23a-4201-9e95-0dd72a4fdeb9-1694288146963.png',
+      price: 45.0,
+      stock: 15,
+    },
+    {
+      name: 'Yakimeshi & Mfc (Maketto Fried Chicken)',
+      description:
+        'Arroz frito con hongos, vegetales y cashews. pollito frito karaage, omelette & salsa samurai, encurtidos.',
+      dishCategoryId: 6,
+      image:
+        'https://images.rappi.pe/products/36cf5646-7d87-4f79-ae61-0e4b9b1863fa-1694288204858.png',
+      price: 35.1,
+      stock: 15,
+    },
+    {
+      name: 'Maketto Fried Chicken - MFC',
+      description: 'Pollo marinado estilo karaage, tártara ponja.',
+      dishCategoryId: 6,
+      image:
+        'https://images.rappi.pe/products/6209cb34-cad6-4248-8255-53488f26fa2a-1694288274776.png',
+      price: 25.0,
+      stock: 15,
+    },
+    {
+      name: 'Maketto Shrimp Tempura',
+      description: 'Langostinos tempura con salsa ácido picante.',
+      dishCategoryId: 6,
+      image:
+        'https://images.rappi.pe/products/2b169f91-2a2d-47a6-8ca2-08d99559b601-1694288232759.png',
+      price: 35.0,
+      stock: 15,
+    },
+    {
+      name: 'Sanguchito la Royal',
+      description:
+        'Bun dorado, hamburguesa de asado de tira y alga kombu,kimchi caramelizado, aro de cebolla tempura, mayo sriracha, cheddar, huevito frito y lechuga.',
+      dishCategoryId: 6,
+      image:
+        'https://images.rappi.pe/products/50eff104-6e71-4ee1-8f6f-376caaeeb8db-1694288065361.png',
+      price: 16.0,
+      stock: 15,
+    },
+    {
+      name: 'Sanguchito Ebi Korokke',
+      description:
+        'Bun con croqueta achifada de langostinos y pota, salsa samurai, criolla encurtida y culantro.ponerle sus gotitas de limón.',
+      dishCategoryId: 6,
+      image:
+        'https://images.rappi.pe/products/8fead5c7-9667-44c1-9013-9156a0b440c5-1694287966362.png',
+      price: 16.0,
+      stock: 15,
+    },
+    {
+      name: 'Maki Umai',
+      description:
+        'Kiuri, cangrejo y langostino furai. Por fuera tempura, tártara con kawa karaage.',
+      dishCategoryId: 7,
+      image:
+        'https://images.rappi.pe/products/8aa997f3-fe5f-4b32-b215-1aba1318c1a3-1694288897822.png',
+      price: 27.0,
+      stock: 15,
+    },
+    {
+      name: 'Maki el Cangri',
+      description:
+        'Por dentro palta, kiuri y pescado furai. Por fuera pesca del dia, crema de cangrejo ligeramente picante y encima salsa parrillera flameada. Más chips de papa y tare',
+      dishCategoryId: 7,
+      image:
+        'https://images.rappi.pe/products/76319ae2-af8b-4e6f-8947-b039c0303d99-1694288828693.png',
+      price: 25.0,
+      stock: 15,
+    },
+    {
+      name: 'Maki Mailey Spicy',
+      description:
+        'Langostino empanizado y palta por fuera. Crema de cangrejo y queso parmesano por fuera y chives.',
+      dishCategoryId: 7,
+      image:
+        'https://images.rappi.pe/products/0eaf17db-7096-44ee-bdaa-677f5311d28a-1694288712914.png',
+      price: 27.0,
+      stock: 15,
+    },
+    {
+      name: 'Maki Chuka',
+      description:
+        'Langostino empanizado, cangrejo, palta por dentro. pesca del día por fuera flameada con salsa de ostión de la casa.',
+      dishCategoryId: 7,
+      image:
+        'https://images.rappi.pe/products/8a383682-65eb-4bb1-93e6-f2a221f3f93c-1696282973941.png',
+      price: 27.0,
+      stock: 15,
+    },
+    {
+      name: 'Shari',
+      description: 'Arroz de sushi',
+      dishCategoryId: 8,
+      image:
+        'https://images.rappi.pe/products/5b6a3974-2d65-491d-9528-5300225d894e-1696448381381.png',
+      price: 9.0,
+      stock: 15,
+    },
+    {
+      name: 'Gohan',
+      description: 'Arroz blanco.',
+      dishCategoryId: 8,
+      image:
+        'https://images.rappi.pe/products/e838026f-fb11-4394-b49a-1059de8f58f9-1696448415242.png',
+      price: 7.0,
+      stock: 15,
+    },
+    {
+      name: 'Salsa Acebichada',
+      description: 'Salsa Acebichada',
+      dishCategoryId: 8,
+      image:
+        'https://images.rappi.pe/products/095c92c2-132a-4678-9b58-9d924336325a-1696448436598.png',
+      price: 5.0,
       stock: 15,
     },
   ],

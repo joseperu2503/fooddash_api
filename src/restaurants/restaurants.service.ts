@@ -36,10 +36,6 @@ export class RestaurantsService {
       recordPeople: 340,
       tags: ['Burger', 'Chicken', 'Fast Food'],
       delivery: 4.2,
-      createdAt: product.createdAt.toString(),
-      updatedAt: product.updatedAt.toString(),
-
-      date: new Date().toString(),
     }));
   }
 
@@ -51,7 +47,15 @@ export class RestaurantsService {
     if (!restaurant) {
       throw new NotFoundException(`Restaurant ${id} not found`);
     }
-    return restaurant;
+    return {
+      ...restaurant,
+      distance: 1500,
+      time: 40,
+      record: 4.6,
+      recordPeople: 340,
+      tags: ['Burger', 'Chicken', 'Fast Food'],
+      delivery: 4.2,
+    };
   }
 
   async update(id: number, UpdateRestaurantDto: UpdateRestaurantDto) {
