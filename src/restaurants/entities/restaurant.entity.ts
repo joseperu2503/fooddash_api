@@ -1,5 +1,6 @@
 import { RestaurantCategory } from 'src/categories/entities/restaurant-category.entity';
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
+import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import {
   Column,
   CreateDateColumn,
@@ -67,4 +68,11 @@ export class Restaurant {
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updatedAt: Date;
+
+  //un ToppingType tiene muchas ToppingCategory
+  @OneToMany(
+    () => ToppingCategory,
+    (toppingCategory) => toppingCategory.restaurant,
+  )
+  toppingCategories: ToppingCategory[];
 }
