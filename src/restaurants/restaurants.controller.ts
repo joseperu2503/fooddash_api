@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -12,6 +13,7 @@ export class RestaurantsController {
   }
 
   @Get()
+  @Auth()
   findAll() {
     return this.restaurantsService.findAll();
   }
