@@ -1,4 +1,4 @@
-import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
+import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import {
   Column,
   CreateDateColumn,
@@ -9,27 +9,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('dishes')
-export class Dish {
+@Entity('toppings')
+export class Topping {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column('text')
-  name: string;
-
-  @Column('text')
-  image: string;
-
-  @Column('text')
   description: string;
-
-  @Column('float')
-  price: number;
-
-  @Column('int', {
-    default: 0,
-  })
-  stock: number;
 
   @Column('bool', {
     default: true,
@@ -37,10 +23,19 @@ export class Dish {
   })
   isActive: boolean;
 
-  //un Dish le pertenece a un DishCategory
-  @ManyToOne(() => DishCategory, (dishCategory) => dishCategory.dishes)
-  @JoinColumn({ name: 'dish_category_id' })
-  dishCategory: DishCategory;
+  @Column('integer')
+  maxLimit: string;
+
+  @Column('float')
+  price: number;
+
+  //un Topping le pertenece a un ToppingCategory
+  @ManyToOne(
+    () => ToppingCategory,
+    (toppingCategory) => toppingCategory.toppings,
+  )
+  @JoinColumn({ name: 'topping_category_id' })
+  toppingCategory: ToppingCategory;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;

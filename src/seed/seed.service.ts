@@ -5,6 +5,7 @@ import { RestaurantCategoriesService } from 'src/categories/restaurant-categorie
 import { DataSource } from 'typeorm';
 import { DishCategoriesService } from 'src/dish-categories/dish-categories.service';
 import { DishesService } from 'src/dishes/dishes.service';
+import { ToppingTypesService } from 'src/topping-types/topping-types.service';
 
 @Injectable()
 export class SeedService {
@@ -14,10 +15,12 @@ export class SeedService {
     private readonly dishCategoriesService: DishCategoriesService,
     private readonly dishesService: DishesService,
     private readonly dataSource: DataSource,
+    private readonly toppingTypesService: ToppingTypesService,
   ) {}
 
   async runSeed() {
     await this.dropAllTables();
+    await this.toppingTypeSeed();
     await this.categorySeed();
     await this.restaurantSeed();
     await this.dishCategorySeed();
@@ -52,6 +55,13 @@ export class SeedService {
     const dishes = initialData.dishes;
     for (const dish of dishes) {
       await this.dishesService.create(dish);
+    }
+  }
+
+  private async toppingTypeSeed() {
+    const toppingTypes = initialData.toppingTypes;
+    for (const toppingType of toppingTypes) {
+      await this.toppingTypesService.create(toppingType);
     }
   }
 

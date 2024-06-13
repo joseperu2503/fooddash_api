@@ -27,10 +27,11 @@ export class DishCategory {
   })
   isActive: boolean;
 
+  //una DishCategory tiene muchas Dish
   @OneToMany(() => Dish, (dish) => dish.dishCategory)
   dishes: Dish[];
 
-  //muchas categorias tienen una restaurante
+  //muchas DishCategory tienen una Restaurant
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.dishCategories)
   @JoinColumn({ name: 'restaurant_id' })
   restaurant: Restaurant;

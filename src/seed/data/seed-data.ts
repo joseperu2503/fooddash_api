@@ -2,8 +2,10 @@ import { CreateRestaurantCategoryDto } from 'src/categories/dto/create-restauran
 import { CreateDishCategoryDto } from 'src/dish-categories/dto/create-dish-category.dto';
 import { CreateDishDto } from 'src/dishes/dto/create-dish.dto';
 import { CreateRestaurantDto } from 'src/restaurants/dto/create-restaurant.dto';
+import { CreateToppingTypeDto } from 'src/topping-types/dto/create-topping-type.dto';
 
 interface SeedData {
+  toppingTypes: CreateToppingTypeDto[];
   restaurants: CreateRestaurantDto[];
   categories: CreateRestaurantCategoryDto[];
   dishCategories: CreateDishCategoryDto[];
@@ -11,6 +13,14 @@ interface SeedData {
 }
 
 export const initialData: SeedData = {
+  toppingTypes: [
+    {
+      description: 'exclusive',
+    },
+    {
+      description: 'inclusive',
+    },
+  ],
   restaurants: [
     {
       name: 'El Olivar Grill Puente Piedra - Urb Cercado de Puente Piedra',
