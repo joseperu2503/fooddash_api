@@ -1,5 +1,4 @@
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
-import { ToppingType } from 'src/topping-types/entities/topping-type.entity';
 import { Topping } from 'src/toppings/entities/topping.entity';
 import {
   Column,
@@ -31,11 +30,6 @@ export class ToppingCategory {
 
   @Column('integer')
   minToppings: number;
-
-  //un ToppingCategory le pertenece a un ToppingType
-  @ManyToOne(() => ToppingType, (toppingType) => toppingType.toppingCategories)
-  @JoinColumn({ name: 'topping_type_id' })
-  toppingType: ToppingType;
 
   //un ToppingCategory le pertenece a un ToppingType
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.toppingCategories)

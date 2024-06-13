@@ -5,7 +5,8 @@ import { RestaurantCategoriesService } from 'src/categories/restaurant-categorie
 import { DataSource } from 'typeorm';
 import { DishCategoriesService } from 'src/dish-categories/dish-categories.service';
 import { DishesService } from 'src/dishes/dishes.service';
-import { ToppingTypesService } from 'src/topping-types/topping-types.service';
+import { ToppingCategoriesService } from 'src/topping-categories/topping-categories.service';
+import { ToppingsService } from 'src/toppings/toppings.service';
 
 @Injectable()
 export class SeedService {
@@ -15,16 +16,18 @@ export class SeedService {
     private readonly dishCategoriesService: DishCategoriesService,
     private readonly dishesService: DishesService,
     private readonly dataSource: DataSource,
-    private readonly toppingTypesService: ToppingTypesService,
+    private readonly toppingCategoriesService: ToppingCategoriesService,
+    private readonly toppingsService: ToppingsService,
   ) {}
 
   async runSeed() {
     await this.dropAllTables();
-    await this.toppingTypeSeed();
     await this.categorySeed();
     await this.restaurantSeed();
     await this.dishCategorySeed();
-    await this.dishseed();
+    await this.dishSeed();
+    await this.toppingCategorySeed();
+    await this.toppingSeed();
 
     return 'SEED EXECUTED';
   }
@@ -51,17 +54,24 @@ export class SeedService {
     }
   }
 
-  private async dishseed() {
+  private async dishSeed() {
     const dishes = initialData.dishes;
     for (const dish of dishes) {
       await this.dishesService.create(dish);
     }
   }
 
-  private async toppingTypeSeed() {
-    const toppingTypes = initialData.toppingTypes;
-    for (const toppingType of toppingTypes) {
-      await this.toppingTypesService.create(toppingType);
+  private async toppingCategorySeed() {
+    const toppingCategories = initialData.toppingCategories;
+    for (const toppingCategory of toppingCategories) {
+      await this.toppingCategoriesService.create(toppingCategory);
+    }
+  }
+
+  private async toppingSeed() {
+    const toppings = initialData.toppings;
+    for (const topping of toppings) {
+      await this.toppingsService.create(topping);
     }
   }
 

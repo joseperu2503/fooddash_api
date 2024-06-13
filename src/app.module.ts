@@ -8,7 +8,6 @@ import { DishCategoriesModule } from './dish-categories/dish-categories.module';
 import { DishesModule } from './dishes/dishes.module';
 import { AuthModule } from './auth/auth.module';
 import { ToppingsModule } from './toppings/toppings.module';
-import { ToppingTypesModule } from './topping-types/topping-types.module';
 import { ToppingCategoriesModule } from './topping-categories/topping-categories.module';
 
 @Module({
@@ -31,7 +30,6 @@ import { ToppingCategoriesModule } from './topping-categories/topping-categories
     DishesModule,
     AuthModule,
     ToppingsModule,
-    ToppingTypesModule,
     ToppingCategoriesModule,
   ],
 })

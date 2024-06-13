@@ -27,7 +27,7 @@ export class CreateRestaurantDto {
 
   @IsInt()
   @IsPositive()
-  readonly categoryId: number;
+  readonly restaurantCategoryId: number;
 
   @IsNumber()
   readonly latitude: number;

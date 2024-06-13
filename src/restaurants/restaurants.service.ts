@@ -11,16 +11,16 @@ export class RestaurantsService {
   constructor(
     @InjectRepository(Restaurant)
     private readonly restaurantRepository: Repository<Restaurant>,
-    private categoriesService: RestaurantCategoriesService,
+    private restaurantCategoriesService: RestaurantCategoriesService,
   ) {}
 
   async create(createRestaurantDto: CreateRestaurantDto) {
     const restaurant = this.restaurantRepository.create(createRestaurantDto);
-    const category = await this.categoriesService.findOne(
-      createRestaurantDto.categoryId,
+    const restaurantCategory = await this.restaurantCategoriesService.findOne(
+      createRestaurantDto.restaurantCategoryId,
     );
 
-    restaurant.restaurantCategory = category;
+    restaurant.restaurantCategory = restaurantCategory;
 
     await this.restaurantRepository.save(restaurant);
     return restaurant;
@@ -60,9 +60,9 @@ export class RestaurantsService {
 
   async update(id: number, UpdateRestaurantDto: UpdateRestaurantDto) {
     const restaurant = await this.findOne(id);
-    if (UpdateRestaurantDto.categoryId) {
-      const category = await this.categoriesService.findOne(
-        UpdateRestaurantDto.categoryId,
+    if (UpdateRestaurantDto.restaurantCategoryId) {
+      const category = await this.restaurantCategoriesService.findOne(
+        UpdateRestaurantDto.restaurantCategoryId,
       );
       restaurant.restaurantCategory = category;
     }

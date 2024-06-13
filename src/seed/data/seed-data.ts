@@ -2,25 +2,19 @@ import { CreateRestaurantCategoryDto } from 'src/categories/dto/create-restauran
 import { CreateDishCategoryDto } from 'src/dish-categories/dto/create-dish-category.dto';
 import { CreateDishDto } from 'src/dishes/dto/create-dish.dto';
 import { CreateRestaurantDto } from 'src/restaurants/dto/create-restaurant.dto';
-import { CreateToppingTypeDto } from 'src/topping-types/dto/create-topping-type.dto';
+import { CreateToppingCategoryDto } from 'src/topping-categories/dto/create-topping-category.dto';
+import { CreateToppingDto } from 'src/toppings/dto/create-topping.dto';
 
 interface SeedData {
-  toppingTypes: CreateToppingTypeDto[];
   restaurants: CreateRestaurantDto[];
   categories: CreateRestaurantCategoryDto[];
   dishCategories: CreateDishCategoryDto[];
   dishes: CreateDishDto[];
+  toppingCategories: CreateToppingCategoryDto[];
+  toppings: CreateToppingDto[];
 }
 
 export const initialData: SeedData = {
-  toppingTypes: [
-    {
-      description: 'exclusive',
-    },
-    {
-      description: 'inclusive',
-    },
-  ],
   restaurants: [
     {
       name: 'El Olivar Grill Puente Piedra - Urb Cercado de Puente Piedra',
@@ -32,7 +26,7 @@ export const initialData: SeedData = {
       longitude: -77.07831458896082,
       openTime: '09:00',
       closeTime: '18:30',
-      categoryId: 1,
+      restaurantCategoryId: 1,
     },
     {
       name: 'Tanta',
@@ -44,7 +38,7 @@ export const initialData: SeedData = {
       longitude: -77.00409797064822,
       openTime: '09:00',
       closeTime: '18:30',
-      categoryId: 1,
+      restaurantCategoryId: 1,
     },
     {
       name: 'Maketto',
@@ -56,7 +50,7 @@ export const initialData: SeedData = {
       longitude: -77.04578402675554,
       openTime: '09:00',
       closeTime: '18:30',
-      categoryId: 1,
+      restaurantCategoryId: 1,
     },
     {
       name: 'Osso Burger',
@@ -68,7 +62,7 @@ export const initialData: SeedData = {
       longitude: -77.05241361704311,
       openTime: '09:00',
       closeTime: '18:30',
-      categoryId: 1,
+      restaurantCategoryId: 1,
     },
     {
       name: 'La Bodega de La Trattoria',
@@ -80,7 +74,77 @@ export const initialData: SeedData = {
       longitude: -77.03899318147967,
       openTime: '09:00',
       closeTime: '18:30',
-      categoryId: 1,
+      restaurantCategoryId: 1,
+    },
+  ],
+  toppingCategories: [
+    {
+      description: 'Escoge Sabor de Empanada',
+      minToppings: 1,
+      maxToppings: 1,
+      restaurantId: 2,
+    },
+    {
+      description: 'Elige la Temperatura',
+      minToppings: 1,
+      maxToppings: 1,
+      restaurantId: 2,
+    },
+    {
+      description: '¿Desea Ají?',
+      minToppings: 1,
+      maxToppings: 1,
+      restaurantId: 2,
+    },
+    {
+      description: 'Añade Un Postre',
+      minToppings: 0,
+      maxToppings: 4,
+      restaurantId: 2,
+    },
+    {
+      description: '¿Deseas Agregar Bebida?',
+      minToppings: 0,
+      maxToppings: 5,
+      restaurantId: 2,
+    },
+    {
+      description: '¿Deseas Cubiertos?',
+      minToppings: 0,
+      maxToppings: 1,
+      restaurantId: 2,
+    },
+  ],
+  toppings: [
+    {
+      description: 'De Espinaca y Queso Azul',
+      maxLimit: 1,
+      toppingCategoryId: 1,
+      price: 0,
+    },
+    {
+      description: 'Pollo',
+      maxLimit: 1,
+      toppingCategoryId: 1,
+      price: 0,
+    },
+    {
+      description: 'Lomo Saltado',
+      maxLimit: 1,
+      toppingCategoryId: 1,
+      price: 0,
+    },
+    {
+      description: 'Ají de Gallina',
+      maxLimit: 1,
+      toppingCategoryId: 1,
+      price: 0,
+    },
+    {
+      description: 'Cuadril',
+      maxLimit: 1,
+      toppingCategoryId: 1,
+      price: 0,
     },
   ],
   categories: [

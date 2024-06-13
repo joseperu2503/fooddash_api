@@ -69,7 +69,7 @@ export class Restaurant {
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updatedAt: Date;
 
-  //un ToppingType tiene muchas ToppingCategory
+  //un Restaurant tiene muchas ToppingCategory
   @OneToMany(
     () => ToppingCategory,
     (toppingCategory) => toppingCategory.restaurant,

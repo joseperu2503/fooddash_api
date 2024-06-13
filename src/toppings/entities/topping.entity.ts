@@ -24,7 +24,7 @@ export class Topping {
   isActive: boolean;
 
   @Column('integer')
-  maxLimit: string;
+  maxLimit: number;
 
   @Column('float')
   price: number;

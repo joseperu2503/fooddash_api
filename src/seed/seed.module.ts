@@ -6,7 +6,7 @@ import { RestaurantCategoriesModule } from 'src/categories/restaurant-categories
 import { DishCategoriesModule } from 'src/dish-categories/dish-categories.module';
 import { DishesModule } from 'src/dishes/dishes.module';
 import { ToppingsModule } from 'src/toppings/toppings.module';
-import { ToppingTypesModule } from 'src/topping-types/topping-types.module';
+import { ToppingCategoriesModule } from 'src/topping-categories/topping-categories.module';
 
 @Module({
   controllers: [SeedController],
@@ -16,8 +16,8 @@ import { ToppingTypesModule } from 'src/topping-types/topping-types.module';
     RestaurantCategoriesModule,
     DishCategoriesModule,
     DishesModule,
-    ToppingTypesModule,
     ToppingsModule,
+    ToppingCategoriesModule,
   ],
 })
 export class SeedModule {}
