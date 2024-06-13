@@ -8,12 +8,12 @@ export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
   @Post()
+  @Auth()
   create(@Body() createRestaurantDto: CreateRestaurantDto) {
     return this.restaurantsService.create(createRestaurantDto);
   }
 
   @Get()
-  @Auth()
   findAll() {
     return this.restaurantsService.findAll();
   }
