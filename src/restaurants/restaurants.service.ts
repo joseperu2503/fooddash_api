@@ -3,7 +3,7 @@ import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Restaurant } from './entities/restaurant.entity';
 import { Repository } from 'typeorm';
-import { RestaurantCategoriesService } from 'src/categories/restaurant-categories.service';
+import { RestaurantCategoriesService } from 'src/restaurant-categories/restaurant-categories.service';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 
 @Injectable()

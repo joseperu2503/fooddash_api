@@ -1,4 +1,5 @@
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
+import { Topping } from 'src/toppings/entities/topping.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +8,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity('dishes')
@@ -37,7 +40,7 @@ export class Dish {
   })
   isActive: boolean;
 
-  //un Dish le pertenece a un DishCategory
+  //un Dish tiene un DishCategory
   @ManyToOne(() => DishCategory, (dishCategory) => dishCategory.dishes)
   @JoinColumn({ name: 'dish_category_id' })
   dishCategory: DishCategory;
@@ -47,4 +50,16 @@ export class Dish {
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updatedAt: Date;
+
+  @ManyToMany(() => Topping, (topping) => topping.dishes)
+  @JoinTable({
+    name: 'dish_topping',
+    joinColumn: {
+      name: 'dish_id',
+    },
+    inverseJoinColumn: {
+      name: 'topping_id',
+    },
+  })
+  toppings: Topping[];
 }

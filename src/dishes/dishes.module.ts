@@ -4,11 +4,12 @@ import { DishesController } from './dishes.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Dish } from './entities/dish.entity';
 import { DishCategoriesModule } from 'src/dish-categories/dish-categories.module';
+import { Topping } from 'src/toppings/entities/topping.entity';
 
 @Module({
   controllers: [DishesController],
   providers: [DishesService],
-  imports: [TypeOrmModule.forFeature([Dish]), DishCategoriesModule],
+  imports: [TypeOrmModule.forFeature([Dish, Topping]), DishCategoriesModule],
   exports: [DishesService],
 })
 export class DishesModule {}

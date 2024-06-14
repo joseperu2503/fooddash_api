@@ -3,9 +3,10 @@ import { CreateDishDto } from './dto/create-dish.dto';
 import { UpdateDishDto } from './dto/update-dish.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Dish } from './entities/dish.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { DishCategoriesService } from 'src/dish-categories/dish-categories.service';
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
+import { Topping } from 'src/toppings/entities/topping.entity';
 
 @Injectable()
 export class DishesService {
@@ -13,6 +14,8 @@ export class DishesService {
     @InjectRepository(Dish)
     private readonly categoryDishRepository: Repository<Dish>,
     private dishCategoriesService: DishCategoriesService,
+    @InjectRepository(Topping)
+    private readonly toppingRepository: Repository<Topping>,
   ) {}
 
   async create(createDishDto: CreateDishDto) {
@@ -23,6 +26,12 @@ export class DishesService {
     );
 
     dish.dishCategory = dishCategory;
+
+    const toppings = await this.toppingRepository.findBy({
+      id: In(createDishDto.toppingsIds),
+    });
+
+    dish.toppings = toppings;
 
     await this.categoryDishRepository.save(dish);
     return dish;

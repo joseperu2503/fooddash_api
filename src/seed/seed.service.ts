@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { initialData } from './data/seed-data';
 import { RestaurantsService } from 'src/restaurants/restaurants.service';
-import { RestaurantCategoriesService } from 'src/categories/restaurant-categories.service';
+import { RestaurantCategoriesService } from 'src/restaurant-categories/restaurant-categories.service';
 import { DataSource } from 'typeorm';
 import { DishCategoriesService } from 'src/dish-categories/dish-categories.service';
 import { DishesService } from 'src/dishes/dishes.service';
@@ -22,20 +22,20 @@ export class SeedService {
 
   async runSeed() {
     await this.dropAllTables();
-    await this.categorySeed();
+    await this.restaurantCategorySeed();
     await this.restaurantSeed();
-    await this.dishCategorySeed();
-    await this.dishSeed();
     await this.toppingCategorySeed();
     await this.toppingSeed();
+    await this.dishCategorySeed();
+    await this.dishSeed();
 
     return 'SEED EXECUTED';
   }
 
-  private async categorySeed() {
-    const categories = initialData.categories;
+  private async restaurantCategorySeed() {
+    const restaurantCategories = initialData.restaurantCategories;
 
-    for (const category of categories) {
+    for (const category of restaurantCategories) {
       await this.categoriesService.create(category);
     }
   }

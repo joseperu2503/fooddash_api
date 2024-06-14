@@ -1,9 +1,11 @@
+import { Dish } from 'src/dishes/entities/dish.entity';
 import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -42,4 +44,7 @@ export class Topping {
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updatedAt: Date;
+
+  @ManyToMany(() => Dish, (dish) => dish.toppings)
+  dishes: Dish[];
 }

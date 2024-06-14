@@ -11,7 +11,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('topping-categories')
+@Entity('topping_categories')
 export class ToppingCategory {
   @PrimaryGeneratedColumn()
   id: number;

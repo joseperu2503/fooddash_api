@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('categories')
+@Entity('restaurant_categories')
 export class RestaurantCategory {
   @PrimaryGeneratedColumn()
   id: number;

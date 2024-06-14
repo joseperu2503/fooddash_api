@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsInt,
   IsNotEmpty,
   IsNumber,
@@ -21,13 +22,16 @@ export class CreateDishDto {
 
   @IsNumber()
   @IsPositive()
-  price: number;
+  readonly price: number;
 
   @IsInt()
   @IsPositive()
-  stock: number;
+  readonly stock: number;
 
   @IsInt()
   @IsPositive()
   readonly dishCategoryId: number;
+
+  @IsArray()
+  readonly toppingsIds: number[];
 }
