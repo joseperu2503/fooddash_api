@@ -1,4 +1,5 @@
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
+import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import { Topping } from 'src/toppings/entities/topping.entity';
 import {
   Column,

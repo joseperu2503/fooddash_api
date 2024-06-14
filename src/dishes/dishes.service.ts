@@ -12,14 +12,14 @@ import { Topping } from 'src/toppings/entities/topping.entity';
 export class DishesService {
   constructor(
     @InjectRepository(Dish)
-    private readonly categoryDishRepository: Repository<Dish>,
+    private readonly dishRepository: Repository<Dish>,
     private dishCategoriesService: DishCategoriesService,
     @InjectRepository(Topping)
     private readonly toppingRepository: Repository<Topping>,
   ) {}
 
   async create(createDishDto: CreateDishDto) {
-    const dish: Dish = this.categoryDishRepository.create(createDishDto);
+    const dish: Dish = this.dishRepository.create(createDishDto);
 
     const dishCategory: DishCategory = await this.dishCategoriesService.findOne(
       createDishDto.dishCategoryId,
@@ -33,27 +33,54 @@ export class DishesService {
 
     dish.toppings = toppings;
 
-    await this.categoryDishRepository.save(dish);
+    await this.dishRepository.save(dish);
     return dish;
   }
 
   async findAll() {
-    const dishes: Dish[] = await this.categoryDishRepository.find();
+    const dishes: Dish[] = await this.dishRepository.find();
     return dishes;
   }
 
   async findOne(id: number) {
-    const dish = await this.categoryDishRepository.findOneBy({ id });
+    const dish = await this.dishRepository.findOne({
+      where: { id },
+      relations: ['toppings', 'toppings.toppingCategory'],
+    });
     if (!dish) {
-      throw new NotFoundException(`Dish  ${id} not found`);
+      throw new NotFoundException(`Dish ${id} not found`);
     }
+
+    let toppingCategories = [];
+
+    dish.toppings.forEach((topping) => {
+      const toppingCategory = topping.toppingCategory;
+      delete topping.toppingCategory;
+      const toppingCategoryIndex: number = toppingCategories.findIndex(
+        (t) => t.id == toppingCategory.id,
+      );
+      if (toppingCategoryIndex == -1) {
+        toppingCategories.push({
+          ...toppingCategory,
+          toppings: [topping],
+        });
+      } else {
+        toppingCategories[toppingCategoryIndex].toppings.push(topping);
+      }
+    });
+
+    delete dish.toppings;
+
     return {
       ...dish,
+      toppingCategories: toppingCategories,
     };
   }
 
   async update(id: number, updateDishDto: UpdateDishDto) {
-    const dish: Dish = await this.findOne(id);
+    const dish = await this.dishRepository.findOne({
+      where: { id },
+    });
 
     if (updateDishDto.dishCategoryId) {
       const dishCategory: DishCategory =
@@ -61,11 +88,11 @@ export class DishesService {
 
       dish.dishCategory = dishCategory;
     }
-    this.categoryDishRepository.merge(dish, updateDishDto);
-    return this.categoryDishRepository.save(dish);
+    this.dishRepository.merge(dish, updateDishDto);
+    return this.dishRepository.save(dish);
   }
 
   remove(id: number) {
-    return this.categoryDishRepository.delete(id);
+    return this.dishRepository.delete(id);
   }
 }

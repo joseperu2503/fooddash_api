@@ -1,3 +1,4 @@
+import { Dish } from 'src/dishes/entities/dish.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { Topping } from 'src/toppings/entities/topping.entity';
 import {
@@ -5,6 +6,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
