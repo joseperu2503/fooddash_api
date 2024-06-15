@@ -99,7 +99,7 @@ export const initialData: SeedData = {
     {
       description: 'Añade Un Postre',
       minToppings: 0,
-      maxToppings: 4,
+      maxToppings: 3,
       restaurantId: 2,
     },
     {
@@ -145,6 +145,102 @@ export const initialData: SeedData = {
       maxLimit: 1,
       toppingCategoryId: 1,
       price: 0,
+    },
+    {
+      description: 'Frío',
+      maxLimit: 1,
+      toppingCategoryId: 2,
+      price: 0,
+    },
+    {
+      description: 'Caliente',
+      maxLimit: 1,
+      toppingCategoryId: 2,
+      price: 0,
+    },
+    {
+      description: 'Si',
+      maxLimit: 1,
+      toppingCategoryId: 3,
+      price: 0,
+    },
+    {
+      description: 'No',
+      maxLimit: 1,
+      toppingCategoryId: 3,
+      price: 0,
+    },
+    {
+      description: 'Copita Tres Leches',
+      maxLimit: 1,
+      toppingCategoryId: 4,
+      price: 18,
+    },
+    {
+      description: 'Copita Suspiro a la Limeña',
+      maxLimit: 1,
+      toppingCategoryId: 4,
+      price: 18,
+    },
+    {
+      description: 'Copita Pie de Limon',
+      maxLimit: 1,
+      toppingCategoryId: 4,
+      price: 18,
+    },
+    {
+      description: 'Copita Maracuyá y Chocolate',
+      maxLimit: 1,
+      toppingCategoryId: 4,
+      price: 18,
+    },
+    {
+      description: 'Inca Kola 500ml',
+      maxLimit: 4,
+      toppingCategoryId: 5,
+      price: 9,
+    },
+    {
+      description: 'Inca Kola Sin Azucar 500ml',
+      maxLimit: 4,
+      toppingCategoryId: 5,
+      price: 9,
+    },
+    {
+      description: 'Coca Cola 500ml',
+      maxLimit: 4,
+      toppingCategoryId: 5,
+      price: 9,
+    },
+    {
+      description: 'Chicha Morada',
+      maxLimit: 4,
+      toppingCategoryId: 5,
+      price: 16,
+    },
+    {
+      description: 'Limonada Clásica',
+      maxLimit: 4,
+      toppingCategoryId: 5,
+      price: 16,
+    },
+    {
+      description: 'Coca Cola Sin Azucar 500ml',
+      maxLimit: 4,
+      toppingCategoryId: 5,
+      price: 9,
+    },
+    {
+      description: 'No',
+      maxLimit: 1,
+      toppingCategoryId: 6,
+      price: 0,
+    },
+    {
+      description: 'Si',
+      maxLimit: 1,
+      toppingCategoryId: 6,
+      price: 1,
     },
   ],
   restaurantCategories: [
@@ -226,7 +322,10 @@ export const initialData: SeedData = {
       image: 'https://images.rappi.pe/products/481897-1595347497891.jpg',
       price: 31.0,
       stock: 15,
-      toppingsIds: [1, 2, 3, 4, 5],
+      toppingsIds: [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21,
+      ],
     },
     {
       name: 'Papa Rellena',

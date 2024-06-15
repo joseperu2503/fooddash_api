@@ -59,9 +59,17 @@ export class DishesService {
       const toppingCategoryIndex: number = toppingCategories.findIndex(
         (t) => t.id == toppingCategory.id,
       );
+      delete topping.createdAt;
+      delete topping.updatedAt;
+      delete toppingCategory.createdAt;
+      delete toppingCategory.updatedAt;
       if (toppingCategoryIndex == -1) {
         toppingCategories.push({
           ...toppingCategory,
+          subtitle:
+            toppingCategory.maxToppings > 1
+              ? `Select maximun ${toppingCategory.maxToppings} options`
+              : '',
           toppings: [topping],
         });
       } else {
@@ -70,7 +78,8 @@ export class DishesService {
     });
 
     delete dish.toppings;
-
+    delete dish.createdAt;
+    delete dish.updatedAt;
     return {
       ...dish,
       toppingCategories: toppingCategories,
