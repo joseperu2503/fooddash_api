@@ -9,6 +9,8 @@ import { DishesModule } from './dishes/dishes.module';
 import { AuthModule } from './auth/auth.module';
 import { ToppingsModule } from './toppings/toppings.module';
 import { ToppingCategoriesModule } from './topping-categories/topping-categories.module';
+import { DishCartsModule } from './dish-carts/dish-carts.module';
+import { ToppingDishCartsModule } from './topping-dish-carts/topping-dish-carts.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { ToppingCategoriesModule } from './topping-categories/topping-categories
     AuthModule,
     ToppingsModule,
     ToppingCategoriesModule,
+    DishCartsModule,
+    ToppingDishCartsModule,
   ],
 })
 export class AppModule {}

@@ -1,3 +1,4 @@
+import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
 import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import { Topping } from 'src/toppings/entities/topping.entity';
@@ -11,6 +12,7 @@ import {
   UpdateDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('dishes')
@@ -63,4 +65,8 @@ export class Dish {
     },
   })
   toppings: Topping[];
+
+  //una Dish tiene muchas DishCart
+  @OneToMany(() => DishCart, (dishCart) => dishCart.dish)
+  dishCarts: DishCart[];
 }

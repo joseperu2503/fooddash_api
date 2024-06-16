@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -29,4 +30,8 @@ export class User {
 
   @Column('text')
   phone: string;
+
+  //un User tiene muchas DishCart
+  @OneToMany(() => DishCart, (dishCart) => dishCart.user)
+  dishCarts: DishCart[];
 }
