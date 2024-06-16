@@ -1,16 +1,11 @@
-import { User } from 'src/auth/entities/user.entity';
 import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
-import { Dish } from 'src/dishes/entities/dish.entity';
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
+import { Topping } from 'src/toppings/entities/topping.entity';
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity('topping_dish_carts')
@@ -20,6 +15,14 @@ export class ToppingDishCart {
 
   //un ToppingDishCart tiene un DishCart
   @ManyToOne(() => DishCart, (dishCart) => dishCart.toppingDishCarts)
-  @JoinColumn({ name: 'dish_id' })
+  @JoinColumn({ name: 'dish_cart_id' })
   dishCart: DishCart;
+
+  //muchos restaurantes tienen una categoria
+  @ManyToOne(() => Topping, (topping) => topping.toppingDishCarts)
+  @JoinColumn({ name: 'topping_id' })
+  topping: Topping;
+
+  @Column('int')
+  units: number;
 }

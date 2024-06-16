@@ -1,6 +1,5 @@
 import { User } from 'src/auth/entities/user.entity';
 import { Dish } from 'src/dishes/entities/dish.entity';
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { ToppingDishCart } from 'src/topping-dish-carts/entities/topping-dish-cart.entity';
 import {
   Column,
@@ -28,9 +27,7 @@ export class DishCart {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Column('int', {
-    default: 0,
-  })
+  @Column('int')
   units: number;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })

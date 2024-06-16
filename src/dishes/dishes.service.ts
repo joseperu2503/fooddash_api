@@ -42,7 +42,7 @@ export class DishesService {
     return dishes;
   }
 
-  async findOne(id: number) {
+  async detail(id: number) {
     const dish = await this.dishRepository.findOne({
       where: { id },
       relations: ['toppings', 'toppings.toppingCategory'],
@@ -84,6 +84,12 @@ export class DishesService {
       ...dish,
       toppingCategories: toppingCategories,
     };
+  }
+
+  async findOne(id: number) {
+    return await this.dishRepository.findOne({
+      where: { id },
+    });
   }
 
   async update(id: number, updateDishDto: UpdateDishDto) {
