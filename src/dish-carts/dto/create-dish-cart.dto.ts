@@ -1,5 +1,7 @@
+import { OmitType } from '@nestjs/mapped-types';
 import { Type } from 'class-transformer';
 import { IsArray, IsInt, IsPositive, ValidateNested } from 'class-validator';
+import { CreateToppingDishCartDto } from 'src/topping-dish-carts/dto/create-topping-dish-cart.dto';
 
 export class CreateDishCartDto {
   @IsInt()
@@ -8,7 +10,7 @@ export class CreateDishCartDto {
 
   @IsInt()
   @IsPositive()
-  readonly userId: number;
+  readonly cartId: number;
 
   @IsInt()
   @IsPositive()
@@ -16,16 +18,10 @@ export class CreateDishCartDto {
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => ToppingDto)
-  toppings: ToppingDto[];
+  @Type(() => Topping)
+  toppings: Topping[];
 }
 
-class ToppingDto {
-  @IsInt()
-  @IsPositive()
-  readonly toppingId: number;
-
-  @IsInt()
-  @IsPositive()
-  readonly units: number;
-}
+class Topping extends OmitType(CreateToppingDishCartDto, [
+  'dishCartId',
+] as const) {}

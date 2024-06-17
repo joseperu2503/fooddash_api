@@ -1,4 +1,4 @@
-import { User } from 'src/auth/entities/user.entity';
+import { Cart } from 'src/carts/entities/cart.entity';
 import { Dish } from 'src/dishes/entities/dish.entity';
 import { ToppingDishCart } from 'src/topping-dish-carts/entities/topping-dish-cart.entity';
 import {
@@ -22,10 +22,10 @@ export class DishCart {
   @JoinColumn({ name: 'dish_id' })
   dish: Dish;
 
-  //un DishCart tiene un User
-  @ManyToOne(() => User, (user) => user.dishCarts)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  //un DishCart tiene un Cart
+  @ManyToOne(() => Cart, (cart) => cart.dishCarts)
+  @JoinColumn({ name: 'cart_id' })
+  cart: Cart;
 
   @Column('int')
   units: number;

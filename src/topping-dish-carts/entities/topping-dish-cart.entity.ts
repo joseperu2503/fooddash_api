@@ -18,7 +18,7 @@ export class ToppingDishCart {
   @JoinColumn({ name: 'dish_cart_id' })
   dishCart: DishCart;
 
-  //muchos restaurantes tienen una categoria
+  //muchos ToppingDishCart tienen un Topping
   @ManyToOne(() => Topping, (topping) => topping.toppingDishCarts)
   @JoinColumn({ name: 'topping_id' })
   topping: Topping;

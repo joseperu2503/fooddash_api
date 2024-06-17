@@ -1,35 +1,47 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDishCartDto } from './dto/create-dish-cart.dto';
 import { UpdateDishCartDto } from './dto/update-dish-cart.dto';
 import { DishCart } from './entities/dish-cart.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DishesService } from 'src/dishes/dishes.service';
-import { AuthService } from 'src/auth/auth.service';
 import { ToppingDishCartsService } from 'src/topping-dish-carts/topping-dish-carts.service';
+import { Cart } from 'src/carts/entities/cart.entity';
+import { Dish } from 'src/dishes/entities/dish.entity';
 
 @Injectable()
 export class DishCartsService {
   constructor(
     @InjectRepository(DishCart)
     private readonly dishCartRepository: Repository<DishCart>,
-    private dishesService: DishesService,
-    private authService: AuthService,
+    @InjectRepository(Dish)
+    private readonly dishRepository: Repository<Dish>,
+    @InjectRepository(Cart)
+    private readonly cartRepository: Repository<Cart>,
     private toppingDishCartsService: ToppingDishCartsService,
   ) {}
 
   async create(createDishCartDto: CreateDishCartDto) {
-    const { toppings, ...dishCarttDetails } = createDishCartDto;
+    const { toppings, ...dishCartDetails } = createDishCartDto;
 
-    const dishCart = this.dishCartRepository.create(dishCarttDetails);
+    const dishCart = this.dishCartRepository.create(dishCartDetails);
 
-    const dish = await this.dishesService.findOne(createDishCartDto.dishId);
+    const dish = await this.dishRepository.findOne({
+      where: { id: createDishCartDto.dishId },
+    });
+    if (!dish) {
+      throw new NotFoundException(`Dish ${createDishCartDto.dishId} not found`);
+    }
 
     dishCart.dish = dish;
 
-    const user = await this.authService.findOne(createDishCartDto.userId);
+    const cart = await this.cartRepository.findOne({
+      where: { id: createDishCartDto.cartId },
+    });
+    if (!cart) {
+      throw new NotFoundException(`Cart ${createDishCartDto.cartId} not found`);
+    }
 
-    dishCart.user = user;
+    dishCart.cart = cart;
     await this.dishCartRepository.save(dishCart);
 
     for (const topping of toppings) {

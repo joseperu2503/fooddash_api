@@ -14,6 +14,6 @@ import { ToppingCategory } from 'src/topping-categories/entities/topping-categor
     TypeOrmModule.forFeature([Dish, Topping, ToppingCategory]),
     DishCategoriesModule,
   ],
-  exports: [DishesService],
+  exports: [DishesService, TypeOrmModule],
 })
 export class DishesModule {}
