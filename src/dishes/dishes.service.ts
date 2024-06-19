@@ -45,7 +45,7 @@ export class DishesService {
   async detail(id: number) {
     const dish = await this.dishRepository.findOne({
       where: { id },
-      relations: ['toppings', 'toppings.toppingCategory'],
+      relations: ['toppings', 'toppings.toppingCategory', 'dishCategory.restaurant'],
     });
     if (!dish) {
       throw new NotFoundException(`Dish ${id} not found`);

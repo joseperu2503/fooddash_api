@@ -6,12 +6,13 @@ import { Cart } from './entities/cart.entity';
 import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
 import { DishCartsModule } from 'src/dish-carts/dish-carts.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 
 @Module({
   controllers: [CartController],
   providers: [CartsService],
   imports: [
-    TypeOrmModule.forFeature([Cart, DishCart]),
+    TypeOrmModule.forFeature([Cart, DishCart, Restaurant]),
     DishCartsModule,
     AuthModule,
   ],

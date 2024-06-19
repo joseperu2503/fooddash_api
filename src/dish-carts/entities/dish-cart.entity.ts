@@ -23,7 +23,10 @@ export class DishCart {
   dish: Dish;
 
   //un DishCart tiene un Cart
-  @ManyToOne(() => Cart, (cart) => cart.dishCarts)
+  @ManyToOne(() => Cart, (cart) => cart.dishCarts, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'cart_id' })
   cart: Cart;
 

@@ -24,6 +24,12 @@ export class CartController {
     return this.cartService.create(createCartDto, user);
   }
 
+  @Get('my-cart')
+  @Auth()
+  myCart(@GetUser() user: User) {
+    return this.cartService.myCart(user);
+  }
+
   @Get()
   findAll() {
     return this.cartService.findAll();
@@ -39,8 +45,9 @@ export class CartController {
     return this.cartService.update(+id, updateCartDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cartService.remove(+id);
+  @Delete('/my-cart')
+  @Auth()
+  remove(@GetUser() user: User) {
+    return this.cartService.remove(user);
   }
 }

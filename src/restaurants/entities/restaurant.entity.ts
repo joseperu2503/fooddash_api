@@ -11,6 +11,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Cart } from 'src/carts/entities/cart.entity';
 
 @Entity('restaurants')
 export class Restaurant {
@@ -53,9 +54,6 @@ export class Restaurant {
   @ManyToOne(
     () => RestaurantCategory,
     (restaurantcategory) => restaurantcategory.restaurants,
-    {
-      eager: true,
-    },
   )
   @JoinColumn({ name: 'restaurant_category_id' })
   restaurantCategory: RestaurantCategory;
@@ -75,4 +73,8 @@ export class Restaurant {
     (toppingCategory) => toppingCategory.restaurant,
   )
   toppingCategories: ToppingCategory[];
+
+  //un Restaurant tiene muchas Cart
+  @OneToMany(() => Cart, (cart) => cart.restaurant)
+  carts: Cart[];
 }

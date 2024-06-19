@@ -14,7 +14,10 @@ export class ToppingDishCart {
   id: number;
 
   //un ToppingDishCart tiene un DishCart
-  @ManyToOne(() => DishCart, (dishCart) => dishCart.toppingDishCarts)
+  @ManyToOne(() => DishCart, (dishCart) => dishCart.toppingDishCarts, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'dish_cart_id' })
   dishCart: DishCart;
 
