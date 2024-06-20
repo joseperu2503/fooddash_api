@@ -15,18 +15,55 @@ interface SeedData {
 }
 
 export const initialData: SeedData = {
+  restaurantCategories: [
+    {
+      name: 'Pizza',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/pizza_3d.png',
+    },
+    {
+      name: 'Burger',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/burger_3d.png',
+    },
+    {
+      name: 'Taco',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/taco_3d.png',
+    },
+    {
+      name: 'Sushi',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/sushi_3d.png',
+    },
+    {
+      name: 'Coffee',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/coffee_3d.png',
+    },
+    {
+      name: 'Fried Chicken',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/fried_chicken_3d.png',
+    },
+    {
+      name: 'Dessert',
+      image:
+        'https://files.joseperezgil.com/images/delivery/categories/cake_3d.png',
+    },
+  ],
   restaurants: [
     {
-      name: 'El Olivar Grill Puente Piedra - Urb Cercado de Puente Piedra',
-      address: 'Avenida Buenos Aires 382, Puente Piedra, Perú',
-      logo: 'https://images.rappi.pe/restaurants_logo/logo-1690840417777.png',
+      name: "Dunkin'",
+      address: '1104 Lexington Ave, New York, NY 10075, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/media/restaurant/cover_square/98851814-9e10-467f-8867-ec8586529624.png',
       backdrop:
-        'https://images.rappi.pe/restaurants_background/parrilla18-1690902771434.jpg',
-      latitude: -11.86509975256008,
-      longitude: -77.07831458896082,
-      openTime: '09:00',
-      closeTime: '18:30',
-      restaurantCategoryId: 1,
+        'https://doordash-static.s3.amazonaws.com/media/store/header/eb3a3f37-7a8b-49b6-ab0a-5c6f349024f1.jpg',
+      latitude: 40.77391679836528,
+      longitude: -73.95988361975252,
+      openTime: '00:00',
+      closeTime: '00:00',
+      restaurantCategoryId: 5,
     },
     {
       name: 'Tanta',
@@ -53,27 +90,147 @@ export const initialData: SeedData = {
       restaurantCategoryId: 1,
     },
     {
-      name: 'Osso Burger',
-      address: 'Av. Gral. Salaverry 2370, Jesús María 15076, Perú',
-      logo: 'https://images.rappi.pe/restaurants_logo/987654567-1613087036308.png',
+      name: 'Pinkberry',
+      address: '7 W 32nd St, New York, NY 10001, Estados Unidos',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/cc2d7091-9bc7-4126-9c16-6390684d1ca0.png',
       backdrop:
-        'https://images.rappi.pe/restaurants_background/arappi-1712184695093.jpg',
-      latitude: -12.090142023843747,
-      longitude: -77.05241361704311,
+        'https://img.cdn4dd.com/cdn-cgi/image/fit=cover,width=500,height=500,format=auto,quality=80/https://doordash-static.s3.amazonaws.com/media/store/header/1859.jpg',
+      latitude: 40.747732077419705,
+      longitude: -73.98602679128479,
+      openTime: '09:00',
+      closeTime: '18:30',
+      restaurantCategoryId: 5,
+    },
+    {
+      name: 'Burger King',
+      address: '327 W 42nd St, New York, NY 10036, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/d43b7d43-f85b-4645-a31b-89abf0d9a407.png',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/2288ab90-8ff9-4095-a468-347a956702f9.jpg',
+      latitude: 40.75820687028439,
+      longitude: -73.99099756235016,
       openTime: '09:00',
       closeTime: '18:30',
       restaurantCategoryId: 1,
     },
     {
-      name: 'La Bodega de La Trattoria',
-      address: 'Av. Dos de Mayo 715, San Isidro',
-      logo: 'https://images.rappi.pe/restaurants_logo/bodega-logo-1618924783748.png',
+      name: "Joli's Korean Fried Chicken",
+      address: '625 9th Ave, New York, NY 10036, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/4b68244f-25ae-4425-88a6-f6351e62c6a5.jpg',
       backdrop:
-        'https://images.rappi.pe/restaurants_background/pizza39-1704407443593.jpg',
-      latitude: -12.091483208479932,
-      longitude: -77.03899318147967,
+        'https://doordash-static.s3.amazonaws.com/media/store/header/27abe6d0-726e-4d69-833c-bbfd2a0b2d03.jpg',
+      latitude: 40.76013870481429,
+      longitude: -73.99175832013128,
       openTime: '09:00',
       closeTime: '18:30',
+      restaurantCategoryId: 1,
+    },
+    {
+      name: "Tex's Chicken and Burgers",
+      address: '2144 Frederick Douglass Blvd, New York, NY 10026, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/58127dc8-8924-448c-9451-83f831b70362.png',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/5f480ef4-211a-42a1-9b8c-e6c1e89feb3d.45',
+      latitude: 40.80432521741583,
+      longitude: -73.95530026442604,
+      openTime: '09:00',
+      closeTime: '18:30',
+      restaurantCategoryId: 1,
+    },
+    {
+      name: "Muf's Muffin Shop",
+      address: '937 1st Ave., New York, NY 10022, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/288d73de-5c42-475e-ae9b-a22b852dfd13.png',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/42b2c3d0-0c4a-4278-82f1-7df8d041ed60.jpg',
+      latitude: 40.7550618989992,
+      longitude: -73.96567177787905,
+      openTime: '00:00',
+      closeTime: '00:00',
+      restaurantCategoryId: 1,
+    },
+    {
+      name: 'Ritz Diner',
+      address: '1133 1st Ave., New York, NY 10065, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/4cc822e9-98ef-470a-9f09-53dc3e641587.png',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/7dd7203b-4375-47dc-af26-a8e23221cebf.579',
+      latitude: 40.76185452170965,
+      longitude: -73.96069449328802,
+      openTime: '00:00',
+      closeTime: '00:00',
+      restaurantCategoryId: 1,
+    },
+    {
+      name: 'Naka Sushi & Izakaya',
+      address: '74 5th Ave, New York, NY 10003, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/035e9197-8731-4156-972c-bca500e7da8e.png',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/2404b561-77cb-472d-9a3e-1c6fce90906d.jpg',
+      latitude: 40.73584694300126,
+      longitude: -73.99403316244043,
+      openTime: '10:00',
+      closeTime: '02:00',
+      restaurantCategoryId: 1,
+    },
+    {
+      name: 'Milk Bar',
+      address: '561 Columbus Ave, New York, NY 10024, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/06652ca8-d411-452e-9e2f-fd74854226b9.png',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/5adcbd1c-6842-4c34-b658-bc1e512924f2.jpg',
+      latitude: 40.78729874865438,
+      longitude: -73.97132013357616,
+      openTime: '9:00',
+      closeTime: '23:25',
+      restaurantCategoryId: 1,
+    },
+    {
+      name: 'Taco Bell',
+      address: '1614 2nd Ave, New York, NY 10028, United States',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/d439d236-e807-41d4-a7ea-0f83500de5c6.png',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/889fac0f-5ca7-4b0f-b2b1-cb9b579986b0.55',
+      latitude: 40.77633761143043,
+      longitude: -73.95263068099224,
+      openTime: '10:00',
+      closeTime: '4:30',
+      restaurantCategoryId: 1,
+    },
+    {
+      name: 'Popeyes Louisiana Kitchen',
+      address: '934 8th Ave, New York, NY 10019, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/12ee8636-2193-4972-b110-9be6a9a74f59.png',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/9e8e6638-0835-4e91-b3a7-7a48bcae89bb.png',
+      latitude: 40.76563668839061,
+      longitude: -73.98340552015794,
+      openTime: '9:00',
+      closeTime: '6:00',
+      restaurantCategoryId: 1,
+    },
+    {
+      name: 'Subway',
+      address: '1256 Lexington Ave, New York, NY 10028, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/Subway-app.jpg',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/155fa18a-3953-413d-9064-73b372513b4c.png',
+      latitude: 40.77882198852454,
+      longitude: -73.95638903555977,
+      openTime: '00:00',
+      closeTime: '00:00',
+      restaurantCategoryId: 1,
+    },
+    {
+      name: 'Pizza Hut',
+      address: '940 Columbus Ave, New York, NY 10025, EE. UU.',
+      logo: 'https://img.cdn4dd.com/p/fit=contain,width=100,height=100,format=auto,quality=95/media/restaurant/cover_square/ade9928a-19bf-46f4-aff6-b746aff3824f.png',
+      backdrop:
+        'https://doordash-static.s3.amazonaws.com/media/store/header/cfe9e0cb-497e-48a2-aed7-07348d870bdd.png',
+      latitude: 40.79963470425142,
+      longitude: -73.96296780473563,
+      openTime: '10:00',
+      closeTime: '1:40',
       restaurantCategoryId: 1,
     },
   ],
@@ -243,43 +400,7 @@ export const initialData: SeedData = {
       price: 1,
     },
   ],
-  restaurantCategories: [
-    {
-      name: 'Pizza',
-      image:
-        'https://files.joseperezgil.com/images/delivery/categories/pizza_3d.png',
-    },
-    {
-      name: 'Burger',
-      image:
-        'https://files.joseperezgil.com/images/delivery/categories/burger_3d.png',
-    },
-    {
-      name: 'Taco',
-      image:
-        'https://files.joseperezgil.com/images/delivery/categories/taco_3d.png',
-    },
-    {
-      name: 'Sushi',
-      image:
-        'https://files.joseperezgil.com/images/delivery/categories/sushi_3d.png',
-    },
-    {
-      name: 'Coffee',
-      image:
-        'https://files.joseperezgil.com/images/delivery/categories/coffee_3d.png',
-    },
-    {
-      name: 'Fried Chicken',
-      image:
-        'https://files.joseperezgil.com/images/delivery/categories/fried_chicken_3d.png',
-    },
-    {
-      name: 'Dessert',
-      image:
-        'https://files.joseperezgil.com/images/delivery/categories/cake_3d.png',
-    },
-  ],
+
   dishCategories: [
     {
       name: 'Entradas y Piqueos',
