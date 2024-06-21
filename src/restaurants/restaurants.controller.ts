@@ -1,4 +1,13 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Query,
+  DefaultValuePipe,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
@@ -14,8 +23,14 @@ export class RestaurantsController {
   }
 
   @Get()
-  findAll() {
-    return this.restaurantsService.findAll();
+  findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    return this.restaurantsService.findAll({
+      page,
+      limit,
+    });
   }
 
   @Get(':id')

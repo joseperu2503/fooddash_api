@@ -5,6 +5,12 @@ import { Restaurant } from './entities/restaurant.entity';
 import { Repository } from 'typeorm';
 import { RestaurantCategoriesService } from 'src/restaurant-categories/restaurant-categories.service';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import {
+  IPaginationMeta,
+  IPaginationOptions,
+  Pagination,
+  paginate,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class RestaurantsService {
@@ -26,17 +32,25 @@ export class RestaurantsService {
     return restaurant;
   }
 
-  async findAll() {
-    const products = await this.restaurantRepository.find();
-    return products.map((product) => ({
-      ...product,
-      distance: 1500,
-      time: 40,
-      record: 4.6,
-      recordPeople: 340,
-      tags: ['Burger', 'Chicken', 'Fast Food'],
-      delivery: 4.2,
-    }));
+  async findAll(options: IPaginationOptions) {
+    const products = await paginate<Restaurant>(
+      this.restaurantRepository,
+      options,
+    );
+
+    return new Pagination(
+      products.items.map((product) => ({
+        ...product,
+        distance: 1500,
+        time: 40,
+        record: 4.6,
+        recordPeople: 340,
+        tags: ['Burger', 'Chicken', 'Fast Food'],
+        delivery: 4.2,
+      })),
+      products.meta,
+      products.links,
+    );
   }
 
   async findOne(id: number) {
