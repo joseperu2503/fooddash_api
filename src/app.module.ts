@@ -12,8 +12,10 @@ import { ToppingCategoriesModule } from './topping-categories/topping-categories
 import { DishCartsModule } from './dish-carts/dish-carts.module';
 import { ToppingDishCartsModule } from './topping-dish-carts/topping-dish-carts.module';
 import { CartsModule } from './carts/carts.module';
+import { AppController } from './app.controller';
 
 @Module({
+  controllers: [AppController],
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
