@@ -51,13 +51,15 @@ export class CartsService {
   async myCart(user: User) {
     const cart = await this.cartRepository.findOne({
       where: { user },
-      relations: [
-        'dishCarts',
-        'restaurant',
-        'dishCarts.dish',
-        'dishCarts.toppingDishCarts',
-        'dishCarts.toppingDishCarts.topping',
-      ],
+      relations: {
+        dishCarts: {
+          dish: true,
+          toppingDishCarts: {
+            topping: true,
+          },
+        },
+        restaurant: true,
+      },
     });
 
     if (!cart) {
