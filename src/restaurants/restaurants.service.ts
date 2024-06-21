@@ -32,11 +32,22 @@ export class RestaurantsService {
     return restaurant;
   }
 
-  async findAll(options: IPaginationOptions) {
-    const products = await paginate<Restaurant>(
-      this.restaurantRepository,
-      options,
-    );
+  async findAll(options: {
+    page: number;
+    limit: number;
+    restaurantCategoryId?: number;
+  }) {
+    const queryBuilder = this.restaurantRepository
+      .createQueryBuilder('restaurant')
+      .leftJoinAndSelect('restaurant.restaurantCategory', 'category');
+
+    if (options.restaurantCategoryId) {
+      queryBuilder.where('category.id = :restaurantCategoryId', {
+        restaurantCategoryId: options.restaurantCategoryId,
+      });
+    }
+
+    const products = await paginate<Restaurant>(queryBuilder, options);
 
     return new Pagination(
       products.items.map((product) => ({
