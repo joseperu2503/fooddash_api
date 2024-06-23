@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { RegisterUserDto } from './dto/register-user.dto';
@@ -13,6 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginUserDto } from './dto/login-user-dto';
 import { JwtPayload } from './interfaces/jwt-payload.interfaces';
 import { JwtService } from '@nestjs/jwt';
+import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -63,14 +63,23 @@ export class AuthService {
     return { ...user, token: this.getJwt({ id: user.id }) };
   }
 
-  async findOne(id: number) {
-    const user = await this.userRepository.findOne({
-      where: { id },
-    });
-    if (!user) {
-      throw new NotFoundException(`User ${id} not found`);
-    }
-    return user;
+  async me(user: User) {
+    const { id, email, name, surname, phone } = user;
+
+    return {
+      id,
+      email,
+      name,
+      surname,
+      phone,
+    };
+  }
+
+  async update(user: User, UpdateAuthDto: UpdateAuthDto) {
+    this.userRepository.merge(user, UpdateAuthDto);
+
+    await this.userRepository.save(user);
+    return this.me(user);
   }
 
   private getJwt(payload: JwtPayload) {

@@ -1,5 +1,12 @@
 import { Cart } from 'src/carts/entities/cart.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -20,7 +27,7 @@ export class User {
   name: string;
 
   @Column('text')
-  lastName: string;
+  surname: string;
 
   @Column('bool', {
     default: true,
@@ -34,4 +41,10 @@ export class User {
   //un User tiene un Cart
   @OneToOne(() => Cart, (cart) => cart.user)
   cart: Cart;
+
+  @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
+  updatedAt: Date;
 }
