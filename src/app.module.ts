@@ -13,6 +13,9 @@ import { DishCartsModule } from './dish-carts/dish-carts.module';
 import { ToppingDishCartsModule } from './topping-dish-carts/topping-dish-carts.module';
 import { CartsModule } from './carts/carts.module';
 import { AppController } from './app.controller';
+import { AddressTagsModule } from './address-tags/address-tags.module';
+import { AddressesModule } from './addresses/addresses.module';
+import { AddressDeliveryDetailsModule } from './address-delivery-details/address-delivery-details.module';
 
 @Module({
   controllers: [AppController],
@@ -39,6 +42,9 @@ import { AppController } from './app.controller';
     DishCartsModule,
     ToppingDishCartsModule,
     CartsModule,
+    AddressTagsModule,
+    AddressesModule,
+    AddressDeliveryDetailsModule,
   ],
 })
 export class AppModule {}

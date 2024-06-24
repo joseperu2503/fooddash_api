@@ -5,12 +5,7 @@ import { Restaurant } from './entities/restaurant.entity';
 import { Repository } from 'typeorm';
 import { RestaurantCategoriesService } from 'src/restaurant-categories/restaurant-categories.service';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import {
-  IPaginationMeta,
-  IPaginationOptions,
-  Pagination,
-  paginate,
-} from 'nestjs-typeorm-paginate';
+import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class RestaurantsService {

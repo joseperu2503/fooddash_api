@@ -7,6 +7,8 @@ import { DishCategoriesService } from 'src/dish-categories/dish-categories.servi
 import { DishesService } from 'src/dishes/dishes.service';
 import { ToppingCategoriesService } from 'src/topping-categories/topping-categories.service';
 import { ToppingsService } from 'src/toppings/toppings.service';
+import { AddressTagsService } from 'src/address-tags/address-tags.service';
+import { AddressDeliveryDetailsService } from 'src/address-delivery-details/address-delivery-details.service';
 
 @Injectable()
 export class SeedService {
@@ -18,6 +20,8 @@ export class SeedService {
     private readonly dataSource: DataSource,
     private readonly toppingCategoriesService: ToppingCategoriesService,
     private readonly toppingsService: ToppingsService,
+    private readonly addressTagsService: AddressTagsService,
+    private readonly addressDeliveryDetailsService: AddressDeliveryDetailsService,
   ) {}
 
   async runSeed() {
@@ -28,6 +32,8 @@ export class SeedService {
     await this.toppingSeed();
     await this.dishCategorySeed();
     await this.dishSeed();
+    await this.AddressTagSeed();
+    await this.AddressDeliveryDetailSeed();
 
     return 'SEED EXECUTED';
   }
@@ -72,6 +78,20 @@ export class SeedService {
     const toppings = initialData.toppings;
     for (const topping of toppings) {
       await this.toppingsService.create(topping);
+    }
+  }
+
+  private async AddressTagSeed() {
+    const addressTags = initialData.addressTags;
+    for (const addressTag of addressTags) {
+      await this.addressTagsService.create(addressTag);
+    }
+  }
+
+  private async AddressDeliveryDetailSeed() {
+    const addressDeliveryDetails = initialData.addressDeliveryDetails;
+    for (const addressDeliveryDetail of addressDeliveryDetails) {
+      await this.addressDeliveryDetailsService.create(addressDeliveryDetail);
     }
   }
 

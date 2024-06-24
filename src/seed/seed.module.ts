@@ -7,6 +7,8 @@ import { DishCategoriesModule } from 'src/dish-categories/dish-categories.module
 import { DishesModule } from 'src/dishes/dishes.module';
 import { ToppingsModule } from 'src/toppings/toppings.module';
 import { ToppingCategoriesModule } from 'src/topping-categories/topping-categories.module';
+import { AddressDeliveryDetailsModule } from 'src/address-delivery-details/address-delivery-details.module';
+import { AddressTagsModule } from 'src/address-tags/address-tags.module';
 
 @Module({
   controllers: [SeedController],
@@ -18,6 +20,8 @@ import { ToppingCategoriesModule } from 'src/topping-categories/topping-categori
     DishesModule,
     ToppingsModule,
     ToppingCategoriesModule,
+    AddressDeliveryDetailsModule,
+    AddressTagsModule,
   ],
 })
 export class SeedModule {}

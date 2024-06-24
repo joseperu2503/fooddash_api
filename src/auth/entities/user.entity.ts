@@ -1,8 +1,10 @@
+import { Address } from 'src/addresses/entities/address.entity';
 import { Cart } from 'src/carts/entities/cart.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -41,6 +43,9 @@ export class User {
   //un User tiene un Cart
   @OneToOne(() => Cart, (cart) => cart.user)
   cart: Cart;
+
+  @OneToMany(() => Address, (address) => address.user)
+  addresses: Address[];
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;

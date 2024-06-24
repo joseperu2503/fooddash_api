@@ -4,6 +4,8 @@ import { CreateDishDto } from 'src/dishes/dto/create-dish.dto';
 import { CreateRestaurantDto } from 'src/restaurants/dto/create-restaurant.dto';
 import { CreateToppingCategoryDto } from 'src/topping-categories/dto/create-topping-category.dto';
 import { CreateToppingDto } from 'src/toppings/dto/create-topping.dto';
+import { CreateAddressTagDto } from 'src/address-tags/dto/create-address-tag.dto';
+import { CreateAddressDeliveryDetailDto } from 'src/address-delivery-details/dto/create-address-delivery-detail.dto';
 
 interface SeedData {
   restaurants: CreateRestaurantDto[];
@@ -12,6 +14,8 @@ interface SeedData {
   dishes: CreateDishDto[];
   toppingCategories: CreateToppingCategoryDto[];
   toppings: CreateToppingDto[];
+  addressTags: CreateAddressTagDto[];
+  addressDeliveryDetails: CreateAddressDeliveryDetailDto[];
 }
 
 export const initialData: SeedData = {
@@ -871,6 +875,25 @@ export const initialData: SeedData = {
       price: 5.0,
       stock: 15,
       toppingsIds: [],
+    },
+  ],
+  addressTags: [
+    {
+      name: 'Home',
+    },
+    {
+      name: 'Office',
+    },
+    {
+      name: 'Partner',
+    },
+  ],
+  addressDeliveryDetails: [
+    {
+      name: 'Personal',
+    },
+    {
+      name: 'Lobby',
     },
   ],
 };
