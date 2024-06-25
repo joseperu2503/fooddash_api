@@ -22,12 +22,9 @@ export class CreateAddressDto {
   address: string;
 
   @IsString()
-  @IsNotEmpty()
-  @IsOptional()
   detail: string;
 
   @IsString()
-  @IsOptional()
   references: string;
 
   @IsNumber()

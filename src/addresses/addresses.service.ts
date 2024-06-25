@@ -50,7 +50,12 @@ export class AddressesService {
     }
 
     address.user = user;
+
     await this.addressRepository.save(address);
+    delete address.user;
+    delete address.createdAt;
+    delete address.updatedAt;
+
     return address;
   }
 
@@ -67,6 +72,10 @@ export class AddressesService {
         'detail',
         'references',
       ],
+      relations: {
+        addressTag: true,
+        addressDeliveryDetail: true,
+      },
     });
 
     return addresses;

@@ -26,7 +26,7 @@ export class Address {
   @Column('text')
   address: string;
 
-  @Column('text', { nullable: true })
+  @Column('text')
   detail: string;
 
   @Column('text')
