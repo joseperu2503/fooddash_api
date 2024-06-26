@@ -50,7 +50,11 @@ export class CartsService {
 
   async myCart(user: User) {
     const cart = await this.cartRepository.findOne({
-      where: { user },
+      where: {
+        user: {
+          id: user.id,
+        },
+      },
       relations: {
         dishCarts: {
           dish: true,
@@ -83,8 +87,21 @@ export class CartsService {
     return { ...cart, subtotal, dishCarts };
   }
 
-  findAll() {
-    return `This action returns all cart`;
+  async findAll() {
+    const carts = await this.cartRepository.find({
+      relations: {
+        dishCarts: {
+          dish: true,
+          toppingDishCarts: {
+            topping: true,
+          },
+        },
+        restaurant: true,
+        user: true,
+      },
+    });
+
+    return carts;
   }
 
   findOne(id: number) {
