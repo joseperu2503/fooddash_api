@@ -7,12 +7,14 @@ import {
 import { RegisterUserDto } from './dto/register-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { LoginUserDto } from './dto/login-user-dto';
 import { JwtPayload } from './interfaces/jwt-payload.interfaces';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { MercadoPagoService } from 'src/mercado-pago/mercado-pago.service';
+import { CustomerResponse } from 'mercadopago/dist/clients/customer/commonTypes';
 
 @Injectable()
 export class AuthService {
@@ -20,9 +22,15 @@ export class AuthService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
+    private readonly mercadoPagoService: MercadoPagoService,
+    private readonly dataSource: DataSource,
   ) {}
 
   async register(registerUserDto: RegisterUserDto) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
     try {
       const { password, ...userData } = registerUserDto;
 
@@ -30,11 +38,22 @@ export class AuthService {
         ...userData,
         password: bcrypt.hashSync(password, 10),
       });
+      await this.userRepository.save(user);
+
+      const customer: CustomerResponse =
+        await this.mercadoPagoService.createCustomer(user);
+      user.mpCustomerId = customer.id;
 
       await this.userRepository.save(user);
-      delete user.password;
-      return { ...user, token: this.getJwt({ id: user.id }) };
+      await queryRunner.commitTransaction();
+      await queryRunner.release();
+
+      const me = this.me(user);
+
+      return { user: me, token: this.getJwt({ id: user.id }) };
     } catch (error) {
+      await queryRunner.rollbackTransaction();
+      await queryRunner.release();
       if (error.code === '23505') {
         throw new BadRequestException(error.detail);
       }
@@ -47,7 +66,6 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
-      select: { email: true, password: true, id: true },
     });
 
     //si el usuario con el email no existe
@@ -59,11 +77,11 @@ export class AuthService {
     if (!bcrypt.compareSync(password, user.password)) {
       throw new UnauthorizedException(`Credentials are not valid`);
     }
-    delete user.password;
-    return { ...user, token: this.getJwt({ id: user.id }) };
+    const me = this.me(user);
+    return { user: me, token: this.getJwt({ id: user.id }) };
   }
 
-  async me(user: User) {
+  me(user: User) {
     const { id, email, name, surname, phone } = user;
 
     return {

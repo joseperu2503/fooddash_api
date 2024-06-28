@@ -20,9 +20,7 @@ export class User {
   })
   email: string;
 
-  @Column('text', {
-    select: false,
-  })
+  @Column('text')
   password: string;
 
   @Column('text')
@@ -39,6 +37,9 @@ export class User {
 
   @Column('text')
   phone: string;
+
+  @Column('text', { nullable: true, name: 'mp_customer_id' })
+  mpCustomerId: string;
 
   //un User tiene un Cart
   @OneToOne(() => Cart, (cart) => cart.user)

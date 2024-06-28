@@ -16,6 +16,8 @@ import { AppController } from './app.controller';
 import { AddressTagsModule } from './address-tags/address-tags.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { AddressDeliveryDetailsModule } from './address-delivery-details/address-delivery-details.module';
+import { MercadoPagoModule } from './mercado-pago/mercado-pago.module';
+import { CardsModule } from './cards/cards.module';
 
 @Module({
   controllers: [AppController],
@@ -45,6 +47,8 @@ import { AddressDeliveryDetailsModule } from './address-delivery-details/address
     AddressTagsModule,
     AddressesModule,
     AddressDeliveryDetailsModule,
+    MercadoPagoModule,
+    CardsModule,
   ],
 })
 export class AppModule {}
