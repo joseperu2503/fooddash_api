@@ -114,7 +114,11 @@ export class CartsService {
 
   async remove(user: User) {
     const cart = await this.cartRepository.findOne({
-      where: { user },
+      where: {
+        user: {
+          id: user.id,
+        },
+      },
     });
 
     if (cart) {
