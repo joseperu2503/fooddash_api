@@ -48,6 +48,19 @@ export class MercadoPagoService {
     }
   }
 
+  async deleteCard(cardId: string, customerId: string) {
+    try {
+      const customerCard = new CustomerCard(this.client);
+      const newCustomerCard = await customerCard.remove({
+        cardId: cardId,
+        customerId: customerId,
+      });
+      return newCustomerCard;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async createCustomer(user: User) {
     try {
       const customer = new Customer(this.client);

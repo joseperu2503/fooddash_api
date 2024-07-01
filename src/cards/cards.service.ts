@@ -20,10 +20,6 @@ export class CardsService {
         issuer: card.issuer.name,
         cardHolder: {
           name: card.cardholder.name,
-          identification: {
-            number: card.cardholder.identification.number,
-            type: card.cardholder.identification.type,
-          },
         },
         securityCode: {
           length: card.security_code.length,
@@ -44,12 +40,20 @@ export class CardsService {
 
   async createCard(createCartDto: CreateCardDto, user: User) {
     try {
-      const card: CustomerCardResponse =
-        await this.mercadoPagoService.createCard(
-          createCartDto.token,
-          user.mpCustomerId,
-        );
-      return card;
+      await this.mercadoPagoService.createCard(
+        createCartDto.token,
+        user.mpCustomerId,
+      );
+      return this.myCards(user);
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  async deleteCard(cardId: string, user: User) {
+    try {
+      await this.mercadoPagoService.deleteCard(cardId, user.mpCustomerId);
+      return this.myCards(user);
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
