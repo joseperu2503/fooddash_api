@@ -12,6 +12,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Cart } from 'src/carts/entities/cart.entity';
+import { Order } from 'src/orders/entities/order.entity';
 
 @Entity('restaurants')
 export class Restaurant {
@@ -77,4 +78,8 @@ export class Restaurant {
   //un Restaurant tiene muchas Cart
   @OneToMany(() => Cart, (cart) => cart.restaurant)
   carts: Cart[];
+
+  //un Restaurant tiene muchas Order
+  @OneToMany(() => Order, (order) => order.restaurant)
+  orders: Order[];
 }

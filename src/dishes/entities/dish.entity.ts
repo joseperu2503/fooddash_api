@@ -1,5 +1,6 @@
 import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
+import { DishOrder } from 'src/dish-orders/entities/dish-order.entity';
 import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import { Topping } from 'src/toppings/entities/topping.entity';
 import {
@@ -69,4 +70,8 @@ export class Dish {
   //una Dish tiene muchas DishCart
   @OneToMany(() => DishCart, (dishCart) => dishCart.dish)
   dishCarts: DishCart[];
+
+  //una Dish tiene muchas DishCart
+  @OneToMany(() => DishOrder, (dishOrder) => dishOrder.dish)
+  dishOrders: DishOrder[];
 }

@@ -20,6 +20,8 @@ import { MercadoPagoModule } from './mercado-pago/mercado-pago.module';
 import { CardsModule } from './cards/cards.module';
 import { OrdersModule } from './orders/orders.module';
 import { PaymentMethodsModule } from './payment-methods/payment-methods.module';
+import { DishOrdersModule } from './dish-orders/dish-orders.module';
+import { ToppingDishOrdersModule } from './topping-dish-orders/topping-dish-orders.module';
 
 @Module({
   controllers: [AppController],
@@ -53,6 +55,8 @@ import { PaymentMethodsModule } from './payment-methods/payment-methods.module';
     CardsModule,
     OrdersModule,
     PaymentMethodsModule,
+    DishOrdersModule,
+    ToppingDishOrdersModule,
   ],
 })
 export class AppModule {}

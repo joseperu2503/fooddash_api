@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateToppingDishCartDto } from './dto/create-topping-dish-cart.dto';
-import { UpdateToppingDishCartDto } from './dto/update-topping-dish-cart.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ToppingDishCart } from './entities/topping-dish-cart.entity';
 import { Repository } from 'typeorm';
@@ -42,21 +41,5 @@ export class ToppingDishCartsService {
 
     await this.toppingDishCartRepository.save(toppingDishCart);
     return dishCart;
-  }
-
-  findAll() {
-    return `This action returns all toppingDishCarts`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} toppingDishCart`;
-  }
-
-  update(id: number, updateToppingDishCartDto: UpdateToppingDishCartDto) {
-    return `This action updates a #${id} toppingDishCart`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} toppingDishCart`;
   }
 }

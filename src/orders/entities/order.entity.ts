@@ -1,19 +1,14 @@
-import { RestaurantCategory } from 'src/restaurant-categories/entities/restaurant-category.entity';
-import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
-import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import {
-  Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { User } from 'src/auth/entities/user.entity';
 import { Address } from 'src/addresses/entities/address.entity';
+import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
+import { DishOrder } from 'src/dish-orders/entities/dish-order.entity';
 
 @Entity('orders')
 export class Order {
@@ -29,4 +24,12 @@ export class Order {
   @ManyToOne(() => Address, (address) => address.orders)
   @JoinColumn({ name: 'address_id' })
   address: Address;
+
+  //muchos Restaurant tienen un Cart
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.orders)
+  @JoinColumn({ name: 'restaurant_id' })
+  restaurant: Restaurant;
+
+  @OneToMany(() => DishOrder, (dishOrder) => dishOrder.order)
+  dishOrders: DishOrder[];
 }

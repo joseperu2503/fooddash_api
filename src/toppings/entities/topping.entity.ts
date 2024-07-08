@@ -1,6 +1,7 @@
 import { Dish } from 'src/dishes/entities/dish.entity';
 import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import { ToppingDishCart } from 'src/topping-dish-carts/entities/topping-dish-cart.entity';
+import { ToppingDishOrder } from 'src/topping-dish-orders/entities/topping-dish-order.entity';
 import {
   Column,
   CreateDateColumn,
@@ -54,4 +55,10 @@ export class Topping {
     (toppingDishCart) => toppingDishCart.topping,
   )
   toppingDishCarts: ToppingDishCart[];
+
+  @ManyToMany(
+    () => ToppingDishOrder,
+    (toppingDishOrder) => toppingDishOrder.topping,
+  )
+  toppingDishOrders: ToppingDishOrder[];
 }
