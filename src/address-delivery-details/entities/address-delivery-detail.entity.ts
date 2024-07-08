@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from 'src/addresses/entities/address.entity';
 
-@Entity('address-delivery-detail')
+@Entity('address_delivery_detail')
 export class AddressDeliveryDetail {
   @PrimaryGeneratedColumn()
   id: number;

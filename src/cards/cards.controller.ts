@@ -26,4 +26,10 @@ export class CardsController {
   delete(@Param('cardId') cardId: string, @GetUser() user: User) {
     return this.cardsService.deleteCard(cardId, user);
   }
+
+  @Get(':cardId')
+  @Auth()
+  findOne(@Param('cardId') cardId: string, @GetUser() user: User) {
+    return this.cardsService.deleteCard(cardId, user);
+  }
 }

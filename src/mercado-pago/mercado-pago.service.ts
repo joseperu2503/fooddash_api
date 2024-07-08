@@ -33,6 +33,19 @@ export class MercadoPagoService {
     }
   }
 
+  async getCard(customerId: string, cardId: string) {
+    try {
+      const customerCard = new CustomerCard(this.client);
+      const card = await customerCard.get({
+        cardId: cardId,
+        customerId: customerId,
+      });
+      return card;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async createCard(token: string, customerId: string) {
     try {
       const customerCard = new CustomerCard(this.client);

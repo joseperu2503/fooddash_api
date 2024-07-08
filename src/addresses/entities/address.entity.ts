@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -11,6 +12,7 @@ import {
 import { AddressTag } from 'src/address-tags/entities/address-tag.entity';
 import { AddressDeliveryDetail } from 'src/address-delivery-details/entities/address-delivery-detail.entity';
 import { User } from 'src/auth/entities/user.entity';
+import { Order } from 'src/orders/entities/order.entity';
 
 @Entity('addresses')
 export class Address {
@@ -52,6 +54,9 @@ export class Address {
   @ManyToOne(() => AddressDeliveryDetail, (addressTag) => addressTag.addresses)
   @JoinColumn({ name: 'address_delivery_id' })
   addressDeliveryDetail: AddressDeliveryDetail;
+
+  @OneToMany(() => Order, (order) => order.address)
+  orders: Order[];
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;

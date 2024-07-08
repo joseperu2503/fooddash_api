@@ -1,5 +1,6 @@
 import { Address } from 'src/addresses/entities/address.entity';
 import { Cart } from 'src/carts/entities/cart.entity';
+import { Order } from 'src/orders/entities/order.entity';
 import {
   Column,
   CreateDateColumn,
@@ -44,6 +45,9 @@ export class User {
   //un User tiene un Cart
   @OneToOne(() => Cart, (cart) => cart.user)
   cart: Cart;
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
   @OneToMany(() => Address, (address) => address.user)
   addresses: Address[];

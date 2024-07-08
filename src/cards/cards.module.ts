@@ -8,5 +8,6 @@ import { AuthModule } from 'src/auth/auth.module';
   controllers: [CardsController],
   providers: [CardsService],
   imports: [MercadoPagoModule, AuthModule],
+  exports: [CardsService],
 })
 export class CardsModule {}

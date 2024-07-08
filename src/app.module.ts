@@ -18,6 +18,8 @@ import { AddressesModule } from './addresses/addresses.module';
 import { AddressDeliveryDetailsModule } from './address-delivery-details/address-delivery-details.module';
 import { MercadoPagoModule } from './mercado-pago/mercado-pago.module';
 import { CardsModule } from './cards/cards.module';
+import { OrdersModule } from './orders/orders.module';
+import { PaymentMethodsModule } from './payment-methods/payment-methods.module';
 
 @Module({
   controllers: [AppController],
@@ -49,6 +51,8 @@ import { CardsModule } from './cards/cards.module';
     AddressDeliveryDetailsModule,
     MercadoPagoModule,
     CardsModule,
+    OrdersModule,
+    PaymentMethodsModule,
   ],
 })
 export class AppModule {}

@@ -9,6 +9,7 @@ import { ToppingsModule } from 'src/toppings/toppings.module';
 import { ToppingCategoriesModule } from 'src/topping-categories/topping-categories.module';
 import { AddressDeliveryDetailsModule } from 'src/address-delivery-details/address-delivery-details.module';
 import { AddressTagsModule } from 'src/address-tags/address-tags.module';
+import { CardsModule } from 'src/cards/cards.module';
 
 @Module({
   controllers: [SeedController],
@@ -22,6 +23,7 @@ import { AddressTagsModule } from 'src/address-tags/address-tags.module';
     ToppingCategoriesModule,
     AddressDeliveryDetailsModule,
     AddressTagsModule,
+    CardsModule,
   ],
 })
 export class SeedModule {}

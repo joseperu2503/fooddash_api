@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from 'src/addresses/entities/address.entity';
 
-@Entity('address-tags')
+@Entity('address_tags')
 export class AddressTag {
   @PrimaryGeneratedColumn()
   id: number;

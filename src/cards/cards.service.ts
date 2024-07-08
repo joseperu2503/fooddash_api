@@ -1,5 +1,4 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { CustomerCardResponse } from 'mercadopago/dist/clients/customerCard/commonTypes';
 import { User } from 'src/auth/entities/user.entity';
 import { MercadoPagoService } from 'src/mercado-pago/mercado-pago.service';
 import { CreateCardDto } from './dto/create-card.dto';
@@ -54,6 +53,18 @@ export class CardsService {
     try {
       await this.mercadoPagoService.deleteCard(cardId, user.mpCustomerId);
       return this.myCards(user);
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  async getCard(cardId: string, user: User) {
+    try {
+      const card = await this.mercadoPagoService.getCard(
+        user.mpCustomerId,
+        cardId,
+      );
+      return card;
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
