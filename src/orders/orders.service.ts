@@ -8,7 +8,6 @@ import { DishOrdersService } from 'src/dish-orders/dish-orders.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from 'src/addresses/entities/address.entity';
 import { OrderStatus } from './entities/order-status.entity';
-import { OrderStatusType } from './entities/order-status-type.entity';
 
 @Injectable()
 export class OrdersService {
@@ -23,9 +22,6 @@ export class OrdersService {
 
     @InjectRepository(Address)
     private readonly addressRepository: Repository<Address>,
-
-    @InjectRepository(OrderStatusType)
-    private readonly orderStatusTypeRepository: Repository<OrderStatusType>,
 
     @InjectRepository(OrderStatus)
     private readonly orderStatusRepository: Repository<OrderStatus>,
@@ -64,6 +60,16 @@ export class OrdersService {
 
     order.address = address;
 
+    // **Buscar OrderStatusType con ID 1**
+    const orderStatus = await this.orderStatusRepository.findOne({
+      where: { id: 1 },
+    });
+    if (!orderStatus) {
+      throw new NotFoundException(`OrderStatus 1 not found`);
+    }
+
+    order.orderStatus = orderStatus;
+
     order.user = user;
 
     const deliveryFee: number = 3.9;
@@ -93,18 +99,6 @@ export class OrdersService {
     order.total = parseFloat((subtotal + deliveryFee + serviceFee).toFixed(1));
     await this.orderRepository.save(order);
 
-    // **Buscar OrderStatusType con ID 1 y crear OrderStatus **
-    const orderStatusType = await this.orderStatusTypeRepository.findOne({
-      where: { id: 1 },
-    });
-    if (!orderStatusType) {
-      throw new NotFoundException(`OrderStatus with ID 1 not found`);
-    }
-
-    const orderStatus = this.orderStatusRepository.create();
-    orderStatus.order = order;
-    orderStatus.orderStatusType = orderStatusType;
-    await this.orderStatusRepository.save(orderStatus);
     return this.findOne(user, order.id);
   }
 
@@ -155,12 +149,9 @@ export class OrdersService {
             },
           },
         },
-        orderStatuses: {
+        orderStatus: {
           id: true,
-          orderStatusType: {
-            id: true,
-            name: true,
-          },
+          name: true,
         },
       },
       relations: {
@@ -172,9 +163,7 @@ export class OrdersService {
         },
         restaurant: true,
         address: true,
-        orderStatuses: {
-          orderStatusType: true,
-        },
+        orderStatus: true,
       },
     });
 
@@ -182,7 +171,7 @@ export class OrdersService {
   }
 
   async findOne(user: User, orderId: number) {
-    let orders = await this.orderRepository.findOne({
+    const order = await this.orderRepository.findOne({
       where: {
         user: {
           id: user.id,
@@ -229,12 +218,9 @@ export class OrdersService {
             },
           },
         },
-        orderStatuses: {
+        orderStatus: {
           id: true,
-          orderStatusType: {
-            id: true,
-            name: true,
-          },
+          name: true,
         },
       },
       relations: {
@@ -246,12 +232,10 @@ export class OrdersService {
         },
         restaurant: true,
         address: true,
-        orderStatuses: {
-          orderStatusType: true,
-        },
+        orderStatus: true,
       },
     });
 
-    return orders;
+    return order;
   }
 }

@@ -34,8 +34,10 @@ export class Order {
   @JoinColumn({ name: 'restaurant_id' })
   restaurant: Restaurant;
 
-  @OneToMany(() => OrderStatus, (orderStatus) => orderStatus.order)
-  orderStatuses: OrderStatus[];
+  //Un Order tiene un OrderStatus
+  @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.orders)
+  @JoinColumn({ name: 'order_status_id' })
+  orderStatus: OrderStatus;
 
   @OneToMany(() => DishOrder, (dishOrder) => dishOrder.order)
   dishOrders: DishOrder[];

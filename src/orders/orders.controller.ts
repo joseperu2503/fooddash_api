@@ -1,4 +1,11 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
@@ -19,5 +26,11 @@ export class OrdersController {
   @Auth()
   myOrders(@GetUser() user: User) {
     return this.ordersService.myOrders(user);
+  }
+
+  @Get(':id')
+  @Auth()
+  findOne(@Param('id', ParseIntPipe) id: number, @GetUser() user: User) {
+    return this.ordersService.findOne(user, id);
   }
 }

@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { DishCategoriesService } from './dish-categories.service';
 import { CreateDishCategoryDto } from './dto/create-dish-category.dto';

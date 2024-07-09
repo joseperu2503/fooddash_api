@@ -43,7 +43,6 @@ export class AuthService {
 
       const searchCustomer: CustomerSearchResultsPage =
         await this.mercadoPagoService.searchCustomer(user);
-      console.log(searchCustomer);
       if (searchCustomer.results?.length > 0) {
         user.mpCustomerId = searchCustomer.results[0].id;
       } else {

@@ -9,7 +9,7 @@ import { ToppingCategoriesService } from 'src/topping-categories/topping-categor
 import { ToppingsService } from 'src/toppings/toppings.service';
 import { AddressTagsService } from 'src/address-tags/address-tags.service';
 import { AddressDeliveryDetailsService } from 'src/address-delivery-details/address-delivery-details.service';
-import { OrderStatusTypesService } from 'src/orders/order-status-types.service';
+import { OrderStatusesService } from 'src/orders/order-status.service';
 
 @Injectable()
 export class SeedService {
@@ -23,7 +23,7 @@ export class SeedService {
     private readonly toppingsService: ToppingsService,
     private readonly addressTagsService: AddressTagsService,
     private readonly addressDeliveryDetailsService: AddressDeliveryDetailsService,
-    private readonly orderStatusesService: OrderStatusTypesService,
+    private readonly orderStatusesService: OrderStatusesService,
   ) {}
 
   async runSeed() {
@@ -99,7 +99,7 @@ export class SeedService {
   }
 
   private async OrderStatusSeed() {
-    const orderStatuses = initialData.orderStatusTypes;
+    const orderStatuses = initialData.orderStatuses;
     for (const orderStatus of orderStatuses) {
       await this.orderStatusesService.create(orderStatus);
     }

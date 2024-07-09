@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrderStatusDto } from './dto/create-order-status.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { OrderStatus } from './entities/order-status.entity';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CreateOrderStatusDto } from './dto/create-order-status.dto';
+import { OrderStatus } from './entities/order-status.entity';
 
 @Injectable()
 export class OrderStatusesService {
@@ -12,7 +12,8 @@ export class OrderStatusesService {
   ) {}
 
   async create(createOrderStatusDto: CreateOrderStatusDto) {
-    const orderStatus = this.orderStatusRepository.create(createOrderStatusDto);
-    await this.orderStatusRepository.save(orderStatus);
+    const orderStatusType =
+      this.orderStatusRepository.create(createOrderStatusDto);
+    await this.orderStatusRepository.save(orderStatusType);
   }
 }
