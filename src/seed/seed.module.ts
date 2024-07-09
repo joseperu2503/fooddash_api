@@ -10,6 +10,7 @@ import { ToppingCategoriesModule } from 'src/topping-categories/topping-categori
 import { AddressDeliveryDetailsModule } from 'src/address-delivery-details/address-delivery-details.module';
 import { AddressTagsModule } from 'src/address-tags/address-tags.module';
 import { CardsModule } from 'src/cards/cards.module';
+import { OrdersModule } from 'src/orders/orders.module';
 
 @Module({
   controllers: [SeedController],
@@ -24,6 +25,7 @@ import { CardsModule } from 'src/cards/cards.module';
     AddressDeliveryDetailsModule,
     AddressTagsModule,
     CardsModule,
+    OrdersModule,
   ],
 })
 export class SeedModule {}

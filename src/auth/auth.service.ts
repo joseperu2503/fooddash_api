@@ -15,6 +15,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { MercadoPagoService } from 'src/mercado-pago/mercado-pago.service';
 import { CustomerResponse } from 'mercadopago/dist/clients/customer/commonTypes';
+import { CustomerSearchResultsPage } from 'mercadopago/dist/clients/customer/search/types';
 
 @Injectable()
 export class AuthService {
@@ -40,9 +41,16 @@ export class AuthService {
       });
       await this.userRepository.save(user);
 
-      const customer: CustomerResponse =
-        await this.mercadoPagoService.createCustomer(user);
-      user.mpCustomerId = customer.id;
+      const searchCustomer: CustomerSearchResultsPage =
+        await this.mercadoPagoService.searchCustomer(user);
+      console.log(searchCustomer);
+      if (searchCustomer.results?.length > 0) {
+        user.mpCustomerId = searchCustomer.results[0].id;
+      } else {
+        const newCustomer: CustomerResponse =
+          await this.mercadoPagoService.createCustomer(user);
+        user.mpCustomerId = newCustomer.id;
+      }
 
       await this.userRepository.save(user);
       await queryRunner.commitTransaction();
@@ -57,7 +65,7 @@ export class AuthService {
       if (error.code === '23505') {
         throw new BadRequestException(error.detail);
       }
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException(error);
     }
   }
 

@@ -43,7 +43,7 @@ export class RestaurantsService {
     }
 
     const products = await paginate<Restaurant>(queryBuilder, options);
-
+  
     return new Pagination(
       products.items.map((product) => ({
         ...product,
@@ -57,7 +57,7 @@ export class RestaurantsService {
       products.meta,
       products.links,
     );
-  }
+  } 
 
   async findOne(id: number) {
     const restaurant = await this.restaurantRepository.findOne({

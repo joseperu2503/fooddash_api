@@ -6,6 +6,7 @@ import { CreateToppingCategoryDto } from 'src/topping-categories/dto/create-topp
 import { CreateToppingDto } from 'src/toppings/dto/create-topping.dto';
 import { CreateAddressTagDto } from 'src/address-tags/dto/create-address-tag.dto';
 import { CreateAddressDeliveryDetailDto } from 'src/address-delivery-details/dto/create-address-delivery-detail.dto';
+import { CreateOrderStatusTypeDto } from 'src/orders/dto/create-order-status-type.dto';
 
 interface SeedData {
   restaurants: CreateRestaurantDto[];
@@ -16,9 +17,24 @@ interface SeedData {
   toppings: CreateToppingDto[];
   addressTags: CreateAddressTagDto[];
   addressDeliveryDetails: CreateAddressDeliveryDetailDto[];
+  orderStatusTypes: CreateOrderStatusTypeDto[];
 }
 
 export const initialData: SeedData = {
+  orderStatusTypes: [
+    {
+      name: 'Order Confirmed',
+    },
+    {
+      name: 'Preparing Food',
+    },
+    {
+      name: 'Food on the Way',
+    },
+    {
+      name: 'Delivered to You',
+    },
+  ],
   restaurantCategories: [
     {
       name: 'Pizza',

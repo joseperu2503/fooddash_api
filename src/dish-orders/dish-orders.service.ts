@@ -19,7 +19,7 @@ export class DishOrdersService {
     private toppingDishOrdersService: ToppingDishOrdersService,
   ) {}
 
-  async create(createDishOrderDto: CreateDishOrderDto) {
+  async create(createDishOrderDto: CreateDishOrderDto): Promise<DishOrder> {
     const { toppings, ...dishOrderDetails } = createDishOrderDto;
 
     const dishOrder = this.dishOrderRepository.create(dishOrderDetails);

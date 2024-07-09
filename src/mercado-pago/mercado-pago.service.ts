@@ -93,6 +93,20 @@ export class MercadoPagoService {
     }
   }
 
+  async searchCustomer(user: User) {
+    try {
+      const customer = new Customer(this.client);
+      const search = await customer.search({
+        options: {
+          email: user.email,
+        },
+      });
+      return search;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async createToken(cardId: string, securityCode: string) {
     try {
       const customer = new CardToken(this.client);

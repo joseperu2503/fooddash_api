@@ -24,7 +24,6 @@ export class PaymentMethodsService {
           image:
             'https://files.joseperezgil.com/images/fooddash/static/cash.png',
         },
-
         ...cards.map((card) => {
           let image: string | null = null;
 
