@@ -8,6 +8,7 @@ import { DishOrdersService } from 'src/dish-orders/dish-orders.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from 'src/addresses/entities/address.entity';
 import { OrderStatus } from './entities/order-status.entity';
+import * as moment from 'moment';
 
 @Injectable()
 export class OrdersService {
@@ -93,9 +94,7 @@ export class OrdersService {
       subtotal = subtotal + dishOrder.units * dishOrder.dish.price;
     }
 
-    order.subtotal = parseFloat(
-      (subtotal + deliveryFee + serviceFee).toFixed(1),
-    );
+    order.subtotal = parseFloat(subtotal.toFixed(1));
     order.total = parseFloat((subtotal + deliveryFee + serviceFee).toFixed(1));
     await this.orderRepository.save(order);
 
@@ -138,6 +137,7 @@ export class OrdersService {
             name: true,
             image: true,
             price: true,
+            description: true,
           },
           toppingDishOrders: {
             id: true,
@@ -167,7 +167,15 @@ export class OrdersService {
       },
     });
 
-    return orders;
+    return orders.map((order) => {
+      return {
+        ...order,
+        estimatedDelivery: {
+          min: moment().add(30, 'minute'),
+          max: moment().add(45, 'minute'),
+        },
+      };
+    });
   }
 
   async findOne(user: User, orderId: number) {
@@ -207,6 +215,7 @@ export class OrdersService {
             name: true,
             image: true,
             price: true,
+            description: true,
           },
           toppingDishOrders: {
             id: true,
