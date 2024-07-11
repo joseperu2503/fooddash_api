@@ -111,30 +111,6 @@ export const initialData: SeedData = {
       closeTime: '00:00',
       restaurantCategoryId: 5,
     },
-    // {
-    //   name: 'Tanta',
-    //   address: 'Jr. Carpaccio 290 San Borja',
-    //   logo: 'https://images.rappi.pe/restaurants_logo/logo-1684437847530.png',
-    //   backdrop:
-    //     'https://images.rappi.pe/restaurants_background/petanta-1677101054738-1683221690453.jpg',
-    //   latitude: -12.090512139562742,
-    //   longitude: -77.00409797064822,
-    //   openTime: '09:00',
-    //   closeTime: '18:30',
-    //   restaurantCategoryId: 1,
-    // },
-    // {
-    //   name: 'Maketto',
-    //   address: 'AV. MARISCAL LA MAR 830 MIRAFLORES',
-    //   logo: 'https://images.rappi.pe/restaurants_logo/1f46280b-b244-4079-b394-06ed70de7e20-1694806836364.png',
-    //   backdrop:
-    //     'https://images.rappi.pe/restaurants_background/2441bd28-147b-4dc2-80fa-2486c9e40787-1694806821726.png',
-    //   latitude: -12.112967536869505,
-    //   longitude: -77.04578402675554,
-    //   openTime: '09:00',
-    //   closeTime: '18:30',
-    //   restaurantCategoryId: 1,
-    // },
     {
       name: 'Pinkberry',
       address: '7 W 32nd St, New York, NY 10001, Estados Unidos',
@@ -939,6 +915,292 @@ export const initialData: SeedData = {
       image:
         'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photos/8c890132-6e32-4792-a11d-174f20b2b7c9-retina-large-jpeg',
       price: 2.79,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Whopper',
+      description:
+        'A ¼ lb* of flame-grilled beef patty topped with juicy tomatoes, crisp lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a toasted sesame seed bun. *Weight based on pre-cooked patty.',
+      dishCategoryId: 10,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/cb7b3159-a091-4584-b58d-139df49f315b-retina-large.png',
+      price: 10.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Impossible™ Whopper',
+      description:
+        'A flame-grilled, plant-based patty with juicy tomatoes, crisp lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a toasted sesame seed bun. *Patty cooked on the same broiler as beef patties.',
+      dishCategoryId: 10,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/868b2196-a923-4463-9761-3c3864974d6c-retina-large.png',
+      price: 11.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Double Cheeseburger',
+      description:
+        'Two flame-grilled patties–for a 1/4 lb* of beef–with melted American cheese, crunchy pickles, yellow mustard, and ketchup on a toasted sesame seed bun. *Weight based on pre-cooked patty.',
+      dishCategoryId: 10,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/290adf3d-342b-4ab0-b2bf-cfc0eb4bf66b-retina-large.png',
+      price: 6.89,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Bacon King',
+      description:
+        'Two 1/4 lb* flame-grilled beef patties with crispy bacon, melted American cheese, ketchup, and creamy mayonnaise on a toasted sesame seed bun. *Weight based on pre-cooked patty.',
+      dishCategoryId: 10,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/63a03631-fbf7-4915-a5a3-431809cf2d6f-retina-large.png',
+      price: 13.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Double Whopper',
+      description:
+        'Two ¼ lb.* flame-grilled beef patties with juicy tomatoes, crisp lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a toasted sesame seed bun. *Weight based on pre-cooked patty',
+      dishCategoryId: 10,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/e1149c6d-afa8-4532-a464-95264dae449f-retina-large.png',
+      price: 12.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Whopper Jr.',
+      description:
+        'A flame-grilled beef patty with juicy tomatoes, crisp lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a toasted sesame seed bun.',
+      dishCategoryId: 10,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/e23456dc-aa8a-4153-82a2-172469babd31-retina-large.png',
+      price: 7.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Whopper Meal',
+      description:
+        'A ¼ lb* of flame-grilled beef patty topped with juicy tomatoes, crisp lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a toasted sesame seed bun. *Weight based on pre-cooked patty.',
+      dishCategoryId: 11,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/25c422be-3dd3-457a-b993-cc1f4edae4db-retina-large.png',
+      price: 15.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Bacon King Meal',
+      description:
+        'Two 1/4 lb* flame-grilled beef patties with crispy bacon, melted American cheese, ketchup, and creamy mayonnaise on a toasted sesame seed bun. *Weight based on pre-cooked patty.',
+      dishCategoryId: 11,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/8f47bdb4-e41a-4d0b-a1ae-fe70e98cc67b-retina-large.png',
+      price: 19.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Double Whopper Meal',
+      description:
+        'Two ¼ lb.* flame-grilled beef patties with juicy tomatoes, crisp lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a toasted sesame seed bun. *Weight based on pre-cooked patty',
+      dishCategoryId: 11,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/46a1df14-566c-493e-a92e-dd177b99b75e-retina-large.png',
+      price: 17.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Impossible™ Whopper Meal',
+      description:
+        'A flame-grilled, plant-based patty with juicy tomatoes, crisp lettuce, creamy mayonnaise, ketchup, crunchy pickles, and sliced white onions on a toasted sesame seed bun. *Patty cooked on the same broiler as beef patties.',
+      dishCategoryId: 11,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/3921be36-6c7b-4ac3-8bbc-6ea7310a8d98-retina-large.png',
+      price: 17.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Double Bundle',
+      description:
+        '(2) Whoppers or Original Chicken Sandwiches, (2) Medium Fries or Medium Onion Rings, (1) 8 Pc. Nuggets or 8 Pc. Fiery Buffalo Nuggets',
+      dishCategoryId: 12,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/5e449ea6-3896-4c4d-88b2-b30f7d7a149a-retina-large.png',
+      price: 19.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Triple Bundle',
+      description:
+        '(3) Whoppers or Original Chicken Sandwiches, (3) Medium Fries or Medium Onion Rings, (1) 8 Pc. Nuggets or 8 Pc. Fiery Buffalo Nuggets',
+      dishCategoryId: 12,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/a87726f2-52c0-4875-98ee-0fd4f673292f-retina-large.png',
+      price: 24.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Family Bundle',
+      description:
+        '(2) Whoppers or Original Chicken Sandwiches, (2) Cheeseburgers, (4) Medium Fries or Medium Onion Rings, (1) 8 Pc. Nuggets or 8 Pc. Fiery Buffalo Nuggets',
+      dishCategoryId: 12,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/6a8e5093-caae-4f77-9855-51e535b90df5-retina-large.png',
+      price: 24.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Royal Four',
+      description:
+        '(4) Whoppers or Original Chicken Sandwiches, (4) Medium Fries or Medium Onion Rings, (1) 8 Pc. Nuggets or 8 Pc. Fiery Buffalo Nuggets',
+      dishCategoryId: 12,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/38bc572e-fbf5-4822-8fe3-c575083b84ae-retina-large.png',
+      price: 29.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: '12 Pc. Chicken Fries',
+      description:
+        'Breaded, crispy white meat chicken perfect for dipping in any of our delicious dipping sauces.',
+      dishCategoryId: 13,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/37237e6f-a3ae-4245-9bff-938e87f910bc-retina-large.png',
+      price: 9.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Original Chicken Sandwich',
+      description:
+        'Lightly breaded chicken topped with crisp lettuce and creamy mayonnaise on a sesame seed bun.',
+      dishCategoryId: 13,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/46849e4e-8eca-4012-929a-e3168588c741-retina-large.png',
+      price: 9.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Fiery Royal Crispy Chicken',
+      description:
+        'Crispy white meat breast fillet coated with our triple pepper fiery glaze, topped with savory sauce, lettuce and juicy tomatoes on a toasted potato bun.',
+      dishCategoryId: 13,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/ac97f2ee-40aa-49f8-bd79-7705966b6928-retina-large.png',
+      price: 9.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Royal Crispy Chicken',
+      description:
+        'Crispy white meat breast fillet topped with savory sauce, lettuce and juicy tomatoes on a toasted potato bun.',
+      dishCategoryId: 13,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/7e02bd6c-267c-44c9-afd2-80a402f6e77f-retina-large.png',
+      price: 9.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Diet Coke',
+      description:
+        'Enjoy a variety of soft drinks that pair perfectly with your meal!',
+      dishCategoryId: 14,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/f4f2e675-fd5b-44cd-be56-9f835631e02e-retina-large.png',
+      price: 4.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Coca-Cola',
+      description:
+        'Enjoy a variety of soft drinks that pair perfectly with your meal!',
+      dishCategoryId: 14,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/2169e701-4595-4c6d-8768-da147428193a-retina-large.png',
+      price: 4.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Dr Pepper®',
+      description:
+        'Enjoy a variety of soft drinks that pair perfectly with your meal!',
+      dishCategoryId: 14,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/ee1aac44-f0ce-4167-87bc-6491dfd37e0c-retina-large.png',
+      price: 4.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Fanta Orange',
+      description:
+        'Enjoy a variety of soft drinks that pair perfectly with your meal!',
+      dishCategoryId: 14,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/87bc08ce-9d8c-40a9-8813-ccd0d27e5f04-retina-large.png',
+      price: 4.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Classic Oreo® Shake',
+      description:
+        'Creamy, vanilla soft serve mixed with OREO® cookie pieces and vanilla sauce. OREO® is a registered trademark of Mondelēz International group. Used under license.',
+      dishCategoryId: 15,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/87a49ca2-b2cb-47b0-8949-7e0506dac814-retina-large.png',
+      price: 7.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: "HERSHEY'S® Sundae Pie",
+      description:
+        'A crunchy chocolate crust filled with chocolate crème filling and garnished with real HERSHEY’S® Chocolate Chips.',
+      dishCategoryId: 15,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/67924787-6e8e-4d55-8772-f9763bb72e68-retina-large.png',
+      price: 3.49,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Chocolate Oreo® Shake',
+      description:
+        'Creamy, vanilla soft serve mixed with OREO® cookie pieces and chocolate sauce. OREO® is a registered trademark of Mondelēz International group. Used under license.',
+      dishCategoryId: 15,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/dc118f14-bedd-4e3a-8ef3-d2d1c8d1730d-retina-large.png',
+      price: 7.99,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Vanilla Shake',
+      description:
+        'A creamy, hand-spun style shake made from velvety, vanilla soft serve!',
+      dishCategoryId: 15,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/feafa223-43e2-494f-98a7-3fb4bd32369b-retina-large.png',
+      price: 7.49,
       stock: 15,
       toppingsIds: [],
     },
