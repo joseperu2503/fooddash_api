@@ -10,6 +10,7 @@ import { Address } from 'src/addresses/entities/address.entity';
 import { DishOrdersModule } from 'src/dish-orders/dish-orders.module';
 import { OrderStatus } from './entities/order-status.entity';
 import { OrderStatusesService } from './order-status.service';
+import { CartsModule } from 'src/carts/carts.module';
 
 @Module({
   controllers: [OrdersController],
@@ -24,6 +25,7 @@ import { OrderStatusesService } from './order-status.service';
     ]),
     DishOrdersModule,
     AuthModule,
+    CartsModule,
   ],
   exports: [OrdersService, OrderStatusesService],
 })

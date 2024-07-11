@@ -1,14 +1,19 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { User } from 'src/auth/entities/user.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { Order } from './entities/order.entity';
 import { DishOrdersService } from 'src/dish-orders/dish-orders.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from 'src/addresses/entities/address.entity';
 import { OrderStatus } from './entities/order-status.entity';
-import moment from 'moment';
+import * as moment from 'moment';
+import { CartsService } from 'src/carts/carts.service';
 
 @Injectable()
 export class OrdersService {
@@ -26,79 +31,99 @@ export class OrdersService {
 
     @InjectRepository(OrderStatus)
     private readonly orderStatusRepository: Repository<OrderStatus>,
+
+    private readonly dataSource: DataSource,
+
+    private cartsService: CartsService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto, user: User): Promise<Order> {
-    //**Crear Order */
-    const order = this.orderRepository.create();
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
 
-    //**Buscar Restaurant */
-    const restaurant = await this.restaurantRepository.findOne({
-      where: { id: createOrderDto.restaurantId },
-    });
-    if (!restaurant) {
-      throw new NotFoundException(
-        `Restaurant ${createOrderDto.restaurantId} not found`,
-      );
-    }
-    order.restaurant = restaurant;
+    try {
+      //**Crear Order */
+      const order = this.orderRepository.create();
 
-    //**Buscar Address */
-    const address = await this.addressRepository.findOne({
-      where: {
-        id: createOrderDto.addressId,
-        user: {
-          id: user.id,
-        },
-      },
-    });
-
-    if (!address) {
-      throw new NotFoundException(
-        `Address ${createOrderDto.addressId} not found`,
-      );
-    }
-
-    order.address = address;
-
-    // **Buscar OrderStatusType con ID 1**
-    const orderStatus = await this.orderStatusRepository.findOne({
-      where: { id: 1 },
-    });
-    if (!orderStatus) {
-      throw new NotFoundException(`OrderStatus 1 not found`);
-    }
-
-    order.orderStatus = orderStatus;
-
-    order.user = user;
-
-    const deliveryFee: number = 3.9;
-    const serviceFee: number = 4.9;
-
-    order.deliveryFee = deliveryFee;
-    order.serviceFee = serviceFee;
-
-    order.subtotal = 0;
-    order.total = 0;
-
-    await this.orderRepository.save(order);
-
-    let subtotal: number = 0;
-    //** Crear DishOrders */
-    for (const dish of createOrderDto.dishes) {
-      const dishOrder = await this.dishOrdersService.create({
-        ...dish,
-        orderId: order.id,
+      //**Buscar Restaurant */
+      const restaurant = await this.restaurantRepository.findOne({
+        where: { id: createOrderDto.restaurantId },
       });
-      subtotal = subtotal + dishOrder.units * dishOrder.dish.price;
+      if (!restaurant) {
+        throw new NotFoundException(
+          `Restaurant ${createOrderDto.restaurantId} not found`,
+        );
+      }
+      order.restaurant = restaurant;
+
+      //**Buscar Address */
+      const address = await this.addressRepository.findOne({
+        where: {
+          id: createOrderDto.addressId,
+          user: {
+            id: user.id,
+          },
+        },
+      });
+
+      if (!address) {
+        throw new NotFoundException(
+          `Address ${createOrderDto.addressId} not found`,
+        );
+      }
+
+      order.address = address;
+
+      // **Buscar OrderStatusType con ID 1**
+      const orderStatus = await this.orderStatusRepository.findOne({
+        where: { id: 1 },
+      });
+      if (!orderStatus) {
+        throw new NotFoundException(`OrderStatus 1 not found`);
+      }
+
+      order.orderStatus = orderStatus;
+
+      order.user = user;
+
+      const deliveryFee: number = 3.9;
+      const serviceFee: number = 4.9;
+
+      order.deliveryFee = deliveryFee;
+      order.serviceFee = serviceFee;
+
+      order.subtotal = 0;
+      order.total = 0;
+
+      await this.orderRepository.save(order);
+
+      let subtotal: number = 0;
+      //** Crear DishOrders */
+      for (const dish of createOrderDto.dishes) {
+        const dishOrder = await this.dishOrdersService.create({
+          ...dish,
+          orderId: order.id,
+        });
+        subtotal = subtotal + dishOrder.units * dishOrder.dish.price;
+      }
+
+      order.subtotal = parseFloat(subtotal.toFixed(2));
+      order.total = parseFloat(
+        (subtotal + deliveryFee + serviceFee).toFixed(2),
+      );
+      await this.orderRepository.save(order);
+
+      this.cartsService.remove(user);
+
+      await queryRunner.commitTransaction();
+      await queryRunner.release();
+      return this.findOne(user, order.id);
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      await queryRunner.release();
+      throw new InternalServerErrorException(error);
     }
-
-    order.subtotal = parseFloat(subtotal.toFixed(2));
-    order.total = parseFloat((subtotal + deliveryFee + serviceFee).toFixed(2));
-    await this.orderRepository.save(order);
-
-    return this.findOne(user, order.id);
   }
 
   async myOrders(user: User) {
@@ -108,12 +133,16 @@ export class OrdersService {
           id: user.id,
         },
       },
+      order: {
+        createdAt: 'DESC',
+      },
       select: {
         id: true,
         subtotal: true,
         deliveryFee: true,
         serviceFee: true,
         total: true,
+        createdAt: true,
         address: {
           id: true,
           address: true,
@@ -171,8 +200,8 @@ export class OrdersService {
       return {
         ...order,
         estimatedDelivery: {
-          min: moment().add(30, 'minute'),
-          max: moment().add(45, 'minute'),
+          min: moment(order.createdAt).add(30, 'minute'),
+          max: moment(order.createdAt).add(45, 'minute'),
         },
       };
     });
@@ -192,6 +221,7 @@ export class OrdersService {
         deliveryFee: true,
         serviceFee: true,
         total: true,
+        createdAt: true,
         address: {
           id: true,
           address: true,
@@ -245,6 +275,12 @@ export class OrdersService {
       },
     });
 
-    return order;
+    return {
+      ...order,
+      estimatedDelivery: {
+        min: moment(order.createdAt).add(30, 'minute'),
+        max: moment(order.createdAt).add(45, 'minute'),
+      },
+    };
   }
 }
