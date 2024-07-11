@@ -43,7 +43,7 @@ export class RestaurantsService {
     }
 
     const products = await paginate<Restaurant>(queryBuilder, options);
-  
+
     return new Pagination(
       products.items.map((product) => ({
         ...product,
@@ -57,17 +57,25 @@ export class RestaurantsService {
       products.meta,
       products.links,
     );
-  } 
+  }
 
   async findOne(id: number) {
-    const restaurant = await this.restaurantRepository.findOne({
-      where: { id },
-      relations: {
-        dishCategories: {
-          dishes: true,
-        },
-      },
-    });
+    // const restaurant = await this.restaurantRepository.findOne({
+    //   where: { id },
+    //   relations: {
+    //     dishCategories: {
+    //       dishes: true,
+    //     },
+    //   },
+    // });
+
+    const restaurant = await this.restaurantRepository
+      .createQueryBuilder('restaurant')
+      .leftJoinAndSelect('restaurant.dishCategories', 'dishCategory')
+      .leftJoinAndSelect('dishCategory.dishes', 'dish')
+      .where('restaurant.id = :id', { id })
+      .orderBy('dishCategory.id', 'ASC')
+      .getOne();
     if (!restaurant) {
       throw new NotFoundException(`Restaurant ${id} not found`);
     }
