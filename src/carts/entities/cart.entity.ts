@@ -1,7 +1,9 @@
+import { Address } from 'src/addresses/entities/address.entity';
 import { User } from 'src/auth/entities/user.entity';
 import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import {
+  Column,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -27,4 +29,21 @@ export class Cart {
 
   @OneToMany(() => DishCart, (dishCart) => dishCart.cart)
   dishCarts: DishCart[];
+
+  //muchos Address tiene un Order
+  @ManyToOne(() => Address, (address) => address.carts)
+  @JoinColumn({ name: 'address_id' })
+  address: Address;
+
+  @Column('float')
+  subtotal: number;
+
+  @Column('float', { name: 'delivery_fee' })
+  deliveryFee: number;
+
+  @Column('float', { name: 'service_fee' })
+  serviceFee: number;
+
+  @Column('float')
+  total: number;
 }

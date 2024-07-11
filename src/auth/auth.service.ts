@@ -111,4 +111,9 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
     return token;
   }
+
+  async findOne(userId: number): Promise<User> {
+    const user = await this.userRepository.findOneBy({ id: userId });
+    return user;
+  }
 }

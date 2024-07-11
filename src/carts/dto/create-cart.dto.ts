@@ -12,6 +12,10 @@ export class CreateCartDto {
   @IsInt()
   @IsPositive()
   readonly restaurantId: number;
+
+  @IsInt()
+  @IsPositive()
+  readonly addressId: number;
 }
 
 class Dish extends OmitType(CreateDishCartDto, ['cartId'] as const) {}

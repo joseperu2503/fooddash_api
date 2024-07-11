@@ -11,6 +11,8 @@ import { AddressTagsService } from 'src/address-tags/address-tags.service';
 import { AddressDeliveryDetailsService } from 'src/address-delivery-details/address-delivery-details.service';
 import { OrderStatusesService } from 'src/orders/order-status.service';
 import { AuthService } from 'src/auth/auth.service';
+import { AddressesService } from 'src/addresses/addresses.service';
+import { User } from 'src/auth/entities/user.entity';
 
 @Injectable()
 export class SeedService {
@@ -26,6 +28,7 @@ export class SeedService {
     private readonly addressDeliveryDetailsService: AddressDeliveryDetailsService,
     private readonly orderStatusesService: OrderStatusesService,
     private readonly authService: AuthService,
+    private readonly addressesService: AddressesService,
   ) {}
 
   async runSeed() {
@@ -37,9 +40,10 @@ export class SeedService {
     await this.dishCategorySeed();
     await this.dishSeed();
     await this.AddressTagSeed();
-    await this.AddressDeliveryDetailSeed();
-    await this.OrderStatusSeed();
-    await this.UserSeed();
+    await this.addressDeliveryDetailSeed();
+    await this.orderStatusSeed();
+    await this.userSeed();
+    await this.addressSeed();
 
     return 'SEED EXECUTED';
   }
@@ -94,24 +98,32 @@ export class SeedService {
     }
   }
 
-  private async AddressDeliveryDetailSeed() {
+  private async addressDeliveryDetailSeed() {
     const addressDeliveryDetails = initialData.addressDeliveryDetails;
     for (const addressDeliveryDetail of addressDeliveryDetails) {
       await this.addressDeliveryDetailsService.create(addressDeliveryDetail);
     }
   }
 
-  private async OrderStatusSeed() {
+  private async orderStatusSeed() {
     const orderStatuses = initialData.orderStatuses;
     for (const orderStatus of orderStatuses) {
       await this.orderStatusesService.create(orderStatus);
     }
   }
 
-  private async UserSeed() {
+  private async userSeed() {
     const users = initialData.users;
     for (const user of users) {
       await this.authService.register(user);
+    }
+  }
+
+  private async addressSeed() {
+    const addresses = initialData.addresses;
+    const user: User = await this.authService.findOne(1);
+    for (const address of addresses) {
+      await this.addressesService.create(address, user);
     }
   }
 

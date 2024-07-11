@@ -8,6 +8,7 @@ import { CreateAddressTagDto } from 'src/address-tags/dto/create-address-tag.dto
 import { CreateAddressDeliveryDetailDto } from 'src/address-delivery-details/dto/create-address-delivery-detail.dto';
 import { CreateOrderStatusDto } from 'src/orders/dto/create-order-status.dto';
 import { RegisterUserDto } from 'src/auth/dto/register-user.dto';
+import { CreateAddressDto } from 'src/addresses/dto/create-address.dto';
 
 interface SeedData {
   users: RegisterUserDto[];
@@ -20,6 +21,7 @@ interface SeedData {
   addressTags: CreateAddressTagDto[];
   addressDeliveryDetails: CreateAddressDeliveryDetailDto[];
   orderStatuses: CreateOrderStatusDto[];
+  addresses: CreateAddressDto[];
 }
 
 export const initialData: SeedData = {
@@ -30,6 +32,19 @@ export const initialData: SeedData = {
       password: 'Abc123',
       phone: '993689145',
       surname: 'User',
+    },
+  ],
+  addresses: [
+    {
+      address: 'Avenida Las Viñas',
+      city: 'Puente Piedra',
+      country: 'Peru',
+      latitude: -11.850501612187411,
+      longitude: -77.08191242069006,
+      addressDeliveryDetailId: null,
+      addressTagId: null,
+      detail: '',
+      references: '',
     },
   ],
   orderStatuses: [

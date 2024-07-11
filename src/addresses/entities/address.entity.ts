@@ -13,6 +13,7 @@ import { AddressTag } from 'src/address-tags/entities/address-tag.entity';
 import { AddressDeliveryDetail } from 'src/address-delivery-details/entities/address-delivery-detail.entity';
 import { User } from 'src/auth/entities/user.entity';
 import { Order } from 'src/orders/entities/order.entity';
+import { Cart } from 'src/carts/entities/cart.entity';
 
 @Entity('addresses')
 export class Address {
@@ -57,6 +58,9 @@ export class Address {
 
   @OneToMany(() => Order, (order) => order.address)
   orders: Order[];
+
+  @OneToMany(() => Cart, (cart) => cart.address)
+  carts: Cart[];
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;
