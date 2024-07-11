@@ -7,8 +7,10 @@ import { CreateToppingDto } from 'src/toppings/dto/create-topping.dto';
 import { CreateAddressTagDto } from 'src/address-tags/dto/create-address-tag.dto';
 import { CreateAddressDeliveryDetailDto } from 'src/address-delivery-details/dto/create-address-delivery-detail.dto';
 import { CreateOrderStatusDto } from 'src/orders/dto/create-order-status.dto';
+import { RegisterUserDto } from 'src/auth/dto/register-user.dto';
 
 interface SeedData {
+  users: RegisterUserDto[];
   restaurants: CreateRestaurantDto[];
   restaurantCategories: CreateRestaurantCategoryDto[];
   dishCategories: CreateDishCategoryDto[];
@@ -21,6 +23,15 @@ interface SeedData {
 }
 
 export const initialData: SeedData = {
+  users: [
+    {
+      email: 'test@gmail.com',
+      name: 'Test',
+      password: 'Abc123',
+      phone: '993689145',
+      surname: 'User',
+    },
+  ],
   orderStatuses: [
     {
       name: 'Order Confirmed',
@@ -39,37 +50,37 @@ export const initialData: SeedData = {
     {
       name: 'Pizza',
       image:
-        'https://files.joseperezgil.com/images/delivery/categories/pizza_3d.png',
+        'https://images.rappi.pe/rests_taxonomy/0b2c10b6-6a52-4a0b-b4a6-4b6560b09f06.png',
     },
     {
       name: 'Burger',
       image:
-        'https://files.joseperezgil.com/images/delivery/categories/burger_3d.png',
+        'https://images.rappi.pe/rests_taxonomy/b2f87daf-ea61-471f-8e32-3b09e4644a3c.png',
     },
     {
-      name: 'Taco',
+      name: 'Mexican',
       image:
-        'https://files.joseperezgil.com/images/delivery/categories/taco_3d.png',
+        'https://images.rappi.pe/rests_taxonomy/3b8d4b65-3ccd-443b-ad7c-a2bd45476e8c.png',
     },
     {
       name: 'Sushi',
       image:
-        'https://files.joseperezgil.com/images/delivery/categories/sushi_3d.png',
+        'https://images.rappi.pe/rests_taxonomy/afc20b37-c45a-4ecd-8908-56d9a2f9cced.png',
     },
     {
       name: 'Coffee',
       image:
-        'https://files.joseperezgil.com/images/delivery/categories/coffee_3d.png',
+        'https://images.rappi.pe/rests_taxonomy/3b89c363-9276-47a9-9c9a-eb703e2e46fa.png',
     },
     {
-      name: 'Fried Chicken',
+      name: 'American',
       image:
-        'https://files.joseperezgil.com/images/delivery/categories/fried_chicken_3d.png',
+        'https://images.rappi.pe/rests_taxonomy/187b4276-b082-49c6-b275-b24bb062e913.png',
     },
     {
       name: 'Dessert',
       image:
-        'https://files.joseperezgil.com/images/delivery/categories/cake_3d.png',
+        'https://images.rappi.pe/rests_taxonomy/c5047730-f825-4aba-b5a9-13d947db4563.png',
     },
   ],
   restaurants: [
@@ -85,30 +96,30 @@ export const initialData: SeedData = {
       closeTime: '00:00',
       restaurantCategoryId: 5,
     },
-    {
-      name: 'Tanta',
-      address: 'Jr. Carpaccio 290 San Borja',
-      logo: 'https://images.rappi.pe/restaurants_logo/logo-1684437847530.png',
-      backdrop:
-        'https://images.rappi.pe/restaurants_background/petanta-1677101054738-1683221690453.jpg',
-      latitude: -12.090512139562742,
-      longitude: -77.00409797064822,
-      openTime: '09:00',
-      closeTime: '18:30',
-      restaurantCategoryId: 1,
-    },
-    {
-      name: 'Maketto',
-      address: 'AV. MARISCAL LA MAR 830 MIRAFLORES',
-      logo: 'https://images.rappi.pe/restaurants_logo/1f46280b-b244-4079-b394-06ed70de7e20-1694806836364.png',
-      backdrop:
-        'https://images.rappi.pe/restaurants_background/2441bd28-147b-4dc2-80fa-2486c9e40787-1694806821726.png',
-      latitude: -12.112967536869505,
-      longitude: -77.04578402675554,
-      openTime: '09:00',
-      closeTime: '18:30',
-      restaurantCategoryId: 1,
-    },
+    // {
+    //   name: 'Tanta',
+    //   address: 'Jr. Carpaccio 290 San Borja',
+    //   logo: 'https://images.rappi.pe/restaurants_logo/logo-1684437847530.png',
+    //   backdrop:
+    //     'https://images.rappi.pe/restaurants_background/petanta-1677101054738-1683221690453.jpg',
+    //   latitude: -12.090512139562742,
+    //   longitude: -77.00409797064822,
+    //   openTime: '09:00',
+    //   closeTime: '18:30',
+    //   restaurantCategoryId: 1,
+    // },
+    // {
+    //   name: 'Maketto',
+    //   address: 'AV. MARISCAL LA MAR 830 MIRAFLORES',
+    //   logo: 'https://images.rappi.pe/restaurants_logo/1f46280b-b244-4079-b394-06ed70de7e20-1694806836364.png',
+    //   backdrop:
+    //     'https://images.rappi.pe/restaurants_background/2441bd28-147b-4dc2-80fa-2486c9e40787-1694806821726.png',
+    //   latitude: -12.112967536869505,
+    //   longitude: -77.04578402675554,
+    //   openTime: '09:00',
+    //   closeTime: '18:30',
+    //   restaurantCategoryId: 1,
+    // },
     {
       name: 'Pinkberry',
       address: '7 W 32nd St, New York, NY 10001, Estados Unidos',
@@ -131,7 +142,7 @@ export const initialData: SeedData = {
       longitude: -73.99099756235016,
       openTime: '09:00',
       closeTime: '18:30',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 2,
     },
     {
       name: "Joli's Korean Fried Chicken",
@@ -143,7 +154,7 @@ export const initialData: SeedData = {
       longitude: -73.99175832013128,
       openTime: '09:00',
       closeTime: '18:30',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 6,
     },
     {
       name: "Tex's Chicken and Burgers",
@@ -155,7 +166,7 @@ export const initialData: SeedData = {
       longitude: -73.95530026442604,
       openTime: '09:00',
       closeTime: '18:30',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 2,
     },
     {
       name: "Muf's Muffin Shop",
@@ -167,7 +178,7 @@ export const initialData: SeedData = {
       longitude: -73.96567177787905,
       openTime: '00:00',
       closeTime: '00:00',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 7,
     },
     {
       name: 'Ritz Diner',
@@ -179,7 +190,7 @@ export const initialData: SeedData = {
       longitude: -73.96069449328802,
       openTime: '00:00',
       closeTime: '00:00',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 7,
     },
     {
       name: 'Naka Sushi & Izakaya',
@@ -191,7 +202,7 @@ export const initialData: SeedData = {
       longitude: -73.99403316244043,
       openTime: '10:00',
       closeTime: '02:00',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 4,
     },
     {
       name: 'Milk Bar',
@@ -203,7 +214,7 @@ export const initialData: SeedData = {
       longitude: -73.97132013357616,
       openTime: '9:00',
       closeTime: '23:25',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 7,
     },
     {
       name: 'Taco Bell',
@@ -215,7 +226,7 @@ export const initialData: SeedData = {
       longitude: -73.95263068099224,
       openTime: '10:00',
       closeTime: '4:30',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 3,
     },
     {
       name: 'Popeyes Louisiana Kitchen',
@@ -227,7 +238,7 @@ export const initialData: SeedData = {
       longitude: -73.98340552015794,
       openTime: '9:00',
       closeTime: '6:00',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 6,
     },
     {
       name: 'Subway',
@@ -239,7 +250,7 @@ export const initialData: SeedData = {
       longitude: -73.95638903555977,
       openTime: '00:00',
       closeTime: '00:00',
-      restaurantCategoryId: 1,
+      restaurantCategoryId: 6,
     },
     {
       name: 'Pizza Hut',
@@ -423,475 +434,779 @@ export const initialData: SeedData = {
 
   dishCategories: [
     {
-      name: 'Entradas y Piqueos',
-      restaurantId: 2,
+      name: 'Donuts & Bakery',
+      restaurantId: 1,
     },
     {
-      name: 'Sopas',
-      restaurantId: 2,
+      name: 'Iced Drinks',
+      restaurantId: 1,
     },
     {
-      name: 'Sanguches',
-      restaurantId: 2,
+      name: 'Sandwiches & Wraps',
+      restaurantId: 1,
     },
     {
-      name: 'Jugos y Bebidas',
-      restaurantId: 2,
+      name: 'Frozen Drinks',
+      restaurantId: 1,
     },
     {
-      name: 'Pakettes',
-      restaurantId: 3,
-    },
-    {
-      name: 'Snacks',
-      restaurantId: 3,
-    },
-    {
-      name: 'Maki',
-      restaurantId: 3,
-    },
-    {
-      name: 'Extras',
-      restaurantId: 3,
+      name: 'Snacks & Sides',
+      restaurantId: 1,
     },
   ],
   dishes: [
     {
-      name: 'Wantanes de Langostinos',
-      description: 'Relleno de langostinos con su cremita de chifa',
-      dishCategoryId: 1,
-      image: 'https://images.rappi.pe/products/481897-1595347497891.jpg',
-      price: 31.0,
-      stock: 15,
-      toppingsIds: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21,
-      ],
-    },
-    {
-      name: 'Papa Rellena',
+      name: 'Classic Donuts',
       description:
-        'Rellena con guisito de carne, acompañadas de cremas peruanas.',
-      dishCategoryId: 1,
-      image: 'https://images.rappi.pe/products/481902-1595346784758.jpg',
-      price: 24.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Anticuchos de Corazón',
-      description:
-        'Dos palitos con papas doradas, choclo y salsas de rocoto y ají amarillo.',
-      dishCategoryId: 1,
-      image: 'https://images.rappi.pe/products/523951-1607034413028.png',
-      price: 41.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Cebiche Clásico',
-      description: 'De la Pesca del día',
-      dishCategoryId: 1,
-      image: 'https://images.rappi.pe/products/481911-1595345582437.jpg',
-      price: 47.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Piqueo Criollo Tanta',
-      description: 'De la Pesca del día',
-      dishCategoryId: 1,
-      image: 'https://images.rappi.pe/products/2091611251-1635791205914.jpg',
-      price: 81.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Las Croquetas de Choclo y Queso',
-      description:
-        'Doraditas por fuera, cremosas por dentro, acompañadas de salsa de rocoto y queso',
-      dishCategoryId: 1,
-      image: 'https://images.rappi.pe/products/2091611252-1635790695838.jpg',
-      price: 28.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Empanada Al Horno',
-      description:
-        'Empanada al horno con los rellenos más generosos de la ciudad de pollo, de ají de gallina, de cuadril, de lomo saltado (unidad). *recomendación: pedir fría para calentar en casa.',
-      dishCategoryId: 1,
-      image: 'https://images.rappi.pe/products/530361-1598200518912.png',
-      price: 13.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Pasteles de Nuestro Horno',
-      description:
-        'Pasteles de nuestro horno - elige tu favorito. *recomendación: pedir frío para calentar en casa.',
+        'Treat yourself or share the joy by bringing people together with a dozen donuts made in these delicious varieties*: Glazed, Chocolate Frosted, Strawberry Frosted, Old Fashioned, Boston Kreme, Glazed Chocolate Cake and Jelly.',
       dishCategoryId: 1,
       image:
-        'https://images.rappi.pe/products/d50e3755-eaec-4d34-ac3e-e56511971324-1687873399329.png',
-      price: 14.0,
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/fab47dfd-5e81-4b59-9787-6272711172e8-retina-large.jpg',
+      price: 2.48,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Tamalito Verde',
+      name: 'MUNCHKINS® Donut Hole Treats',
       description:
-        'Tamal de de choclo con culantro, con jugo de seco y salsa criolla',
+        "Our Famous Munchkins® make the perfect treat to share with friends, family and colleagues alike. Made fresh daily in a variety of colorful and delicious flavors, there's a favorite for everyone. Be a real hero and pick up a Box O' Joe® while you're there. Available in the following varieties*: Glazed; Glazed Chocolate; Jelly; Powdered Sugar; Cinnamon; Sugar Raised. (*Availabilty may vary depending on location)",
       dishCategoryId: 1,
-      image: 'https://images.rappi.pe/products/481893-1595347292023.jpg',
-      price: 17.0,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/16665165-d8ce-4085-8e4c-4b5c1bd755cd-retina-large.png',
+      price: 2.61,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Causa Limeña',
-      description: 'Nuestra Causa Limeña, Elige tu sabor de causa',
+      name: 'Half Dozen Donuts',
+      description:
+        'Share the joy by bringing people together with an assortment of half dozen or dozen donuts made in these delicious varieties*: Glazed, Double Chocolate, Strawberry Frosted, Vanilla Frosted, Chocolate Frosted, Old Fashioned, Boston Kreme, Glazed Chocolate Cake, Powdered, Vanilla Creme, Glazed Blueberry, and Jelly. *Assortment and availability will vary depending on location.',
       dishCategoryId: 1,
-      image: 'https://images.rappi.pe/products/481899-1595345542588.jpg',
-      price: 31.0,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/16665165-d8ce-4085-8e4c-4b5c1bd755cd-retina-large.png',
+      price: 12.48,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Sopa Criolla de Toda la Vida',
+      name: 'Bagel with Cream Cheese Spread',
       description:
-        'Sopa con carne, fideos cabello de ángel, ají, huevo De carne, fideos cabello de ángel, ají y huevo',
-      dishCategoryId: 2,
-      image: 'https://images.rappi.pe/products/481917-1595347165756.jpg',
-      price: 32.0,
+        'A delicious way to start your day. Soft and chewy, these freshly baked bagels come in some of your favorite varieties. Bagels Available in the following varieties*: Plain; Cinnamon Raisin; Multigrain; Sesame Seed; Everything. *Availability may vary depending on location',
+      dishCategoryId: 1,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/b85e85bb-3f34-43c3-a235-317bde539ed6-retina-large.JPEG',
+      price: 4.36,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Sopa Angelita',
+      name: 'Coffee Roll',
+      description: 'Glazed coffee roll laced with pure cinnamon',
+      dishCategoryId: 1,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/d3bf4557-b2f1-441a-a99b-9f0a497681b9-retina-large.JPG',
+      price: 2.98,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Croissant',
       description:
-        'Sopa de cabello de ángel, pollo, papa amarilla, limón, rocoto, cancha y cebolla china',
-      dishCategoryId: 2,
-      image: 'https://images.rappi.pe/products/481920-1595345129730.jpg',
-      price: 34.0,
+        'A delicious way to start your day. Our warm, freshly baked croissant is the perfect pair to a freshly brewed Hot or Iced Coffee',
+      dishCategoryId: 1,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photos/d212c806-f5a6-4e82-95fd-4a3860e491ad-retina-large-jpeg',
+      price: 3.23,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Súper Aguadito',
+      name: 'Original Blend Iced Coffee',
       description:
-        'Aguadito de pollo al estilo clásico casero con choclo, zanahoria, pimiento, arroz reventado, culantro',
-      dishCategoryId: 2,
-      image: 'https://images.rappi.pe/products/481921-1595344967507.jpg',
-      price: 34.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Crema de Zapallo',
-      description: 'Sopa cremosa con su pan al ajo para moja',
-      dishCategoryId: 2,
-      image: 'https://images.rappi.pe/products/481919-1595345951195.jpg',
-      price: 32.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'La Sopa Capón',
-      description:
-        'Con siu kaos de pollo, fideos de arroz, fréjolito chino, hierbabuena y sazón criolla oriental.',
+        'Freshly brewed and full of flavor, our Iced Coffee is the perfect pick-me-up any time of day or night, giving you the boost you need to keep on running.',
       dishCategoryId: 2,
       image:
-        'https://images.rappi.pe/products/f67f0cf7-7cdc-4154-b19b-d304181de0de-1716861196818.png',
-      price: 31.0,
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photosV2/9f3cd836-c0e1-4ad8-8bfc-066598f34933-retina-large.JPG',
+      price: 4.61,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Sánguche Butifarra',
+      name: 'Iced Latte',
       description:
-        'Sánguche con jamon del país, lechuga y salsa criolla, en pan francés',
-      dishCategoryId: 3,
-      image: 'https://images.rappi.pe/products/481932-1595345367111.jpg',
-      price: 22.0,
+        "Made with milk and blended with our rich espresso, our Iced Latte is the perfect balance of cool, creamy and smooth to get you goin'.",
+      dishCategoryId: 2,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photosV2/b9474158-e97a-41f8-801e-018d2b9171f1-retina-large.JPG',
+      price: 5.98,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Sánguche Pollo Playero',
+      name: 'Iced Cappuccino',
       description:
-        'Pechuga deshilachada con mayonesa, papas al hilo, lechuga, tomate en pan burger',
-      dishCategoryId: 3,
-      image: 'https://images.rappi.pe/products/2091961903-1675979943571.jpg',
-      price: 25.0,
+        'Our Iced Cappuccino is brewed with freshly ground espresso beans and then blended with milk served over ice for a refreshing cup of frothy and bold deliciousness.',
+      dishCategoryId: 2,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photosV2/c69f5a14-f218-4c9f-887b-da6ada42dddd-retina-large.JPG',
+      price: 5.98,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'El Breakfast',
+      name: 'Iced Macchiato',
       description:
-        'En pan de papa tostado, smash de carne con queso y cebolla, tocino, huevo, lechuga, papas chips, tomate y salsa club.',
+        'Looking for layers on layers of hand-crafted deliciousness? Made with creamy milk and topped with two shots of espresso then served over ice, our Iced Macchiato is just what you need.',
+      dishCategoryId: 2,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photosV2/eb53cc47-2ace-460f-b5fb-148c8db96abc-retina-large.JPEG',
+      price: 6.61,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Cold Brew',
+      description:
+        'An ultra-smooth, full-bodied coffee like no other. Craft-brewed in small batches. Limited quantities available daily.',
+      dishCategoryId: 2,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photos/055c2e1c-380e-476f-a791-9f39a5b8ff36-retina-large-jpeg',
+      price: 5.48,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Iced Americano',
+      description:
+        "Our Iced Americano blends two shots of Dunkin's 100% Rainforest Alliance Certified™ espresso richness with water for a refreshing, espresso-forward cup of woah!",
+      dishCategoryId: 2,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photosV2/f5b67c8f-0902-46c4-9a3b-d29c681bda9c-retina-large.JPEG',
+      price: 5.36,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Bacon Egg and Cheese',
+      description:
+        "Go the extra mile by bringing bacon to your Dunkin' Breakfast Sandwich. Bacon with egg and cheese.",
       dishCategoryId: 3,
       image:
-        'https://images.rappi.pe/products/f6805767-ad32-4b5f-9a1a-f67f7b0e8af8-1712803908820.png',
-      price: 34.0,
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photos/4c07e1c2-854e-4e1a-be58-15114873753c-retina-large-jpeg',
+      price: 6.73,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'El de Bondiola',
+      name: 'Turkey Sausage Egg and Cheese',
       description:
-        'Bondiola asada, ensalada rusa, queso, ensalada de col en pan ciabatta.',
+        'Get your day off to a delicious start. Try our flavorful turkey sausage, add and American cheese on English Muffin, or Wake-Up Wrap®',
       dishCategoryId: 3,
       image:
-        'https://images.rappi.pe/products/6c78dd29-bfac-459a-887b-8bde318306b7-1714579013313.png',
-      price: 36.0,
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photos/fe69efe3-52dc-4ac8-8275-2acb0571eb91-retina-large.jpg',
+      price: 6.73,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'El Asadazo',
+      name: 'Wake-Up Wrap® - Turkey Sausage Egg and Cheese',
       description:
-        'Asado encebollado, queso, mayo de rocoto, chimichurri, papas al hilo en pan planchado.',
+        'Start your morning off right with one of our delicious, made-to-order Wake-Up Wrap® sandwiches. Select from a variety of your favorite breakfast ingredients, they are the perfect portion of oven-toasted gooDD. And at such a great value, we undertstand if you want to grab one in the afternoon or evening too.',
       dishCategoryId: 3,
       image:
-        'https://images.rappi.pe/products/f5005a45-14c1-469c-b3ce-bdf3b03377c5-1714333440706.png',
-      price: 38.0,
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photos/f2454923-862f-4812-b3d9-201ec90bc7d6-retina-large.jpg',
+      price: 3.98,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Café AmericanoEl Asadazo',
-      description: 'Café americano, 12 Oz',
-      dishCategoryId: 4,
-      image: 'https://images.rappi.pe/products/482029-1595345381975.jpg',
-      price: 9.0,
+      name: 'Sourdough Breakfast Sandwich',
+      description:
+        'Two eggs, five half slices of bacon and white cheddar on two pieces of sourdough toast.',
+      dishCategoryId: 3,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photosV2/9342d9b4-7475-48dd-9764-61228440bfda-retina-large.JPEG',
+      price: 7.48,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Infusiones',
-      description: '100% naturales',
-      dishCategoryId: 4,
-      image: 'https://images.rappi.pe/products/629715-1616025822215_hq.jpeg',
-      price: 6.0,
+      name: "Chorizo & Egg Dunkin' Wrap",
+      description:
+        'Scrambled egg, chorizo, roasted vegetables, beans and a mildly spiced cheese sauce in a red pepper lavash wrap.',
+      dishCategoryId: 3,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photosV2/d64008df-d728-49fc-9686-ed1329a26530-retina-large.jpg',
+      price: 6.23,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Gaseosas 500 ml',
-      description: 'Nuestras gaseosas',
+      name: "Green Goddess Dunkin' Wrap",
+      description:
+        'Scrambled egg whites, farro, sundried tomatoes, spinach, and crumbled feta cheese all mixed with a herby green goddess sauce and wrapped in a green lavash.',
+      dishCategoryId: 3,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=1000,height=600,format=auto,quality=50/media/photosV2/45d352fd-9bf4-463d-869f-05366c3c3b62-retina-large.png',
+      price: 6.73,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Frozen Coffee',
+      description:
+        "Our Frozen Coffee is made with real Dunkin' coffee, delivering a smooth, creamy coffee-forward flavor.",
       dishCategoryId: 4,
       image:
-        'https://images.rappi.pe/products/bfd439c8-3b73-4cae-a62c-8bfc8179b88e-1691523363483.png',
-      price: 9.0,
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photos/eea42837-a667-4f2b-9c82-aa720f837fdf-retina-large-jpeg',
+      price: 6.23,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Limonada de 1 Litro',
-      description: 'Nuestas limonadas.',
-      dishCategoryId: 4,
-      image: 'https://images.rappi.pe/products/518853-1597689382518.png',
-      price: 16.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Café con Leche',
-      description: 'Café con leche, 12 Oz',
-      dishCategoryId: 4,
-      image: 'https://images.rappi.pe/products/482032-1595348408669.jpg',
-      price: 12.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Chicha Morada',
-      description: 'Hecha en casa',
-      dishCategoryId: 4,
-      image: 'https://images.rappi.pe/products/524037-1607034520086.png',
-      price: 16.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Limonada',
-      description: 'Nuestras limonadas',
-      dishCategoryId: 4,
-      image: 'https://images.rappi.pe/products/481992-1595348406475.jpg',
-      price: 16.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Paketitto',
+      name: 'Strawberry Coolatta®',
       description:
-        '18 piezas de maki (06 piezas de Acebichado, 06 piezas de Avocado, 06 piezas de Luiggi)',
+        'Looking for the ultimate frozen, fruity refreshment? Our Coolatta® will do the trick. One sip and refreshment begins.',
+      dishCategoryId: 4,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/edbc028d-49bf-4081-9209-c970d185e742-retina-large.png',
+      price: 5.73,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Blue Raspberry Coolatta​®',
+      description:
+        'Looking for the ultimate frozen, fruity refreshment? Our Coolatta® will do the trick. One sip and refreshment begins.',
+      dishCategoryId: 4,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/27f7acfd-00b5-4767-b0d0-088601913a25-retina-large.png',
+      price: 5.73,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Vanilla Bean Coolatta®',
+      description:
+        'Looking for the ultimate frozen, fruity refreshment? Our Coolatta® will do the trick. One sip and refreshment begins.',
+      dishCategoryId: 4,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/04a1de2f-1d04-4a21-a1b6-89d5d9f07f1c-retina-large.png',
+      price: 5.73,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Frozen Matcha Latte',
+      description: 'Sweetened matcha green tea blended with milk',
+      dishCategoryId: 4,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/20550dba-8696-4273-81eb-f5c64d53fabd-retina-large.JPEG',
+      price: 6.61,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Everything Stuffed Bagel Minis',
+      description:
+        'Everything mini bagels filled with cream cheese, served warm. Two per order.',
       dishCategoryId: 5,
       image:
-        'https://images.rappi.pe/products/9bdaa954-5146-4237-850d-f712d8f6ac00-1692741564835.png',
-      price: 44.22,
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/4cdce318-0f15-4d1e-b204-90600dd93c4f-retina-large.JPEG',
+      price: 4.11,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Makiman',
-      description: '48 piezas de maki en 4 sabores a elección.',
+      name: 'Hash Browns',
+      description:
+        'Our hash browns are lightly seasoned, crispy bites of gooDDness. Pair them with your breakfast sandwich and your morning pit stop gets even more tasty. Perfectly paired with our freshly brewed Hot or Iced Coffee.',
       dishCategoryId: 5,
       image:
-        'https://images.rappi.pe/products/0dfddaba-32b6-4f29-a41d-c46eaec8e9df-1692741843308.png',
-      price: 126.16,
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/60fbbc37-62d3-490a-a334-a23eea4340a6-retina-large.JPG',
+      price: 2.23,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Medio Makiman',
-      description: '24 piezas de maki en 4 sabores a elección',
+      name: "Hot Honey Snackin' Bacon",
+      description: '8 snack-sized strips of Hot Honey seasoned bacon.',
       dishCategoryId: 5,
       image:
-        'https://images.rappi.pe/products/a9439273-a5d2-4297-9178-d0298b93ac9e-1692741908823.png',
-      price: 73.04,
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/88835d3c-c00c-400d-8780-b03138b30c64-retina-large.png',
+      price: 4.11,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Cebiche Marciano',
+      name: 'Ham & Swiss Croissant Stuffer',
+      description: 'Croissant filled with ham & swiss cheese.',
+      dishCategoryId: 5,
+      image:
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/44c2dd44-00d4-4127-96ef-ad42c80a5667-retina-large.png',
+      price: 6.23,
+      stock: 15,
+      toppingsIds: [],
+    },
+    {
+      name: 'Bacon & Cheddar Omelet Bites',
       description:
-        'Pesca del día, leche de tigre marciana de culantro, chalaca con ají charapita, patacones.',
-      dishCategoryId: 6,
+        'Cage-free eggs mixed with bacon and cheddar cheese, cooked sous-vide style and packed with 17g of protein.',
+      dishCategoryId: 5,
       image:
-        'https://images.rappi.pe/products/316aeca7-f23a-4201-9e95-0dd72a4fdeb9-1694288146963.png',
-      price: 45.0,
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/904dffaa-b3d3-48b5-bc73-df4238535117-retina-large.JPG',
+      price: 7.48,
       stock: 15,
       toppingsIds: [],
     },
     {
-      name: 'Yakimeshi & Mfc (Maketto Fried Chicken)',
+      name: 'MUNCHKINS® Donut Hole Treats',
       description:
-        'Arroz frito con hongos, vegetales y cashews. pollito frito karaage, omelette & salsa samurai, encurtidos.',
-      dishCategoryId: 6,
+        "Our Famous Munchkins® make the perfect treat to share with friends, family and colleagues alike. Made fresh daily in a variety of colorful and delicious flavors, there's a favorite for everyone. Be a real hero and pick up a Box O' Joe® while you're there. Available in the following varieties*: Glazed; Glazed Chocolate; Jelly; Powdered Sugar; Cinnamon; Sugar Raised. (*Availabilty may vary depending on location)",
+      dishCategoryId: 5,
       image:
-        'https://images.rappi.pe/products/36cf5646-7d87-4f79-ae61-0e4b9b1863fa-1694288204858.png',
-      price: 35.1,
+        'https://img.cdn4dd.com/p/fit=cover,width=600,height=300,format=auto,quality=50/media/photosV2/16665165-d8ce-4085-8e4c-4b5c1bd755cd-retina-large.png',
+      price: 2.61,
       stock: 15,
       toppingsIds: [],
     },
-    {
-      name: 'Maketto Fried Chicken - MFC',
-      description: 'Pollo marinado estilo karaage, tártara ponja.',
-      dishCategoryId: 6,
-      image:
-        'https://images.rappi.pe/products/6209cb34-cad6-4248-8255-53488f26fa2a-1694288274776.png',
-      price: 25.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Maketto Shrimp Tempura',
-      description: 'Langostinos tempura con salsa ácido picante.',
-      dishCategoryId: 6,
-      image:
-        'https://images.rappi.pe/products/2b169f91-2a2d-47a6-8ca2-08d99559b601-1694288232759.png',
-      price: 35.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Sanguchito la Royal',
-      description:
-        'Bun dorado, hamburguesa de asado de tira y alga kombu,kimchi caramelizado, aro de cebolla tempura, mayo sriracha, cheddar, huevito frito y lechuga.',
-      dishCategoryId: 6,
-      image:
-        'https://images.rappi.pe/products/50eff104-6e71-4ee1-8f6f-376caaeeb8db-1694288065361.png',
-      price: 16.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Sanguchito Ebi Korokke',
-      description:
-        'Bun con croqueta achifada de langostinos y pota, salsa samurai, criolla encurtida y culantro.ponerle sus gotitas de limón.',
-      dishCategoryId: 6,
-      image:
-        'https://images.rappi.pe/products/8fead5c7-9667-44c1-9013-9156a0b440c5-1694287966362.png',
-      price: 16.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Maki Umai',
-      description:
-        'Kiuri, cangrejo y langostino furai. Por fuera tempura, tártara con kawa karaage.',
-      dishCategoryId: 7,
-      image:
-        'https://images.rappi.pe/products/8aa997f3-fe5f-4b32-b215-1aba1318c1a3-1694288897822.png',
-      price: 27.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Maki el Cangri',
-      description:
-        'Por dentro palta, kiuri y pescado furai. Por fuera pesca del dia, crema de cangrejo ligeramente picante y encima salsa parrillera flameada. Más chips de papa y tare',
-      dishCategoryId: 7,
-      image:
-        'https://images.rappi.pe/products/76319ae2-af8b-4e6f-8947-b039c0303d99-1694288828693.png',
-      price: 25.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Maki Mailey Spicy',
-      description:
-        'Langostino empanizado y palta por fuera. Crema de cangrejo y queso parmesano por fuera y chives.',
-      dishCategoryId: 7,
-      image:
-        'https://images.rappi.pe/products/0eaf17db-7096-44ee-bdaa-677f5311d28a-1694288712914.png',
-      price: 27.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Maki Chuka',
-      description:
-        'Langostino empanizado, cangrejo, palta por dentro. pesca del día por fuera flameada con salsa de ostión de la casa.',
-      dishCategoryId: 7,
-      image:
-        'https://images.rappi.pe/products/8a383682-65eb-4bb1-93e6-f2a221f3f93c-1696282973941.png',
-      price: 27.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Shari',
-      description: 'Arroz de sushi',
-      dishCategoryId: 8,
-      image:
-        'https://images.rappi.pe/products/5b6a3974-2d65-491d-9528-5300225d894e-1696448381381.png',
-      price: 9.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Gohan',
-      description: 'Arroz blanco.',
-      dishCategoryId: 8,
-      image:
-        'https://images.rappi.pe/products/e838026f-fb11-4394-b49a-1059de8f58f9-1696448415242.png',
-      price: 7.0,
-      stock: 15,
-      toppingsIds: [],
-    },
-    {
-      name: 'Salsa Acebichada',
-      description: 'Salsa Acebichada',
-      dishCategoryId: 8,
-      image:
-        'https://images.rappi.pe/products/095c92c2-132a-4678-9b58-9d924336325a-1696448436598.png',
-      price: 5.0,
-      stock: 15,
-      toppingsIds: [],
-    },
+
+    // {
+    //   name: 'Wantanes de Langostinos',
+    //   description: 'Relleno de langostinos con su cremita de chifa',
+    //   dishCategoryId: 1,
+    //   image: 'https://images.rappi.pe/products/481897-1595347497891.jpg',
+    //   price: 31.0,
+    //   stock: 15,
+    //   toppingsIds: [
+    //     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    //     21,
+    //   ],
+    // },
+    // {
+    //   name: 'Papa Rellena',
+    //   description:
+    //     'Rellena con guisito de carne, acompañadas de cremas peruanas.',
+    //   dishCategoryId: 1,
+    //   image: 'https://images.rappi.pe/products/481902-1595346784758.jpg',
+    //   price: 24.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Anticuchos de Corazón',
+    //   description:
+    //     'Dos palitos con papas doradas, choclo y salsas de rocoto y ají amarillo.',
+    //   dishCategoryId: 1,
+    //   image: 'https://images.rappi.pe/products/523951-1607034413028.png',
+    //   price: 41.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Cebiche Clásico',
+    //   description: 'De la Pesca del día',
+    //   dishCategoryId: 1,
+    //   image: 'https://images.rappi.pe/products/481911-1595345582437.jpg',
+    //   price: 47.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Piqueo Criollo Tanta',
+    //   description: 'De la Pesca del día',
+    //   dishCategoryId: 1,
+    //   image: 'https://images.rappi.pe/products/2091611251-1635791205914.jpg',
+    //   price: 81.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Las Croquetas de Choclo y Queso',
+    //   description:
+    //     'Doraditas por fuera, cremosas por dentro, acompañadas de salsa de rocoto y queso',
+    //   dishCategoryId: 1,
+    //   image: 'https://images.rappi.pe/products/2091611252-1635790695838.jpg',
+    //   price: 28.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Empanada Al Horno',
+    //   description:
+    //     'Empanada al horno con los rellenos más generosos de la ciudad de pollo, de ají de gallina, de cuadril, de lomo saltado (unidad). *recomendación: pedir fría para calentar en casa.',
+    //   dishCategoryId: 1,
+    //   image: 'https://images.rappi.pe/products/530361-1598200518912.png',
+    //   price: 13.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Pasteles de Nuestro Horno',
+    //   description:
+    //     'Pasteles de nuestro horno - elige tu favorito. *recomendación: pedir frío para calentar en casa.',
+    //   dishCategoryId: 1,
+    //   image:
+    //     'https://images.rappi.pe/products/d50e3755-eaec-4d34-ac3e-e56511971324-1687873399329.png',
+    //   price: 14.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Tamalito Verde',
+    //   description:
+    //     'Tamal de de choclo con culantro, con jugo de seco y salsa criolla',
+    //   dishCategoryId: 1,
+    //   image: 'https://images.rappi.pe/products/481893-1595347292023.jpg',
+    //   price: 17.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Causa Limeña',
+    //   description: 'Nuestra Causa Limeña, Elige tu sabor de causa',
+    //   dishCategoryId: 1,
+    //   image: 'https://images.rappi.pe/products/481899-1595345542588.jpg',
+    //   price: 31.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Sopa Criolla de Toda la Vida',
+    //   description:
+    //     'Sopa con carne, fideos cabello de ángel, ají, huevo De carne, fideos cabello de ángel, ají y huevo',
+    //   dishCategoryId: 2,
+    //   image: 'https://images.rappi.pe/products/481917-1595347165756.jpg',
+    //   price: 32.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Sopa Angelita',
+    //   description:
+    //     'Sopa de cabello de ángel, pollo, papa amarilla, limón, rocoto, cancha y cebolla china',
+    //   dishCategoryId: 2,
+    //   image: 'https://images.rappi.pe/products/481920-1595345129730.jpg',
+    //   price: 34.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Súper Aguadito',
+    //   description:
+    //     'Aguadito de pollo al estilo clásico casero con choclo, zanahoria, pimiento, arroz reventado, culantro',
+    //   dishCategoryId: 2,
+    //   image: 'https://images.rappi.pe/products/481921-1595344967507.jpg',
+    //   price: 34.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Crema de Zapallo',
+    //   description: 'Sopa cremosa con su pan al ajo para moja',
+    //   dishCategoryId: 2,
+    //   image: 'https://images.rappi.pe/products/481919-1595345951195.jpg',
+    //   price: 32.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'La Sopa Capón',
+    //   description:
+    //     'Con siu kaos de pollo, fideos de arroz, fréjolito chino, hierbabuena y sazón criolla oriental.',
+    //   dishCategoryId: 2,
+    //   image:
+    //     'https://images.rappi.pe/products/f67f0cf7-7cdc-4154-b19b-d304181de0de-1716861196818.png',
+    //   price: 31.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Sánguche Butifarra',
+    //   description:
+    //     'Sánguche con jamon del país, lechuga y salsa criolla, en pan francés',
+    //   dishCategoryId: 3,
+    //   image: 'https://images.rappi.pe/products/481932-1595345367111.jpg',
+    //   price: 22.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Sánguche Pollo Playero',
+    //   description:
+    //     'Pechuga deshilachada con mayonesa, papas al hilo, lechuga, tomate en pan burger',
+    //   dishCategoryId: 3,
+    //   image: 'https://images.rappi.pe/products/2091961903-1675979943571.jpg',
+    //   price: 25.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'El Breakfast',
+    //   description:
+    //     'En pan de papa tostado, smash de carne con queso y cebolla, tocino, huevo, lechuga, papas chips, tomate y salsa club.',
+    //   dishCategoryId: 3,
+    //   image:
+    //     'https://images.rappi.pe/products/f6805767-ad32-4b5f-9a1a-f67f7b0e8af8-1712803908820.png',
+    //   price: 34.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'El de Bondiola',
+    //   description:
+    //     'Bondiola asada, ensalada rusa, queso, ensalada de col en pan ciabatta.',
+    //   dishCategoryId: 3,
+    //   image:
+    //     'https://images.rappi.pe/products/6c78dd29-bfac-459a-887b-8bde318306b7-1714579013313.png',
+    //   price: 36.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'El Asadazo',
+    //   description:
+    //     'Asado encebollado, queso, mayo de rocoto, chimichurri, papas al hilo en pan planchado.',
+    //   dishCategoryId: 3,
+    //   image:
+    //     'https://images.rappi.pe/products/f5005a45-14c1-469c-b3ce-bdf3b03377c5-1714333440706.png',
+    //   price: 38.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Café AmericanoEl Asadazo',
+    //   description: 'Café americano, 12 Oz',
+    //   dishCategoryId: 4,
+    //   image: 'https://images.rappi.pe/products/482029-1595345381975.jpg',
+    //   price: 9.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Infusiones',
+    //   description: '100% naturales',
+    //   dishCategoryId: 4,
+    //   image: 'https://images.rappi.pe/products/629715-1616025822215_hq.jpeg',
+    //   price: 6.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Gaseosas 500 ml',
+    //   description: 'Nuestras gaseosas',
+    //   dishCategoryId: 4,
+    //   image:
+    //     'https://images.rappi.pe/products/bfd439c8-3b73-4cae-a62c-8bfc8179b88e-1691523363483.png',
+    //   price: 9.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Limonada de 1 Litro',
+    //   description: 'Nuestas limonadas.',
+    //   dishCategoryId: 4,
+    //   image: 'https://images.rappi.pe/products/518853-1597689382518.png',
+    //   price: 16.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Café con Leche',
+    //   description: 'Café con leche, 12 Oz',
+    //   dishCategoryId: 4,
+    //   image: 'https://images.rappi.pe/products/482032-1595348408669.jpg',
+    //   price: 12.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Chicha Morada',
+    //   description: 'Hecha en casa',
+    //   dishCategoryId: 4,
+    //   image: 'https://images.rappi.pe/products/524037-1607034520086.png',
+    //   price: 16.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Limonada',
+    //   description: 'Nuestras limonadas',
+    //   dishCategoryId: 4,
+    //   image: 'https://images.rappi.pe/products/481992-1595348406475.jpg',
+    //   price: 16.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Paketitto',
+    //   description:
+    //     '18 piezas de maki (06 piezas de Acebichado, 06 piezas de Avocado, 06 piezas de Luiggi)',
+    //   dishCategoryId: 5,
+    //   image:
+    //     'https://images.rappi.pe/products/9bdaa954-5146-4237-850d-f712d8f6ac00-1692741564835.png',
+    //   price: 44.22,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Makiman',
+    //   description: '48 piezas de maki en 4 sabores a elección.',
+    //   dishCategoryId: 5,
+    //   image:
+    //     'https://images.rappi.pe/products/0dfddaba-32b6-4f29-a41d-c46eaec8e9df-1692741843308.png',
+    //   price: 126.16,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Medio Makiman',
+    //   description: '24 piezas de maki en 4 sabores a elección',
+    //   dishCategoryId: 5,
+    //   image:
+    //     'https://images.rappi.pe/products/a9439273-a5d2-4297-9178-d0298b93ac9e-1692741908823.png',
+    //   price: 73.04,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Cebiche Marciano',
+    //   description:
+    //     'Pesca del día, leche de tigre marciana de culantro, chalaca con ají charapita, patacones.',
+    //   dishCategoryId: 6,
+    //   image:
+    //     'https://images.rappi.pe/products/316aeca7-f23a-4201-9e95-0dd72a4fdeb9-1694288146963.png',
+    //   price: 45.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Yakimeshi & Mfc (Maketto Fried Chicken)',
+    //   description:
+    //     'Arroz frito con hongos, vegetales y cashews. pollito frito karaage, omelette & salsa samurai, encurtidos.',
+    //   dishCategoryId: 6,
+    //   image:
+    //     'https://images.rappi.pe/products/36cf5646-7d87-4f79-ae61-0e4b9b1863fa-1694288204858.png',
+    //   price: 35.1,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Maketto Fried Chicken - MFC',
+    //   description: 'Pollo marinado estilo karaage, tártara ponja.',
+    //   dishCategoryId: 6,
+    //   image:
+    //     'https://images.rappi.pe/products/6209cb34-cad6-4248-8255-53488f26fa2a-1694288274776.png',
+    //   price: 25.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Maketto Shrimp Tempura',
+    //   description: 'Langostinos tempura con salsa ácido picante.',
+    //   dishCategoryId: 6,
+    //   image:
+    //     'https://images.rappi.pe/products/2b169f91-2a2d-47a6-8ca2-08d99559b601-1694288232759.png',
+    //   price: 35.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Sanguchito la Royal',
+    //   description:
+    //     'Bun dorado, hamburguesa de asado de tira y alga kombu,kimchi caramelizado, aro de cebolla tempura, mayo sriracha, cheddar, huevito frito y lechuga.',
+    //   dishCategoryId: 6,
+    //   image:
+    //     'https://images.rappi.pe/products/50eff104-6e71-4ee1-8f6f-376caaeeb8db-1694288065361.png',
+    //   price: 16.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Sanguchito Ebi Korokke',
+    //   description:
+    //     'Bun con croqueta achifada de langostinos y pota, salsa samurai, criolla encurtida y culantro.ponerle sus gotitas de limón.',
+    //   dishCategoryId: 6,
+    //   image:
+    //     'https://images.rappi.pe/products/8fead5c7-9667-44c1-9013-9156a0b440c5-1694287966362.png',
+    //   price: 16.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Maki Umai',
+    //   description:
+    //     'Kiuri, cangrejo y langostino furai. Por fuera tempura, tártara con kawa karaage.',
+    //   dishCategoryId: 7,
+    //   image:
+    //     'https://images.rappi.pe/products/8aa997f3-fe5f-4b32-b215-1aba1318c1a3-1694288897822.png',
+    //   price: 27.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Maki el Cangri',
+    //   description:
+    //     'Por dentro palta, kiuri y pescado furai. Por fuera pesca del dia, crema de cangrejo ligeramente picante y encima salsa parrillera flameada. Más chips de papa y tare',
+    //   dishCategoryId: 7,
+    //   image:
+    //     'https://images.rappi.pe/products/76319ae2-af8b-4e6f-8947-b039c0303d99-1694288828693.png',
+    //   price: 25.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Maki Mailey Spicy',
+    //   description:
+    //     'Langostino empanizado y palta por fuera. Crema de cangrejo y queso parmesano por fuera y chives.',
+    //   dishCategoryId: 7,
+    //   image:
+    //     'https://images.rappi.pe/products/0eaf17db-7096-44ee-bdaa-677f5311d28a-1694288712914.png',
+    //   price: 27.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Maki Chuka',
+    //   description:
+    //     'Langostino empanizado, cangrejo, palta por dentro. pesca del día por fuera flameada con salsa de ostión de la casa.',
+    //   dishCategoryId: 7,
+    //   image:
+    //     'https://images.rappi.pe/products/8a383682-65eb-4bb1-93e6-f2a221f3f93c-1696282973941.png',
+    //   price: 27.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Shari',
+    //   description: 'Arroz de sushi',
+    //   dishCategoryId: 8,
+    //   image:
+    //     'https://images.rappi.pe/products/5b6a3974-2d65-491d-9528-5300225d894e-1696448381381.png',
+    //   price: 9.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Gohan',
+    //   description: 'Arroz blanco.',
+    //   dishCategoryId: 8,
+    //   image:
+    //     'https://images.rappi.pe/products/e838026f-fb11-4394-b49a-1059de8f58f9-1696448415242.png',
+    //   price: 7.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
+    // {
+    //   name: 'Salsa Acebichada',
+    //   description: 'Salsa Acebichada',
+    //   dishCategoryId: 8,
+    //   image:
+    //     'https://images.rappi.pe/products/095c92c2-132a-4678-9b58-9d924336325a-1696448436598.png',
+    //   price: 5.0,
+    //   stock: 15,
+    //   toppingsIds: [],
+    // },
   ],
   addressTags: [
     {

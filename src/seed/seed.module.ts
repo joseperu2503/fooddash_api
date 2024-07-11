@@ -11,6 +11,7 @@ import { AddressDeliveryDetailsModule } from 'src/address-delivery-details/addre
 import { AddressTagsModule } from 'src/address-tags/address-tags.module';
 import { CardsModule } from 'src/cards/cards.module';
 import { OrdersModule } from 'src/orders/orders.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   controllers: [SeedController],
@@ -26,6 +27,7 @@ import { OrdersModule } from 'src/orders/orders.module';
     AddressTagsModule,
     CardsModule,
     OrdersModule,
+    AuthModule,
   ],
 })
 export class SeedModule {}

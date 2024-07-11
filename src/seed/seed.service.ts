@@ -10,6 +10,7 @@ import { ToppingsService } from 'src/toppings/toppings.service';
 import { AddressTagsService } from 'src/address-tags/address-tags.service';
 import { AddressDeliveryDetailsService } from 'src/address-delivery-details/address-delivery-details.service';
 import { OrderStatusesService } from 'src/orders/order-status.service';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class SeedService {
@@ -24,6 +25,7 @@ export class SeedService {
     private readonly addressTagsService: AddressTagsService,
     private readonly addressDeliveryDetailsService: AddressDeliveryDetailsService,
     private readonly orderStatusesService: OrderStatusesService,
+    private readonly authService: AuthService,
   ) {}
 
   async runSeed() {
@@ -37,6 +39,7 @@ export class SeedService {
     await this.AddressTagSeed();
     await this.AddressDeliveryDetailSeed();
     await this.OrderStatusSeed();
+    await this.UserSeed();
 
     return 'SEED EXECUTED';
   }
@@ -102,6 +105,13 @@ export class SeedService {
     const orderStatuses = initialData.orderStatuses;
     for (const orderStatus of orderStatuses) {
       await this.orderStatusesService.create(orderStatus);
+    }
+  }
+
+  private async UserSeed() {
+    const users = initialData.users;
+    for (const user of users) {
+      await this.authService.register(user);
     }
   }
 
