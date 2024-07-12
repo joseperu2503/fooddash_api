@@ -5,14 +5,10 @@ services:
     container_name: fooddash_app
     build:
       context: .
-      target: development
+      target: production
       dockerfile: Dockerfile
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
     ports:
       - '${SERVER_PORT}:${SERVER_PORT}'
-    command: npm run start:dev
     depends_on:
       - db
     image: fooddash-docker
@@ -23,7 +19,7 @@ services:
       - .env
 
   db:
-    container_name: ${DB_HOST}
+    container_name: fooddash_db
     image: postgres:14.3
     restart: always
     ports:
