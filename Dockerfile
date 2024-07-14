@@ -1,4 +1,4 @@
-FROM node:18-alpine3.15 As development
+FROM node:18-alpine3.15 AS development
 
 WORKDIR /usr/src/app
 
@@ -10,7 +10,7 @@ RUN npm install --only=development
 
 # RUN npm run build
 
-FROM node:18-alpine3.15 as production
+FROM node:18-alpine3.15 AS production
 
 # ARG NODE_ENV=production
 # ENV NODE_ENV=${NODE_ENV}
@@ -28,4 +28,4 @@ RUN npm run build
 # # Ejecutar migraciones
 # RUN npm run migrations:run
 
-CMD npm run migrations:run && npm run start
+CMD ["npm", "run", "migrations:run", "&&", "npm", "run", "start"]

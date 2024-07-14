@@ -29,10 +29,16 @@ docker-compose up --build -d
 https://blog.logrocket.com/containerized-development-nestjs-docker/
 
 ## para desarrollo
+
+```bash
 docker-compose -f docker-compose.yml up -d
+```
 
 ## para produccion
+
+```bash
 docker-compose -f docker-compose.prod.yml up -d
+```
 
 //para detectar cambios en el codigo fuente, como cuando se baja cambios remotos
 docker-compose -f docker-compose.prod.yml up -d --build
@@ -41,9 +47,12 @@ El parámetro -d en Docker Compose se utiliza para ejecutar los contenedores en 
 
 --build: Construye las imágenes del servicio antes de iniciar los contenedores. Esto es útil cuando has realizado cambios en el Dockerfile o en los archivos relacionados con la construcción de la imagen, y necesitas asegurarte de que Docker Compose use la versión más actualizada de la imagen.
 
-
 # Migraciones
 
+```bash
 npm run migrations:generate database/migrations/init
+```
 
+```bash
 npm run migrations:run
+```
