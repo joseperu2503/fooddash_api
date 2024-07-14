@@ -25,4 +25,7 @@ COPY . .
 
 RUN npm run build
 
-CMD ["node", "dist/main"]
+# # Ejecutar migraciones
+# RUN npm run migrations:run
+
+CMD npm run migrations:run && npm run start
