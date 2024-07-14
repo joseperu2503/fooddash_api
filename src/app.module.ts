@@ -35,7 +35,7 @@ import { ToppingDishOrdersModule } from './topping-dish-orders/topping-dish-orde
       username: process.env.DB_USERMAME,
       password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
     RestaurantsModule,
     SeedModule,
