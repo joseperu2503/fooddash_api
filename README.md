@@ -56,19 +56,20 @@ El parámetro -d en Docker Compose se utiliza para ejecutar los contenedores en 
 
 # Migraciones
 
-
 1. Identificar el ID o el nombre del contenedor:
+
 ```bash
-docker ps```
+docker ps
 ```
 
 2. Entrar al contenedor:
 
 ```bash
-docker exec -it {id_container} /bin/sh  
+docker exec -it {id_container} /bin/sh
 ```
 
 3. Ejecutar el comando dentro del contenedor:
+
 ```bash
 npm run migrations:generate database/migrations/init
 ```
@@ -77,8 +78,20 @@ npm run migrations:generate database/migrations/init
 npm run migrations:run
 ```
 
-4. Salir:
+4. (Opcional) Ejecutar Seeders
+
+```bash
+npm run cli -- seed
+```
+
+5. Salir:
 
 ```bash
 exit
+```
+
+## Limpiar imagenes dangling
+
+```bash
+docker image prune -f
 ```

@@ -22,7 +22,8 @@
     "migrations:generate": "npm run typeorm -- migration:generate",
     "migrations:run": "npm run typeorm -- migration:run",
     "migrations:create": "npm run typeorm -- migration:create database/migrations/$npm_config_name",
-    "migrations:show": "npm run typeorm -- migration:show"
+    "migrations:show": "npm run typeorm -- migration:show",
+    "cli": "ts-node -r tsconfig-paths/register ./src/cli.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -39,6 +40,7 @@
     "class-validator": "^0.14.1",
     "mercadopago": "^2.0.10",
     "moment": "^2.30.1",
+    "nest-commander": "^3.14.0",
     "nestjs-typeorm-paginate": "^4.0.4",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",

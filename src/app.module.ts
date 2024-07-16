@@ -22,6 +22,7 @@ import { OrdersModule } from './orders/orders.module';
 import { PaymentMethodsModule } from './payment-methods/payment-methods.module';
 import { DishOrdersModule } from './dish-orders/dish-orders.module';
 import { ToppingDishOrdersModule } from './topping-dish-orders/topping-dish-orders.module';
+import { SeedCommand } from './seed/seed.command';
 
 @Module({
   controllers: [AppController],
@@ -58,5 +59,6 @@ import { ToppingDishOrdersModule } from './topping-dish-orders/topping-dish-orde
     DishOrdersModule,
     ToppingDishOrdersModule,
   ],
+  providers: [SeedCommand],
 })
 export class AppModule {}

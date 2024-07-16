@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { SeedService } from './seed.service';
-import { SeedController } from './seed.controller';
 import { RestaurantsModule } from 'src/restaurants/restaurants.module';
 import { RestaurantCategoriesModule } from 'src/restaurant-categories/restaurant-categories.module';
 import { DishCategoriesModule } from 'src/dish-categories/dish-categories.module';
@@ -15,7 +14,6 @@ import { AuthModule } from 'src/auth/auth.module';
 import { AddressesModule } from 'src/addresses/addresses.module';
 
 @Module({
-  controllers: [SeedController],
   providers: [SeedService],
   imports: [
     RestaurantsModule,
@@ -31,5 +29,6 @@ import { AddressesModule } from 'src/addresses/addresses.module';
     AuthModule,
     AddressesModule,
   ],
+  exports: [SeedService],
 })
 export class SeedModule {}

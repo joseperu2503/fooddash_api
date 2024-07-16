@@ -32,7 +32,7 @@ export class SeedService {
   ) {}
 
   async runSeed() {
-    await this.dropAllTables();
+    // await this.dropAllTables();
     await this.restaurantCategorySeed();
     await this.restaurantSeed();
     await this.toppingCategorySeed();
