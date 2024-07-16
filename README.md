@@ -34,6 +34,10 @@ https://blog.logrocket.com/containerized-development-nestjs-docker/
 docker-compose -f docker-compose.yml up -d
 ```
 
+```bash
+docker-compose -f docker-compose.yml up -d --build
+```
+
 ## para produccion
 
 ```bash
@@ -41,7 +45,10 @@ docker-compose -f docker-compose.prod.yml up -d
 ```
 
 //para detectar cambios en el codigo fuente, como cuando se baja cambios remotos
+
+```bash
 docker-compose -f docker-compose.prod.yml up -d --build
+```
 
 El parámetro -d en Docker Compose se utiliza para ejecutar los contenedores en segundo plano, es decir, en modo "detached". Esto significa que los contenedores se ejecutan en el fondo y liberan la terminal para que puedas seguir utilizando la línea de comandos sin que queden bloqueados por la salida de los logs de los contenedores.
 
@@ -49,10 +56,29 @@ El parámetro -d en Docker Compose se utiliza para ejecutar los contenedores en 
 
 # Migraciones
 
+
+1. Identificar el ID o el nombre del contenedor:
+```bash
+docker ps```
+```
+
+2. Entrar al contenedor:
+
+```bash
+docker exec -it {id_container} /bin/sh  
+```
+
+3. Ejecutar el comando dentro del contenedor:
 ```bash
 npm run migrations:generate database/migrations/init
 ```
 
 ```bash
 npm run migrations:run
+```
+
+4. Salir:
+
+```bash
+exit
 ```
