@@ -1,34 +1,18 @@
+# FoodDash API
+
 ## Installation
 
+### Variables de entorno
+
 ```bash
-$ npm install
+cp .env.example .env
 ```
 
 ```bash
-$ cp .env.example .env
+nano .env
 ```
 
-```bash
-$ docker-compose up -d
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-docker-compose up --build -d
-https://blog.logrocket.com/containerized-development-nestjs-docker/
-
-## para desarrollo
+## Para desarrollo
 
 ```bash
 docker-compose -f docker-compose.yml up -d
@@ -38,13 +22,13 @@ docker-compose -f docker-compose.yml up -d
 docker-compose -f docker-compose.yml up -d --build
 ```
 
-## para produccion
+## Para produccion
 
 ```bash
 docker-compose -f docker-compose.prod.yml up -d
 ```
 
-//para detectar cambios en el codigo fuente, como cuando se baja cambios remotos
+para detectar cambios en el codigo fuente, como cuando se baja cambios remotos:
 
 ```bash
 docker-compose -f docker-compose.prod.yml up -d --build
@@ -65,14 +49,10 @@ docker ps
 2. Entrar al contenedor:
 
 ```bash
-docker exec -it {id_container} /bin/sh
+docker exec -it CONTAINER_ID /bin/sh
 ```
 
 3. Ejecutar el comando dentro del contenedor:
-
-```bash
-npm run migrations:generate database/migrations/init
-```
 
 ```bash
 npm run migrations:run
@@ -94,4 +74,10 @@ exit
 
 ```bash
 docker image prune -f
+```
+
+## Crear migraciones
+
+```bash
+npm run migrations:generate database/migrations/init
 ```
