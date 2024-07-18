@@ -13,6 +13,7 @@ import {
 } from 'typeorm';
 import { Cart } from 'src/carts/entities/cart.entity';
 import { Order } from 'src/orders/entities/order.entity';
+import { FavoriteRestaurant } from 'src/favorites/entities/favorite-restaurant.entity';
 
 @Entity('restaurants')
 export class Restaurant {
@@ -82,4 +83,11 @@ export class Restaurant {
   //un Restaurant tiene muchas Order
   @OneToMany(() => Order, (order) => order.restaurant)
   orders: Order[];
+
+  //un Restaurant tiene muchos FavoriteRestaurants
+  @OneToMany(
+    () => FavoriteRestaurant,
+    (favoriteRestaurant) => favoriteRestaurant.restaurant,
+  )
+  favoriteRestaurants: FavoriteRestaurant[];
 }

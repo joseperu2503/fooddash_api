@@ -23,6 +23,7 @@ import { PaymentMethodsModule } from './payment-methods/payment-methods.module';
 import { DishOrdersModule } from './dish-orders/dish-orders.module';
 import { ToppingDishOrdersModule } from './topping-dish-orders/topping-dish-orders.module';
 import { SeedCommand } from './seed/seed.command';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
   controllers: [AppController],
@@ -58,6 +59,7 @@ import { SeedCommand } from './seed/seed.command';
     PaymentMethodsModule,
     DishOrdersModule,
     ToppingDishOrdersModule,
+    FavoritesModule,
   ],
   providers: [SeedCommand],
 })

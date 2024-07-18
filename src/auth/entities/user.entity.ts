@@ -1,5 +1,6 @@
 import { Address } from 'src/addresses/entities/address.entity';
 import { Cart } from 'src/carts/entities/cart.entity';
+import { FavoriteDish } from 'src/favorites/entities/favorite-dish.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import {
   Column,
@@ -48,6 +49,9 @@ export class User {
 
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
+
+  @OneToMany(() => FavoriteDish, (favoriteDish) => favoriteDish.user)
+  favoriteDishes: FavoriteDish[];
 
   @OneToMany(() => Address, (address) => address.user)
   addresses: Address[];
