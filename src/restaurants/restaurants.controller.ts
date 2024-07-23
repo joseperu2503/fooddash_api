@@ -11,6 +11,8 @@ import {
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
+import { GetUser } from 'src/auth/decorators/get-user.decorator';
+import { User } from 'src/auth/entities/user.entity';
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -37,7 +39,13 @@ export class RestaurantsController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.restaurantsService.findOne(id);
+  @Auth()
+  findOne(@Param('id', ParseIntPipe) id: number, @GetUser() user: User) {
+    return this.restaurantsService.findOne(id, user);
+  }
+
+  @Get(':id/dishes')
+  dishes(@Param('id', ParseIntPipe) id: number) {
+    return this.restaurantsService.dishes(id);
   }
 }

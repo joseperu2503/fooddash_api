@@ -13,6 +13,7 @@ import { Dish } from 'src/dishes/entities/dish.entity';
 import { FavoriteRestaurantDto } from './dto/favorite-restaurant.dto';
 import { FavoriteRestaurant } from './entities/favorite-restaurant.entity';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
+import { RestaurantsService } from 'src/restaurants/restaurants.service';
 
 @Injectable()
 export class FavoritesService {
@@ -28,6 +29,8 @@ export class FavoritesService {
 
     @InjectRepository(Dish)
     private readonly dishRepository: Repository<Dish>,
+
+    private restaurantsService: RestaurantsService,
   ) {}
 
   async favoriteDish(favoriteDishDto: FavoriteDishDto, user: User) {
@@ -137,9 +140,6 @@ export class FavoritesService {
 
       if (favoriteRestaurant) {
         await this.favoriteRestaurantRepository.remove(favoriteRestaurant);
-        return {
-          message: 'Restaurant removed from favorites successfully',
-        };
       } else {
         //**Buscar Restaurant */
         const restaurant = await this.restaurantRepository.findOne({
@@ -158,11 +158,12 @@ export class FavoritesService {
         newFavoriteRestaurant.restaurant = restaurant;
 
         await this.favoriteRestaurantRepository.save(newFavoriteRestaurant);
-
-        return {
-          message: 'Restaurant added to favorites successfully',
-        };
       }
+
+      return await this.restaurantsService.findOne(
+        favoriteRestaurantDto.restaurantId,
+        user,
+      );
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
@@ -191,12 +192,14 @@ export class FavoritesService {
           id: true,
           restaurant: {
             id: true,
-            name: true,
             address: true,
-            logo: true,
             backdrop: true,
+            closeTime: true,
             latitude: true,
+            logo: true,
             longitude: true,
+            name: true,
+            openTime: true,
           },
         },
         relations: {
@@ -206,7 +209,15 @@ export class FavoritesService {
     );
 
     return new Pagination(
-      favoriteRestaurants.items,
+      favoriteRestaurants.items.map((favoriteRestaurant) => ({
+        ...favoriteRestaurant.restaurant,
+        distance: 1500.5,
+        time: 40.5,
+        record: 4.6,
+        recordPeople: 340,
+        delivery: 4.2,
+        isFavorite: false,
+      })),
       favoriteRestaurants.meta,
       favoriteRestaurants.links,
     );
