@@ -6,10 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { DishesService } from './dishes.service';
 import { CreateDishDto } from './dto/create-dish.dto';
 import { UpdateDishDto } from './dto/update-dish.dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { GetUser } from 'src/auth/decorators/get-user.decorator';
+import { User } from 'src/auth/entities/user.entity';
 
 @Controller('dishes')
 export class DishesController {
@@ -26,17 +30,26 @@ export class DishesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.dishesService.detail(+id);
+  @Auth()
+  findOne(@Param('id', ParseIntPipe) id: number, @GetUser() user: User) {
+    return this.dishesService.findOne(id, user);
+  }
+
+  @Get(':id/toppings')
+  toppings(@Param('id', ParseIntPipe) id: number) {
+    return this.dishesService.toppings(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDishDto: UpdateDishDto) {
-    return this.dishesService.update(+id, updateDishDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateDishDto: UpdateDishDto,
+  ) {
+    return this.dishesService.update(id, updateDishDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.dishesService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.dishesService.remove(id);
   }
 }

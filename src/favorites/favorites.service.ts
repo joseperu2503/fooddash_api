@@ -14,6 +14,7 @@ import { FavoriteRestaurantDto } from './dto/favorite-restaurant.dto';
 import { FavoriteRestaurant } from './entities/favorite-restaurant.entity';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { RestaurantsService } from 'src/restaurants/restaurants.service';
+import { DishesService } from 'src/dishes/dishes.service';
 
 @Injectable()
 export class FavoritesService {
@@ -31,6 +32,8 @@ export class FavoritesService {
     private readonly dishRepository: Repository<Dish>,
 
     private restaurantsService: RestaurantsService,
+
+    private dishesService: DishesService,
   ) {}
 
   async favoriteDish(favoriteDishDto: FavoriteDishDto, user: User) {
@@ -48,9 +51,6 @@ export class FavoritesService {
 
       if (favoriteDish) {
         await this.favoriteDishRepository.remove(favoriteDish);
-        return {
-          message: 'Dish removed from favorites successfully',
-        };
       } else {
         //**Buscar Dish */
         const dish = await this.dishRepository.findOne({
@@ -69,11 +69,9 @@ export class FavoritesService {
         newFavoriteDish.dish = dish;
 
         await this.favoriteDishRepository.save(newFavoriteDish);
-
-        return {
-          message: 'Dish added to favorites successfully',
-        };
       }
+
+      return await this.dishesService.findOne(favoriteDishDto.dishId, user);
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
@@ -106,6 +104,7 @@ export class FavoritesService {
             image: true,
             price: true,
             description: true,
+            stock: true,
           },
         },
         relations: {
@@ -115,7 +114,9 @@ export class FavoritesService {
     );
 
     return new Pagination(
-      favoriteDishes.items,
+      favoriteDishes.items.map((favoriteDish) => ({
+        ...favoriteDish.dish,
+      })),
       favoriteDishes.meta,
       favoriteDishes.links,
     );
@@ -216,7 +217,6 @@ export class FavoritesService {
         record: 4.6,
         recordPeople: 340,
         delivery: 4.2,
-        isFavorite: false,
       })),
       favoriteRestaurants.meta,
       favoriteRestaurants.links,

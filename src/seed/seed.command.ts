@@ -11,7 +11,11 @@ export class SeedCommand extends CommandRunner {
     passedParams: string[],
     options?: Record<string, any>,
   ): Promise<void> {
-    await this.seedService.runSeed();
-    console.log('Seed executed successfully');
+    try {
+      await this.seedService.runSeed();
+      console.log('Seed executed successfully');
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

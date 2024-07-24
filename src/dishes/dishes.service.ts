@@ -7,15 +7,22 @@ import { In, Repository } from 'typeorm';
 import { DishCategoriesService } from 'src/dish-categories/dish-categories.service';
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
 import { Topping } from 'src/toppings/entities/topping.entity';
+import { User } from 'src/auth/entities/user.entity';
+import { FavoriteDish } from 'src/favorites/entities/favorite-dish.entity';
 
 @Injectable()
 export class DishesService {
   constructor(
     @InjectRepository(Dish)
     private readonly dishRepository: Repository<Dish>,
+
     private dishCategoriesService: DishCategoriesService,
+
     @InjectRepository(Topping)
     private readonly toppingRepository: Repository<Topping>,
+
+    @InjectRepository(FavoriteDish)
+    private readonly favoriteDishRepository: Repository<FavoriteDish>,
   ) {}
 
   async create(createDishDto: CreateDishDto) {
@@ -38,24 +45,98 @@ export class DishesService {
   }
 
   async findAll() {
-    const dishes: Dish[] = await this.dishRepository.find();
+    const dishes: Dish[] = await this.dishRepository.find({
+      select: {
+        id: true,
+        image: true,
+        description: true,
+        name: true,
+        stock: true,
+        price: true,
+      },
+    });
     return dishes;
   }
 
-  async detail(id: number) {
+  async findOne(dishId: number, user?: User) {
     const dish = await this.dishRepository.findOne({
-      where: { id },
-      relations: {
-        toppings: {
-          toppingCategory: true,
+      where: { id: dishId },
+      select: {
+        id: true,
+        image: true,
+        description: true,
+        name: true,
+        stock: true,
+        price: true,
+        dishCategory: {
+          id: true,
+          name: true,
+          restaurant: {
+            id: true,
+            name: true,
+          },
         },
+      },
+      relations: {
         dishCategory: {
           restaurant: true,
         },
       },
     });
+
     if (!dish) {
-      throw new NotFoundException(`Dish ${id} not found`);
+      throw new NotFoundException(`Dish ${dishId} not found`);
+    }
+
+    let isFavorite = false;
+
+    if (user) {
+      const favoriteRestaurant = await this.favoriteDishRepository.findOne({
+        where: {
+          dish: {
+            id: dish.id,
+          },
+          user: {
+            id: user.id,
+          },
+        },
+      });
+
+      isFavorite = !!favoriteRestaurant;
+    }
+
+    return {
+      ...dish,
+      isFavorite: isFavorite,
+    };
+  }
+
+  async toppings(dishId: number) {
+    const dish = await this.dishRepository.findOne({
+      where: { id: dishId },
+      select: {
+        toppings: {
+          id: true,
+          description: true,
+          maxLimit: true,
+          price: true,
+          toppingCategory: {
+            id: true,
+            description: true,
+            maxToppings: true,
+            minToppings: true,
+          },
+        },
+      },
+      relations: {
+        toppings: {
+          toppingCategory: true,
+        },
+      },
+    });
+
+    if (!dish) {
+      throw new NotFoundException(`Dish ${dishId} not found`);
     }
 
     let toppingCategories = [];
@@ -63,13 +144,11 @@ export class DishesService {
     dish.toppings.forEach((topping) => {
       const toppingCategory = topping.toppingCategory;
       delete topping.toppingCategory;
+
       const toppingCategoryIndex: number = toppingCategories.findIndex(
         (t) => t.id == toppingCategory.id,
       );
-      delete topping.createdAt;
-      delete topping.updatedAt;
-      delete toppingCategory.createdAt;
-      delete toppingCategory.updatedAt;
+
       if (toppingCategoryIndex == -1) {
         toppingCategories.push({
           ...toppingCategory,
@@ -84,19 +163,7 @@ export class DishesService {
       }
     });
 
-    delete dish.toppings;
-    delete dish.createdAt;
-    delete dish.updatedAt;
-    return {
-      ...dish,
-      toppingCategories: toppingCategories,
-    };
-  }
-
-  async findOne(id: number) {
-    return await this.dishRepository.findOne({
-      where: { id },
-    });
+    return toppingCategories;
   }
 
   async update(id: number, updateDishDto: UpdateDishDto) {

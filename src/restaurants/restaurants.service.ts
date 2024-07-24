@@ -79,7 +79,6 @@ export class RestaurantsService {
         record: 4.6,
         recordPeople: 340,
         delivery: 4.2,
-        isFavorite: false,
       })),
       products.meta,
       products.links,

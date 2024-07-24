@@ -8,6 +8,7 @@ import { Dish } from 'src/dishes/entities/dish.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { RestaurantsModule } from 'src/restaurants/restaurants.module';
+import { DishesModule } from 'src/dishes/dishes.module';
 
 @Module({
   controllers: [FavoritesController],
@@ -21,6 +22,7 @@ import { RestaurantsModule } from 'src/restaurants/restaurants.module';
     ]),
     AuthModule,
     RestaurantsModule,
+    DishesModule,
   ],
 })
 export class FavoritesModule {}

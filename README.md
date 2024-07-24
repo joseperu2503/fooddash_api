@@ -49,7 +49,7 @@ docker ps
 2. Entrar al contenedor:
 
 ```bash
-docker exec -it CONTAINER_ID /bin/sh
+docker exec -it fooddash_app sh
 ```
 
 3. Ejecutar el comando dentro del contenedor:
