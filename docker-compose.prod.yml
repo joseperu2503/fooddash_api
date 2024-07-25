@@ -1,8 +1,8 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  fooddashapp:
-    container_name: fooddash_app
+  api:
+    container_name: fooddash_api
     build:
       context: .
       target: production
@@ -11,7 +11,7 @@ services:
       - '${SERVER_PORT}:${SERVER_PORT}'
     depends_on:
       - db
-    image: fooddash-docker
+    image: fooddash
     networks:
       - webnet
     restart: always
@@ -34,5 +34,3 @@ services:
 
 networks:
   webnet:
-volumes:
-  pgdata:
