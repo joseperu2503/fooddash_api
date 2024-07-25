@@ -9,6 +9,8 @@ import { CreateAddressDeliveryDetailDto } from 'src/address-delivery-details/dto
 import { CreateOrderStatusDto } from 'src/orders/dto/create-order-status.dto';
 import { RegisterUserDto } from 'src/auth/dto/register-user.dto';
 import { CreateAddressDto } from 'src/addresses/dto/create-address.dto';
+import { FavoriteDishDto } from 'src/favorites/dto/favorite-dish.dto';
+import { FavoriteRestaurantDto } from 'src/favorites/dto/favorite-restaurant.dto';
 
 interface SeedData {
   users: RegisterUserDto[];
@@ -22,6 +24,8 @@ interface SeedData {
   addressDeliveryDetails: CreateAddressDeliveryDetailDto[];
   orderStatuses: CreateOrderStatusDto[];
   addresses: CreateAddressDto[];
+  favoriteDishes: FavoriteDishDto[];
+  favoriteRestaurants: FavoriteRestaurantDto[];
 }
 
 export const initialData: SeedData = {
@@ -1192,5 +1196,37 @@ export const initialData: SeedData = {
     {
       name: 'Lobby',
     },
+  ],
+  favoriteDishes: [
+    { dishId: 1 },
+    { dishId: 2 },
+    { dishId: 3 },
+    { dishId: 4 },
+    { dishId: 5 },
+    { dishId: 6 },
+    { dishId: 7 },
+    { dishId: 8 },
+    { dishId: 9 },
+    { dishId: 10 },
+    { dishId: 11 },
+    { dishId: 12 },
+    { dishId: 13 },
+    { dishId: 14 },
+    { dishId: 15 },
+    { dishId: 16 },
+    { dishId: 17 },
+    { dishId: 18 },
+    { dishId: 19 },
+  ],
+  favoriteRestaurants: [
+    { restaurantId: 1 },
+    { restaurantId: 3 },
+    { restaurantId: 5 },
+    { restaurantId: 7 },
+    { restaurantId: 9 },
+    { restaurantId: 10 },
+    { restaurantId: 11 },
+    { restaurantId: 12 },
+    { restaurantId: 13 },
   ],
 };

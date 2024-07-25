@@ -24,5 +24,6 @@ import { DishesModule } from 'src/dishes/dishes.module';
     RestaurantsModule,
     DishesModule,
   ],
+  exports: [FavoritesService],
 })
 export class FavoritesModule {}

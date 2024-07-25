@@ -13,6 +13,7 @@ import { OrderStatusesService } from 'src/orders/order-status.service';
 import { AuthService } from 'src/auth/auth.service';
 import { AddressesService } from 'src/addresses/addresses.service';
 import { User } from 'src/auth/entities/user.entity';
+import { FavoritesService } from 'src/favorites/favorites.service';
 
 @Injectable()
 export class SeedService {
@@ -29,6 +30,7 @@ export class SeedService {
     private readonly orderStatusesService: OrderStatusesService,
     private readonly authService: AuthService,
     private readonly addressesService: AddressesService,
+    private readonly favoritesService: FavoritesService,
   ) {}
 
   async runSeed() {
@@ -44,6 +46,8 @@ export class SeedService {
     await this.orderStatusSeed();
     await this.userSeed();
     await this.addressSeed();
+    await this.favoriteDishSeed();
+    await this.favoriteRestaurantSeed();
 
     return 'SEED EXECUTED';
   }
@@ -124,6 +128,22 @@ export class SeedService {
     const user: User = await this.authService.findOne(1);
     for (const address of addresses) {
       await this.addressesService.create(address, user);
+    }
+  }
+
+  private async favoriteDishSeed() {
+    const favoriteDishes = initialData.favoriteDishes;
+    const user: User = await this.authService.findOne(1);
+    for (const favoriteDish of favoriteDishes) {
+      await this.favoritesService.favoriteDish(favoriteDish, user);
+    }
+  }
+
+  private async favoriteRestaurantSeed() {
+    const favoriteRestaurants = initialData.favoriteRestaurants;
+    const user: User = await this.authService.findOne(1);
+    for (const favoriteRestaurant of favoriteRestaurants) {
+      await this.favoritesService.favoriteRestaurant(favoriteRestaurant, user);
     }
   }
 

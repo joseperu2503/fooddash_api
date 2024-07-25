@@ -12,6 +12,7 @@ import { CardsModule } from 'src/cards/cards.module';
 import { OrdersModule } from 'src/orders/orders.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { AddressesModule } from 'src/addresses/addresses.module';
+import { FavoritesModule } from 'src/favorites/favorites.module';
 
 @Module({
   providers: [SeedService],
@@ -28,6 +29,7 @@ import { AddressesModule } from 'src/addresses/addresses.module';
     OrdersModule,
     AuthModule,
     AddressesModule,
+    FavoritesModule,
   ],
   exports: [SeedService],
 })
