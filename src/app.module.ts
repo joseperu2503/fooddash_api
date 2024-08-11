@@ -24,6 +24,7 @@ import { DishOrdersModule } from './dish-orders/dish-orders.module';
 import { ToppingDishOrdersModule } from './topping-dish-orders/topping-dish-orders.module';
 import { SeedCommand } from './seed/seed.command';
 import { FavoritesModule } from './favorites/favorites.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   controllers: [AppController],
@@ -39,6 +40,7 @@ import { FavoritesModule } from './favorites/favorites.module';
       autoLoadEntities: true,
       synchronize: false,
     }),
+    EventEmitterModule.forRoot(),
     RestaurantsModule,
     SeedModule,
     RestaurantCategoriesModule,

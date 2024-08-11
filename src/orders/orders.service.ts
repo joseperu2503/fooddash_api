@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { User } from 'src/auth/entities/user.entity';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, FindOptionsSelect, Repository } from 'typeorm';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { Order } from './entities/order.entity';
 import { DishOrdersService } from 'src/dish-orders/dish-orders.service';
@@ -14,6 +14,9 @@ import { Address } from 'src/addresses/entities/address.entity';
 import { OrderStatus } from './entities/order-status.entity';
 import * as moment from 'moment';
 import { CartsService } from 'src/carts/carts.service';
+import { OrdersGateway } from './orders.gateway';
+import { use } from 'passport';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class OrdersService {
@@ -35,6 +38,8 @@ export class OrdersService {
     private readonly dataSource: DataSource,
 
     private cartsService: CartsService,
+
+    private eventEmitter: EventEmitter2, // Agrega el event emitter
   ) {}
 
   async create(createOrderDto: CreateOrderDto, user: User): Promise<Order> {
@@ -76,14 +81,11 @@ export class OrdersService {
       order.address = address;
 
       // **Buscar OrderStatusType con ID 1**
-      const orderStatus = await this.orderStatusRepository.findOne({
+      const orderStatus1 = await this.orderStatusRepository.findOne({
         where: { id: 1 },
       });
-      if (!orderStatus) {
-        throw new NotFoundException(`OrderStatus 1 not found`);
-      }
 
-      order.orderStatus = orderStatus;
+      order.orderStatus = orderStatus1;
 
       order.user = user;
 
@@ -114,16 +116,49 @@ export class OrdersService {
       );
       await this.orderRepository.save(order);
 
+      //** Limpiar el Cart del User */
       this.cartsService.remove(user);
 
       await queryRunner.commitTransaction();
       await queryRunner.release();
+
+      this.initAutoUpdateOrderStatus(order, user);
+
       return this.findOne(user, order.id);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       await queryRunner.release();
       throw new InternalServerErrorException(error);
     }
+  }
+
+  async initAutoUpdateOrderStatus(order: Order, user: User) {
+    await this.delay(10000);
+    await this.updateOrderStatus(order, 2, user);
+    await this.delay(10000);
+    await this.updateOrderStatus(order, 3, user);
+    await this.delay(10000);
+    await this.updateOrderStatus(order, 4, user);
+  }
+
+  async updateOrderStatus(order: Order, orderStatusId: number, user: User) {
+    const orderStatus = await this.orderStatusRepository.findOneBy({
+      id: orderStatusId,
+    });
+
+    order.orderStatus = orderStatus;
+    await this.orderRepository.save(order);
+
+    const orderResponse = await this.findOne(user, order.id);
+
+    console.log(`orden ${order.id} actualizada ${orderStatusId}`);
+
+    // Emitir la actualización de estado
+    this.eventEmitter.emit('order.statusUpdated', orderResponse);
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   async myOrders(user: User) {
@@ -136,53 +171,7 @@ export class OrdersService {
       order: {
         createdAt: 'DESC',
       },
-      select: {
-        id: true,
-        subtotal: true,
-        deliveryFee: true,
-        serviceFee: true,
-        total: true,
-        createdAt: true,
-        address: {
-          id: true,
-          address: true,
-          latitude: true,
-          longitude: true,
-        },
-        restaurant: {
-          id: true,
-          name: true,
-          address: true,
-          logo: true,
-          backdrop: true,
-          latitude: true,
-          longitude: true,
-        },
-        dishOrders: {
-          id: true,
-          units: true,
-          dish: {
-            id: true,
-            name: true,
-            image: true,
-            price: true,
-            description: true,
-          },
-          toppingDishOrders: {
-            id: true,
-            units: true,
-            topping: {
-              id: true,
-              description: true,
-              price: true,
-            },
-          },
-        },
-        orderStatus: {
-          id: true,
-          name: true,
-        },
-      },
+      select: this.getOrderSelect(),
       relations: {
         dishOrders: {
           dish: true,
@@ -215,53 +204,7 @@ export class OrdersService {
         },
         id: orderId,
       },
-      select: {
-        id: true,
-        subtotal: true,
-        deliveryFee: true,
-        serviceFee: true,
-        total: true,
-        createdAt: true,
-        address: {
-          id: true,
-          address: true,
-          latitude: true,
-          longitude: true,
-        },
-        restaurant: {
-          id: true,
-          name: true,
-          address: true,
-          logo: true,
-          backdrop: true,
-          latitude: true,
-          longitude: true,
-        },
-        dishOrders: {
-          id: true,
-          units: true,
-          dish: {
-            id: true,
-            name: true,
-            image: true,
-            price: true,
-            description: true,
-          },
-          toppingDishOrders: {
-            id: true,
-            units: true,
-            topping: {
-              id: true,
-              description: true,
-              price: true,
-            },
-          },
-        },
-        orderStatus: {
-          id: true,
-          name: true,
-        },
-      },
+      select: this.getOrderSelect(),
       relations: {
         dishOrders: {
           dish: true,
@@ -280,6 +223,56 @@ export class OrdersService {
       estimatedDelivery: {
         min: moment(order.createdAt).add(30, 'minute'),
         max: moment(order.createdAt).add(45, 'minute'),
+      },
+    };
+  }
+
+  private getOrderSelect(): FindOptionsSelect<Order> {
+    return {
+      id: true,
+      subtotal: true,
+      deliveryFee: true,
+      serviceFee: true,
+      total: true,
+      createdAt: true,
+      address: {
+        id: true,
+        address: true,
+        latitude: true,
+        longitude: true,
+      },
+      restaurant: {
+        id: true,
+        name: true,
+        address: true,
+        logo: true,
+        backdrop: true,
+        latitude: true,
+        longitude: true,
+      },
+      dishOrders: {
+        id: true,
+        units: true,
+        dish: {
+          id: true,
+          name: true,
+          image: true,
+          price: true,
+          description: true,
+        },
+        toppingDishOrders: {
+          id: true,
+          units: true,
+          topping: {
+            id: true,
+            description: true,
+            price: true,
+          },
+        },
+      },
+      orderStatus: {
+        id: true,
+        name: true,
       },
     };
   }

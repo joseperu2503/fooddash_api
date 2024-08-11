@@ -11,10 +11,11 @@ import { DishOrdersModule } from 'src/dish-orders/dish-orders.module';
 import { OrderStatus } from './entities/order-status.entity';
 import { OrderStatusesService } from './order-status.service';
 import { CartsModule } from 'src/carts/carts.module';
+import { OrdersGateway } from './orders.gateway';
 
 @Module({
   controllers: [OrdersController],
-  providers: [OrdersService, OrderStatusesService],
+  providers: [OrdersService, OrderStatusesService, OrdersGateway],
   imports: [
     TypeOrmModule.forFeature([
       Order,
