@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { User } from 'src/auth/entities/user.entity';
-import { DataSource, FindOptionsSelect, Repository } from 'typeorm';
+import { DataSource, FindOptionsSelect, In, Repository } from 'typeorm';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { Order } from './entities/order.entity';
 import { DishOrdersService } from 'src/dish-orders/dish-orders.service';
@@ -17,6 +17,7 @@ import { CartsService } from 'src/carts/carts.service';
 import { OrdersGateway } from './orders.gateway';
 import { use } from 'passport';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class OrdersService {
@@ -151,49 +152,68 @@ export class OrdersService {
 
     const orderResponse = await this.findOne(user, order.id);
 
-    console.log(`orden ${order.id} actualizada ${orderStatusId}`);
+    // console.log(`orden ${order.id} actualizada ${orderStatusId}`);
 
-    // Emitir la actualización de estado
-    this.eventEmitter.emit('order.statusUpdated', orderResponse);
+    //** Emitir la actualización del Order */
+    this.eventEmitter.emit('order.orderUpdated', orderResponse);
   }
 
   private delay(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  async myOrders(user: User) {
-    let orders = await this.orderRepository.find({
-      where: {
-        user: {
-          id: user.id,
-        },
+  async myOrders(
+    user: User,
+    orderStatuses: number[],
+    page: number,
+    limit: number,
+  ) {
+    const orders = await paginate<Order>(
+      this.orderRepository,
+      {
+        page: page,
+        limit: limit,
       },
-      order: {
-        createdAt: 'DESC',
-      },
-      select: this.getOrderSelect(),
-      relations: {
-        dishOrders: {
-          dish: true,
-          toppingDishOrders: {
-            topping: true,
+      {
+        where: {
+          user: {
+            id: user.id,
+          },
+          orderStatus: {
+            id: In(orderStatuses),
           },
         },
-        restaurant: true,
-        address: true,
-        orderStatus: true,
-      },
-    });
-
-    return orders.map((order) => {
-      return {
-        ...order,
-        estimatedDelivery: {
-          min: moment(order.createdAt).add(30, 'minute'),
-          max: moment(order.createdAt).add(45, 'minute'),
+        order: {
+          createdAt: 'DESC',
         },
-      };
-    });
+        select: this.getOrderSelect(),
+        relations: {
+          dishOrders: {
+            dish: true,
+            toppingDishOrders: {
+              topping: true,
+            },
+          },
+          restaurant: true,
+          address: true,
+          orderStatus: true,
+        },
+      },
+    );
+
+    return new Pagination(
+      orders.items.map((order) => {
+        return {
+          ...order,
+          estimatedDelivery: {
+            min: moment(order.createdAt).add(30, 'minute'),
+            max: moment(order.createdAt).add(45, 'minute'),
+          },
+        };
+      }),
+      orders.meta,
+      orders.links,
+    );
   }
 
   async findOne(user: User, orderId: number) {

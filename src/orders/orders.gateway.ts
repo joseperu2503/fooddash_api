@@ -31,20 +31,17 @@ export class OrdersGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     private readonly jwtService: JwtService,
   ) {
-    this.eventEmitter.on('order.statusUpdated', (order: Order) =>
-      this.emitOrderStatusUpdate(order),
+    this.eventEmitter.on('order.orderUpdated', (order: Order) =>
+      this.emitOrderUpdate(order),
     );
   }
 
   handleConnection(client: Socket) {
-    console.log('Client connected:', client.id);
+    // console.log('Client connected:', client.id);
     const token = client.handshake.headers.authorization as string;
-    console.log('token', token);
-    let payload: JwtPayload;
 
     try {
-      payload = this.jwtService.verify(token);
-      console.log('payload', payload);
+      this.jwtService.verify(token);
     } catch (error) {
       client.disconnect();
       return;
@@ -52,18 +49,18 @@ export class OrdersGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   handleDisconnect(client: Socket) {
-    console.log('Client disconnected:', client.id);
+    // console.log('Client disconnected:', client.id);
   }
 
-  // Método para emitir el estado de la orden a todos los clientes en el canal
-  emitOrderStatusUpdate(order: Order) {
-    console.log(`emit orden ${order.id} actualizada ${order.orderStatus.name}`);
+  //** Método para emitir el estado de la orden a todos los clientes en el canal */
+  emitOrderUpdate(order: Order) {
+    // console.log(`emit orden ${order.id} actualizada ${order.orderStatus.name}`);
 
     const room = `order_${order.id}`;
-    this.server.to(room).emit('orderStatusUpdate', order);
+    this.server.to(room).emit('orderUpdate', order);
   }
 
-  // Suscribirse a un canal específico
+  //** Suscribirse a un canal específico */
   @SubscribeMessage('joinOrderChannel')
   async handleJoinOrderChannel(client: Socket, data: JoinOrderDto) {
     const token = client.handshake.headers.authorization as string;
@@ -80,7 +77,7 @@ export class OrdersGateway implements OnGatewayConnection, OnGatewayDisconnect {
         client.join(`order_${data.orderId}`);
         console.log(`Client ${client.id} joined order-${data.orderId} channel`);
 
-        this.emitOrderStatusUpdate(orderResponse);
+        this.emitOrderUpdate(orderResponse);
       }
     } catch (error) {
       return;
