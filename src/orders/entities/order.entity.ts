@@ -54,6 +54,9 @@ export class Order {
   @Column('float')
   total: number;
 
+  @Column('timestamptz', { name: 'delivered_date', nullable: true })
+  deliveredDate: Date;
+
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;
 

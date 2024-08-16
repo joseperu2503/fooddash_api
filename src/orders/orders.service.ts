@@ -148,11 +148,14 @@ export class OrdersService {
     });
 
     order.orderStatus = orderStatus;
+
+    if (orderStatusId == 4) {
+      order.deliveredDate = new Date();
+    }
+
     await this.orderRepository.save(order);
 
     const orderResponse = await this.findOne(user, order.id);
-
-    // console.log(`orden ${order.id} actualizada ${orderStatusId}`);
 
     //** Emitir la actualización del Order */
     this.eventEmitter.emit('order.orderUpdated', orderResponse);
@@ -255,6 +258,7 @@ export class OrdersService {
       serviceFee: true,
       total: true,
       createdAt: true,
+      deliveredDate: true,
       address: {
         id: true,
         address: true,
