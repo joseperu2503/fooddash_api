@@ -1,13 +1,11 @@
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
-  SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 import { JoinOrderDto } from './dto/join-order.dto';
-import { Order } from './entities/order.entity';
 import { OrdersService } from './orders.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -31,17 +29,24 @@ export class OrdersGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     private readonly jwtService: JwtService,
   ) {
-    this.eventEmitter.on('order.orderUpdated', (order: Order) =>
-      this.emitOrderUpdate(order),
+    this.eventEmitter.on('order.upcomingOrdersUpdated', (user: User) =>
+      this.emitUpcomingOrdersUpdated(user),
     );
   }
 
-  handleConnection(client: Socket) {
+  async handleConnection(client: Socket) {
     // console.log('Client connected:', client.id);
     const token = client.handshake.headers.authorization as string;
+    let payload: JwtPayload;
 
     try {
-      this.jwtService.verify(token);
+      payload = this.jwtService.verify(token);
+      const user = await this.userRepository.findOneBy({ id: payload.id });
+
+      client.join(`user-${user.id}`);
+      console.log(`Client ${client.id} joined user-${user.id} channel`);
+
+      this.emitUpcomingOrdersUpdated(user);
     } catch (error) {
       client.disconnect();
       return;
@@ -53,34 +58,18 @@ export class OrdersGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   //** Método para emitir el estado de la orden a todos los clientes en el canal */
-  emitOrderUpdate(order: Order) {
+  async emitUpcomingOrdersUpdated(user: User) {
     // console.log(`emit orden ${order.id} actualizada ${order.orderStatus.name}`);
 
-    const room = `order_${order.id}`;
-    this.server.to(room).emit('orderUpdate', order);
+    const orders = await this.ordersService.upcomingOrders(user);
+    const room = `user-${user.id}`;
+    this.server.to(room).emit('upcomingOrdersUpdated', orders);
   }
 
-  //** Suscribirse a un canal específico */
-  @SubscribeMessage('joinOrderChannel')
-  async handleJoinOrderChannel(client: Socket, data: JoinOrderDto) {
-    const token = client.handshake.headers.authorization as string;
-    let payload: JwtPayload;
-    try {
-      payload = this.jwtService.verify(token);
-      const user = await this.userRepository.findOneBy({ id: payload.id });
-      const orderResponse = await this.ordersService.findOne(
-        user,
-        data.orderId,
-      );
-
-      if (orderResponse) {
-        client.join(`order_${data.orderId}`);
-        console.log(`Client ${client.id} joined order-${data.orderId} channel`);
-
-        this.emitOrderUpdate(orderResponse);
-      }
-    } catch (error) {
-      return;
-    }
+  //** Método para emitir el estado de la orden a todos los clientes en el canal */
+  async emitDeliveredOrdersUpdated(user: User) {
+    const orders = await this.ordersService.deliveredOrders(user);
+    const room = `user-${user.id}`;
+    this.server.to(room).emit('deliveredOrdersUpdated', orders);
   }
 }

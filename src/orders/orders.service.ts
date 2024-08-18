@@ -5,7 +5,13 @@ import {
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { User } from 'src/auth/entities/user.entity';
-import { DataSource, FindOptionsSelect, In, Repository } from 'typeorm';
+import {
+  DataSource,
+  FindOptionsSelect,
+  In,
+  MoreThan,
+  Repository,
+} from 'typeorm';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { Order } from './entities/order.entity';
 import { DishOrdersService } from 'src/dish-orders/dish-orders.service';
@@ -125,6 +131,8 @@ export class OrdersService {
 
       this.initAutoUpdateOrderStatus(order, user);
 
+      this.eventEmitter.emit('order.upcomingOrdersUpdated', user);
+
       return this.findOne(user, order.id);
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -155,10 +163,8 @@ export class OrdersService {
 
     await this.orderRepository.save(order);
 
-    const orderResponse = await this.findOne(user, order.id);
-
     //** Emitir la actualización del Order */
-    this.eventEmitter.emit('order.orderUpdated', orderResponse);
+    this.eventEmitter.emit('order.upcomingOrdersUpdated', user);
   }
 
   private delay(ms: number): Promise<void> {
@@ -217,6 +223,89 @@ export class OrdersService {
       orders.meta,
       orders.links,
     );
+  }
+
+  async upcomingOrders(user: User) {
+    const orders = await this.orderRepository.find({
+      where: [
+        {
+          user: {
+            id: user.id,
+          },
+          orderStatus: {
+            id: In([1, 2, 3]),
+          },
+        },
+      ],
+      order: {
+        createdAt: 'DESC',
+      },
+      select: this.getOrderSelect(),
+      relations: {
+        dishOrders: {
+          dish: true,
+          toppingDishOrders: {
+            topping: true,
+          },
+        },
+        restaurant: true,
+        address: true,
+        orderStatus: true,
+      },
+    });
+
+    return orders.map((order) => {
+      return {
+        ...order,
+        estimatedDelivery: {
+          min: moment(order.createdAt).add(30, 'minute'),
+          max: moment(order.createdAt).add(45, 'minute'),
+        },
+      };
+    });
+  }
+
+  async deliveredOrders(user: User) {
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+
+    const orders = await this.orderRepository.find({
+      where: [
+        {
+          user: {
+            id: user.id,
+          },
+          orderStatus: {
+            id: 4,
+          },
+          deliveredDate: MoreThan(fiveMinutesAgo),
+        },
+      ],
+      order: {
+        createdAt: 'DESC',
+      },
+      select: this.getOrderSelect(),
+      relations: {
+        dishOrders: {
+          dish: true,
+          toppingDishOrders: {
+            topping: true,
+          },
+        },
+        restaurant: true,
+        address: true,
+        orderStatus: true,
+      },
+    });
+
+    return orders.map((order) => {
+      return {
+        ...order,
+        estimatedDelivery: {
+          min: moment(order.createdAt).add(30, 'minute'),
+          max: moment(order.createdAt).add(45, 'minute'),
+        },
+      };
+    });
   }
 
   async findOne(user: User, orderId: number) {

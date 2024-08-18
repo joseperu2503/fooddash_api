@@ -54,6 +54,9 @@ export class Order {
   @Column('float')
   total: number;
 
+  @Column('bool', { name: 'delivery_notification_read', default: false })
+  deliveryNotificationRead: boolean;
+
   @Column('timestamptz', { name: 'delivered_date', nullable: true })
   deliveredDate: Date;
 
