@@ -75,7 +75,7 @@ export class FacebookService {
       const appId: string | undefined = process.env.FACEBOOK_APP_ID;
       if (!appId) return null;
 
-      const url = `https://graph.facebook.com/me?fields=email&accdess_token=${accessToken}`;
+      const url = `https://graph.facebook.com/me?fields=email&access_token=${accessToken}`;
 
       const response = await firstValueFrom(this.httpService.get(url));
       const email: string = response.data.email;
