@@ -7,10 +7,12 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { MercadoPagoModule } from 'src/mercado-pago/mercado-pago.module';
+import { HttpModule } from '@nestjs/axios';
+import { FacebookService } from './services/facebook/facebook.service';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, FacebookService],
   imports: [
     TypeOrmModule.forFeature([User]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
@@ -25,6 +27,7 @@ import { MercadoPagoModule } from 'src/mercado-pago/mercado-pago.module';
         };
       },
     }),
+    HttpModule,
     MercadoPagoModule,
   ],
   exports: [TypeOrmModule, JwtStrategy, PassportModule, JwtModule, AuthService],

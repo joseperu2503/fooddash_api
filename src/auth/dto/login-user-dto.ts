@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsIn, IsString } from 'class-validator';
 
 export class LoginUserDto {
   @IsString()
@@ -17,4 +17,8 @@ export class LoginUserGoogleDto {
 export class LoginUserFacebookDto {
   @IsString()
   accessToken: string;
+
+  @IsString()
+  @IsIn(['android', 'ios'])
+  platform: 'android' | 'ios';
 }
