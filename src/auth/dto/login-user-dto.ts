@@ -8,3 +8,13 @@ export class LoginUserDto {
   @IsString()
   password: string;
 }
+
+export class LoginUserGoogleDto {
+  @IsString()
+  idToken: string;
+}
+
+export class LoginUserFacebookDto {
+  @IsString()
+  accessToken: string;
+}
