@@ -79,7 +79,7 @@ export class AddressesService {
   }
 
   private async findOne(id: number) {
-    const address = await this.addressRepository.find({
+    const address = await this.addressRepository.findOne({
       where: { id: id },
       select: [
         'id',
