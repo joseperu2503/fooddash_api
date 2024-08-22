@@ -19,6 +19,7 @@ export class ToppingsService {
       createToppingDto.toppingCategoryId,
     );
 
+    if (!toppingCategory) return;
     topping.toppingCategory = toppingCategory;
 
     await this.toppingRepository.save(topping);

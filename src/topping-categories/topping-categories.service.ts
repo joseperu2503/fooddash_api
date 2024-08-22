@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateToppingCategoryDto } from './dto/create-topping-category.dto';
 import { ToppingCategory } from './entities/topping-category.entity';
 import { Repository } from 'typeorm';
@@ -25,9 +25,7 @@ export class ToppingCategoriesService {
     });
 
     if (!restaurant) {
-      throw new NotFoundException(
-        `Restaurant ${createToppingCategoryDto.restaurantId} not found`,
-      );
+      return;
     }
 
     toppingCategory.restaurant = restaurant;
@@ -36,17 +34,11 @@ export class ToppingCategoriesService {
     return toppingCategory;
   }
 
-  findAll() {
-    return `This action returns all toppingCategories`;
-  }
-
   async findOne(id: number) {
     const toppingCategory = await this.toppingCategoryRepository.findOneBy({
       id,
     });
-    if (!toppingCategory) {
-      throw new NotFoundException(`Topping Category ${id} not found`);
-    }
+
     return toppingCategory;
   }
 }
