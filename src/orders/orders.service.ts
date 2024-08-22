@@ -49,7 +49,7 @@ export class OrdersService {
     private eventEmitter: EventEmitter2, // Agrega el event emitter
   ) {}
 
-  async create(createOrderDto: CreateOrderDto, user: User): Promise<Order> {
+  async create(createOrderDto: CreateOrderDto, user: User) {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -91,6 +91,10 @@ export class OrdersService {
       const orderStatus1 = await this.orderStatusRepository.findOne({
         where: { id: 1 },
       });
+
+      if (!orderStatus1) {
+        throw new InternalServerErrorException();
+      }
 
       order.orderStatus = orderStatus1;
 
@@ -154,6 +158,8 @@ export class OrdersService {
     const orderStatus = await this.orderStatusRepository.findOneBy({
       id: orderStatusId,
     });
+
+    if (!orderStatus) return;
 
     order.orderStatus = orderStatus;
 
@@ -329,6 +335,8 @@ export class OrdersService {
         orderStatus: true,
       },
     });
+
+    if (!order) return;
 
     return {
       ...order,

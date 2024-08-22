@@ -125,7 +125,8 @@ export class SeedService {
 
   private async addressSeed() {
     const addresses = initialData.addresses;
-    const user: User = await this.authService.findOne(1);
+    const user: User | null = await this.authService.findOne(1);
+    if (!user) return;
     for (const address of addresses) {
       await this.addressesService.create(address, user);
     }
@@ -133,7 +134,8 @@ export class SeedService {
 
   private async favoriteDishSeed() {
     const favoriteDishes = initialData.favoriteDishes;
-    const user: User = await this.authService.findOne(1);
+    const user: User | null = await this.authService.findOne(1);
+    if (!user) return;
     for (const favoriteDish of favoriteDishes) {
       await this.favoritesService.favoriteDish(favoriteDish, user);
     }
@@ -141,7 +143,8 @@ export class SeedService {
 
   private async favoriteRestaurantSeed() {
     const favoriteRestaurants = initialData.favoriteRestaurants;
-    const user: User = await this.authService.findOne(1);
+    const user: User | null = await this.authService.findOne(1);
+    if (!user) return;
     for (const favoriteRestaurant of favoriteRestaurants) {
       await this.favoritesService.favoriteRestaurant(favoriteRestaurant, user);
     }

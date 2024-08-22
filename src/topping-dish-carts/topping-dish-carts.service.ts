@@ -36,6 +36,12 @@ export class ToppingDishCartsService {
       where: { id: createToppingDishCartDto.toppingId },
     });
 
+    if (!topping) {
+      throw new NotFoundException(
+        `Topping ${createToppingDishCartDto.toppingId} not found`,
+      );
+    }
+
     toppingDishCart.dishCart = dishCart;
     toppingDishCart.topping = topping;
 

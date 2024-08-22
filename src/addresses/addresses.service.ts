@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAddressDto } from './dto/create-address.dto';
-import { UpdateAddressDto } from './dto/update-address.dto';
 import { Address } from './entities/address.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -26,6 +25,7 @@ export class AddressesService {
       const addressTag = await this.addressTagRepository.findOne({
         where: { id: createAddressDto.addressTagId },
       });
+
       if (!addressTag) {
         throw new NotFoundException(
           `Address tag ${createAddressDto.addressTagId} not found`,
@@ -52,16 +52,35 @@ export class AddressesService {
     address.user = user;
 
     await this.addressRepository.save(address);
-    delete address.user;
-    delete address.createdAt;
-    delete address.updatedAt;
 
-    return address;
+    return await this.findOne(address.id);
   }
 
   async MyAddresses(user: User) {
     const addresses = await this.addressRepository.find({
       where: { user: { id: user.id } },
+      select: {
+        id: true,
+        city: true,
+        country: true,
+        address: true,
+        latitude: true,
+        longitude: true,
+        detail: true,
+        references: true,
+      },
+      relations: {
+        addressTag: true,
+        addressDeliveryDetail: true,
+      },
+    });
+
+    return addresses;
+  }
+
+  private async findOne(id: number) {
+    const address = await this.addressRepository.find({
+      where: { id: id },
       select: [
         'id',
         'city',
@@ -78,22 +97,6 @@ export class AddressesService {
       },
     });
 
-    return addresses;
-  }
-
-  findAll() {
-    return `This action returns all addresses`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} address`;
-  }
-
-  update(id: number, updateAddressDto: UpdateAddressDto) {
-    return `This action updates a #${id} address`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} address`;
+    return address;
   }
 }

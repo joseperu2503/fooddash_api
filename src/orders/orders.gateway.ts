@@ -5,7 +5,6 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
-import { JoinOrderDto } from './dto/join-order.dto';
 import { OrdersService } from './orders.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -43,13 +42,17 @@ export class OrdersGateway implements OnGatewayConnection, OnGatewayDisconnect {
       payload = this.jwtService.verify(token);
       const user = await this.userRepository.findOneBy({ id: payload.id });
 
+      if (!user) {
+        client.disconnect();
+        return;
+      }
+
       client.join(`user-${user.id}`);
       console.log(`Client ${client.id} joined user-${user.id} channel`);
 
       this.emitUpcomingOrdersUpdated(user);
     } catch (error) {
       client.disconnect();
-      return;
     }
   }
 

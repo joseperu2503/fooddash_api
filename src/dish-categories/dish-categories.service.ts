@@ -37,7 +37,7 @@ export class DishCategoriesService {
   }
 
   async findOne(id: number) {
-    const dishCategory: DishCategory =
+    const dishCategory: DishCategory | null =
       await this.dishCategoryRepository.findOneBy({ id });
     if (!dishCategory) {
       throw new NotFoundException(`Dish Category ${id} not found`);

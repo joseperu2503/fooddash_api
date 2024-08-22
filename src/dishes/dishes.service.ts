@@ -111,77 +111,58 @@ export class DishesService {
     };
   }
 
-  async toppings(dishId: number) {
-    const dish = await this.dishRepository.findOne({
-      where: { id: dishId },
-      select: {
-        toppings: {
-          id: true,
-          description: true,
-          maxLimit: true,
-          price: true,
-          toppingCategory: {
-            id: true,
-            description: true,
-            maxToppings: true,
-            minToppings: true,
-          },
-        },
-      },
-      relations: {
-        toppings: {
-          toppingCategory: true,
-        },
-      },
-    });
+  // async toppings(dishId: number) {
+  //   const dish = await this.dishRepository.findOne({
+  //     where: { id: dishId },
+  //     select: {
+  //       toppings: {
+  //         id: true,
+  //         description: true,
+  //         maxLimit: true,
+  //         price: true,
+  //         toppingCategory: {
+  //           id: true,
+  //           description: true,
+  //           maxToppings: true,
+  //           minToppings: true,
+  //         },
+  //       },
+  //     },
+  //     relations: {
+  //       toppings: {
+  //         toppingCategory: true,
+  //       },
+  //     },
+  //   });
 
-    if (!dish) {
-      throw new NotFoundException(`Dish ${dishId} not found`);
-    }
+  //   if (!dish) {
+  //     throw new NotFoundException(`Dish ${dishId} not found`);
+  //   }
 
-    let toppingCategories = [];
+  //   let toppingCategories = [];
 
-    dish.toppings.forEach((topping) => {
-      const toppingCategory = topping.toppingCategory;
-      delete topping.toppingCategory;
+  //   dish.toppings.forEach((topping) => {
+  //     const toppingCategory = topping.toppingCategory;
 
-      const toppingCategoryIndex: number = toppingCategories.findIndex(
-        (t) => t.id == toppingCategory.id,
-      );
+  //     const toppingCategoryIndex: number = toppingCategories.findIndex(
+  //       (t) => t.id == toppingCategory.id,
+  //     );
 
-      if (toppingCategoryIndex == -1) {
-        toppingCategories.push({
-          ...toppingCategory,
-          subtitle:
-            toppingCategory.maxToppings > 1
-              ? `Select maximun ${toppingCategory.maxToppings} options`
-              : '',
-          toppings: [topping],
-        });
-      } else {
-        toppingCategories[toppingCategoryIndex].toppings.push(topping);
-      }
-    });
+  //     if (toppingCategoryIndex == -1) {
+  //       toppingCategories.push({
+  //         ...toppingCategory,
+  //         subtitle:
+  //           toppingCategory.maxToppings > 1
+  //             ? `Select maximun ${toppingCategory.maxToppings} options`
+  //             : '',
+  //         toppings: [topping],
+  //       });
+  //     } else {
+  //       toppingCategories[toppingCategoryIndex].toppings.push(topping);
+  //     }
+  //   });
 
-    return toppingCategories;
-  }
+  //   return toppingCategories;
+  // }
 
-  async update(id: number, updateDishDto: UpdateDishDto) {
-    const dish = await this.dishRepository.findOne({
-      where: { id },
-    });
-
-    if (updateDishDto.dishCategoryId) {
-      const dishCategory: DishCategory =
-        await this.dishCategoriesService.findOne(updateDishDto.dishCategoryId);
-
-      dish.dishCategory = dishCategory;
-    }
-    this.dishRepository.merge(dish, updateDishDto);
-    return this.dishRepository.save(dish);
-  }
-
-  remove(id: number) {
-    return this.dishRepository.delete(id);
-  }
 }

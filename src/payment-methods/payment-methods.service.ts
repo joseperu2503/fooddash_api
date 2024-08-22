@@ -27,12 +27,12 @@ export class PaymentMethodsService {
         ...cards.map((card) => {
           let image: string | null = null;
 
-          if (card.issuer.name == 'Mastercard') {
+          if (card.issuer?.name == 'Mastercard') {
             image =
               'https://files.joseperezgil.com/images/fooddash/static/mastercard.png';
           }
 
-          if (card.issuer.name == 'Visa') {
+          if (card.issuer?.name == 'Visa') {
             image =
               'https://files.joseperezgil.com/images/fooddash/static/visa.png';
           }
@@ -40,16 +40,16 @@ export class PaymentMethodsService {
           return {
             id: card.id,
             description:
-              card.payment_method.payment_type_id == 'debit_card'
+              card.payment_method?.payment_type_id == 'debit_card'
                 ? 'Debit card'
                 : 'Credit card',
             expirationMonth: card.expiration_month,
             expirationYear: card.expiration_year,
             firstSixDigits: card.first_six_digits,
             lastFourDigits: card.last_four_digits,
-            issuer: card.issuer.name,
+            issuer: card.issuer?.name,
             cardHolder: {
-              name: card.cardholder.name,
+              name: card.cardholder?.name,
             },
             image: image,
           };

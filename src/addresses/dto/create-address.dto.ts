@@ -5,7 +5,6 @@ import {
   IsOptional,
   IsPositive,
   IsString,
-  IsUrl,
 } from 'class-validator';
 
 export class CreateAddressDto {
@@ -36,10 +35,10 @@ export class CreateAddressDto {
   @IsInt()
   @IsPositive()
   @IsOptional()
-  readonly addressTagId: number;
+  addressTagId: number;
 
   @IsInt()
   @IsPositive()
   @IsOptional()
-  readonly addressDeliveryDetailId: number;
+  addressDeliveryDetailId: number;
 }

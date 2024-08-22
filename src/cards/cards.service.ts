@@ -16,20 +16,20 @@ export class CardsService {
         expirationYear: card.expiration_year,
         firstSixDigits: card.first_six_digits,
         lastFourDigits: card.last_four_digits,
-        issuer: card.issuer.name,
+        issuer: card.issuer?.name,
         cardHolder: {
-          name: card.cardholder.name,
+          name: card.cardholder?.name,
         },
         securityCode: {
-          length: card.security_code.length,
-          cardLocation: card.security_code.card_location,
+          length: card.security_code?.length,
+          cardLocation: card.security_code?.card_location,
         },
         paymentMethod: {
-          id: card.payment_method.id,
-          name: card.payment_method.name,
-          paymentTypeId: card.payment_method.payment_type_id,
-          thumbnail: card.payment_method.thumbnail,
-          secureThumbnail: card.payment_method.secure_thumbnail,
+          id: card.payment_method?.id,
+          name: card.payment_method?.name,
+          paymentTypeId: card.payment_method?.payment_type_id,
+          thumbnail: card.payment_method?.thumbnail,
+          secureThumbnail: card.payment_method?.secure_thumbnail,
         },
       }));
     } catch (error) {
