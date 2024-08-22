@@ -1,5 +1,4 @@
 import { IsInt, IsNotEmpty, IsPositive, IsString } from 'class-validator';
-import { Column } from 'typeorm';
 
 export class CreateToppingCategoryDto {
   @IsString()

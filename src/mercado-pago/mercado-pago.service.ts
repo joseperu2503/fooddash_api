@@ -2,11 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 import {
   MercadoPagoConfig,
-  Payment,
   CustomerCard,
   CardToken,
   Customer,
-  PaymentMethod,
 } from 'mercadopago';
 import { User } from 'src/auth/entities/user.entity';
 

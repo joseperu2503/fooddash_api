@@ -7,10 +7,7 @@ export class SeedCommand extends CommandRunner {
     super();
   }
 
-  async run(
-    passedParams: string[],
-    options?: Record<string, any>,
-  ): Promise<void> {
+  async run(): Promise<void> {
     try {
       await this.seedService.runSeed();
       console.log('Seed executed successfully');

@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateToppingCategoryDto } from './dto/create-topping-category.dto';
-import { UpdateToppingCategoryDto } from './dto/update-topping-category.dto';
 import { ToppingCategory } from './entities/topping-category.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -49,13 +48,5 @@ export class ToppingCategoriesService {
       throw new NotFoundException(`Topping Category ${id} not found`);
     }
     return toppingCategory;
-  }
-
-  update(id: number, updateToppingCategoryDto: UpdateToppingCategoryDto) {
-    return `This action updates a #${id} toppingCategory`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} toppingCategory`;
   }
 }

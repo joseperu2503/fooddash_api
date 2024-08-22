@@ -1,7 +1,5 @@
 import {
   Controller,
-  Post,
-  Body,
   Get,
   Param,
   Query,
@@ -9,7 +7,6 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
@@ -17,12 +14,6 @@ import { User } from 'src/auth/entities/user.entity';
 @Controller('restaurants')
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
-
-  @Post()
-  @Auth()
-  create(@Body() createRestaurantDto: CreateRestaurantDto) {
-    return this.restaurantsService.create(createRestaurantDto);
-  }
 
   @Get()
   findAll(

@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Restaurant } from './entities/restaurant.entity';
 import { FindManyOptions, Repository } from 'typeorm';
 import { RestaurantCategoriesService } from 'src/restaurant-categories/restaurant-categories.service';
-import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { User } from 'src/auth/entities/user.entity';
 import { FavoriteRestaurant } from 'src/favorites/entities/favorite-restaurant.entity';
@@ -42,7 +41,7 @@ export class RestaurantsService {
     limit: number;
     restaurantCategoryId?: number;
   }) {
-    let searchOptions: FindManyOptions<Restaurant> = {
+    const searchOptions: FindManyOptions<Restaurant> = {
       select: {
         id: true,
         address: true,
@@ -162,23 +161,5 @@ export class RestaurantsService {
     });
 
     return dishCategories;
-  }
-
-  async update(id: number, UpdateRestaurantDto: UpdateRestaurantDto) {
-    const restaurant = await this.findOne(id);
-    if (UpdateRestaurantDto.restaurantCategoryId) {
-      const category = await this.restaurantCategoriesService.findOne(
-        UpdateRestaurantDto.restaurantCategoryId,
-      );
-      restaurant.restaurantCategory = category;
-    }
-
-    this.restaurantRepository.merge(restaurant, UpdateRestaurantDto);
-
-    return this.restaurantRepository.save(restaurant);
-  }
-
-  remove(id: number) {
-    return this.restaurantRepository.delete(id);
   }
 }

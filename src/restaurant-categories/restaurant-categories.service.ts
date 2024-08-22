@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRestaurantCategoryDto } from './dto/create-restaurant-category.dto';
-import { UpdateRestaurantCategoryDto } from './dto/update-restaurant-category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RestaurantCategory } from './entities/restaurant-category.entity';
 import { Repository } from 'typeorm';
@@ -19,7 +18,13 @@ export class RestaurantCategoriesService {
   }
 
   async findAll() {
-    const categories = await this.categoryRepository.find();
+    const categories = await this.categoryRepository.find({
+      select: {
+        id: true,
+        name: true,
+        image: true,
+      },
+    });
     return categories;
   }
 
@@ -29,15 +34,5 @@ export class RestaurantCategoriesService {
       throw new NotFoundException(`Category ${id} not found`);
     }
     return category;
-  }
-
-  async update(id: number, updateCategoryDto: UpdateRestaurantCategoryDto) {
-    const category = await this.findOne(id);
-    this.categoryRepository.merge(category, updateCategoryDto);
-    return this.categoryRepository.save(category);
-  }
-
-  remove(id: number) {
-    return this.categoryRepository.delete(id);
   }
 }

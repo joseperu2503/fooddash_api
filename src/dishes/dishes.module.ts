@@ -8,12 +8,20 @@ import { Topping } from 'src/toppings/entities/topping.entity';
 import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import { FavoriteDish } from 'src/favorites/entities/favorite-dish.entity';
 import { AuthModule } from 'src/auth/auth.module';
+import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
 
 @Module({
   controllers: [DishesController],
   providers: [DishesService],
   imports: [
-    TypeOrmModule.forFeature([Dish, Topping, ToppingCategory, FavoriteDish]),
+    TypeOrmModule.forFeature([
+      Dish,
+      Topping,
+      ToppingCategory,
+      FavoriteDish,
+      ToppingCategory,
+      DishCategory,
+    ]),
     DishCategoriesModule,
     AuthModule,
   ],

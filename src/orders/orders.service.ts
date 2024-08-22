@@ -20,8 +20,6 @@ import { Address } from 'src/addresses/entities/address.entity';
 import { OrderStatus } from './entities/order-status.entity';
 import * as moment from 'moment';
 import { CartsService } from 'src/carts/carts.service';
-import { OrdersGateway } from './orders.gateway';
-import { use } from 'passport';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 
