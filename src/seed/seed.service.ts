@@ -11,7 +11,7 @@ import { AddressTagsService } from 'src/address-tags/address-tags.service';
 import { AddressDeliveryDetailsService } from 'src/address-delivery-details/address-delivery-details.service';
 import { OrderStatusesService } from 'src/orders/order-status.service';
 import { AuthService } from 'src/auth/auth.service';
-import { AddressesService } from 'src/addresses/addresses.service';
+import { AddressesService } from 'src/addresses/services/addresses.service';
 import { User } from 'src/auth/entities/user.entity';
 import { FavoritesService } from 'src/favorites/favorites.service';
 

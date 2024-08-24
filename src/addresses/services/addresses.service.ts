@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateAddressDto } from './dto/create-address.dto';
-import { Address } from './entities/address.entity';
+import { CreateAddressDto } from '../dto/create-address.dto';
+import { Address } from '../entities/address.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AddressTag } from 'src/address-tags/entities/address-tag.entity';
