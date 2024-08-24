@@ -20,7 +20,7 @@ export class Address {
   id: number;
 
   @Column('text')
-  city: string;
+  locality: string;
 
   @Column('text')
   country: string;

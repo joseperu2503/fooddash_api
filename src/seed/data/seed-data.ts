@@ -62,7 +62,7 @@ export const initialData: SeedData = {
   addresses: [
     {
       address: 'Avenida Las Viñas',
-      city: 'Puente Piedra',
+      locality: 'Puente Piedra',
       country: 'Peru',
       latitude: -11.850501612187411,
       longitude: -77.08191242069006,

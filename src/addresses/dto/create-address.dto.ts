@@ -10,7 +10,7 @@ import {
 export class CreateAddressDto {
   @IsString()
   @IsNotEmpty()
-  city: string;
+  locality: string;
 
   @IsString()
   @IsNotEmpty()

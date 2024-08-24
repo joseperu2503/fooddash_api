@@ -61,7 +61,7 @@ export class AddressesService {
       where: { user: { id: user.id } },
       select: {
         id: true,
-        city: true,
+        locality: true,
         country: true,
         address: true,
         latitude: true,
@@ -81,16 +81,16 @@ export class AddressesService {
   private async findOne(id: number) {
     const address = await this.addressRepository.findOne({
       where: { id: id },
-      select: [
-        'id',
-        'city',
-        'country',
-        'address',
-        'latitude',
-        'longitude',
-        'detail',
-        'references',
-      ],
+      select: {
+        id: true,
+        locality: true,
+        country: true,
+        address: true,
+        latitude: true,
+        longitude: true,
+        detail: true,
+        references: true,
+      },
       relations: {
         addressTag: true,
         addressDeliveryDetail: true,
