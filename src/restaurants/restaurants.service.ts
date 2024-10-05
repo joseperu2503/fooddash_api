@@ -44,6 +44,7 @@ export class RestaurantsService {
     page: number;
     limit: number;
     restaurantCategoryId?: number;
+    user?: User;
   }): Promise<FindAllRestaurantsResponse> {
     const searchOptions: FindManyOptions<Restaurant> = {
       select: {
@@ -68,12 +69,36 @@ export class RestaurantsService {
       };
     }
 
+    // Obtener los restaurantes paginados
     const restaurants = await paginate<Restaurant>(
       this.restaurantRepository,
       options,
       searchOptions,
     );
 
+    // Variable para almacenar IDs de restaurantes favoritos
+    let favoriteRestaurantIds: number[] = [];
+
+    // Si hay un usuario, buscar sus restaurantes favoritos
+    if (options.user) {
+      const favoriteRestaurants = await this.favoriteRestaurantRepository.find({
+        where: {
+          user: {
+            id: options.user.id,
+          },
+        },
+        relations: {
+          restaurant: true,
+        },
+      });
+
+      // Obtener solo los IDs de los restaurantes favoritos
+      favoriteRestaurantIds = favoriteRestaurants.map(
+        (fav) => fav.restaurant.id,
+      );
+    }
+
+    // Construir la respuesta incluyendo si el restaurante es favorito o no
     return new Pagination(
       restaurants.items.map((restaurant) => ({
         ...restaurant,
@@ -82,7 +107,7 @@ export class RestaurantsService {
         record: 4.6,
         recordPeople: 340,
         delivery: 4.2,
-        isFavorite: false,
+        isFavorite: favoriteRestaurantIds.includes(restaurant.id),
       })),
       restaurants.meta,
     );
