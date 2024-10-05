@@ -21,7 +21,24 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+
+  SwaggerModule.setup('api', app, document, {
+    customCss: `
+      .swagger-ui .topbar { background-color: #111719; }
+      .swagger-ui .info { background-color: #ffffff; }
+      .swagger-ui .info .title { color: #FE724C; }
+      .swagger-ui .btn.authorize { background-color: #007bff; }
+      .swagger-ui .info .title small.version-stamp { background-color: #FFC529 !important; }
+      .swagger-ui .info .description::before {
+        content: url('https://example.com/my-logo.png'); /* URL de tu logo */
+        display: block;
+        margin-bottom: 10px;
+      }
+    `,
+    customSiteTitle: 'FoodDash API',
+    customfavIcon:
+      'https://files.joseperezgil.com/images/portfolio/fooddash/logo.png',
+  });
 
   await app.listen(+process.env.SERVER_PORT! || 3000);
 }
