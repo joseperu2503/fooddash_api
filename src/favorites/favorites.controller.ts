@@ -13,8 +13,10 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { FavoriteRestaurantDto } from './dto/favorite-restaurant.dto';
+import { ApiExcludeController } from '@nestjs/swagger';
 
 @Controller('favorites')
+@ApiExcludeController()
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 

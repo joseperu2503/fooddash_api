@@ -8,6 +8,10 @@ import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { User } from 'src/auth/entities/user.entity';
 import { FavoriteRestaurant } from 'src/favorites/entities/favorite-restaurant.entity';
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
+import {
+  RestaurantResponse,
+  FindAllRestaurantsResponse,
+} from './dto/restaurant-response.dto';
 
 @Injectable()
 export class RestaurantsService {
@@ -40,7 +44,7 @@ export class RestaurantsService {
     page: number;
     limit: number;
     restaurantCategoryId?: number;
-  }) {
+  }): Promise<FindAllRestaurantsResponse> {
     const searchOptions: FindManyOptions<Restaurant> = {
       select: {
         id: true,
@@ -64,27 +68,27 @@ export class RestaurantsService {
       };
     }
 
-    const products = await paginate<Restaurant>(
+    const restaurants = await paginate<Restaurant>(
       this.restaurantRepository,
       options,
       searchOptions,
     );
 
     return new Pagination(
-      products.items.map((product) => ({
-        ...product,
+      restaurants.items.map((restaurant) => ({
+        ...restaurant,
         distance: 1500.5,
         time: 40.5,
         record: 4.6,
         recordPeople: 340,
         delivery: 4.2,
+        isFavorite: false,
       })),
-      products.meta,
-      products.links,
+      restaurants.meta,
     );
   }
 
-  async findOne(id: number, user?: User) {
+  async findOne(id: number, user?: User): Promise<RestaurantResponse> {
     const restaurant = await this.restaurantRepository.findOne({
       where: { id },
       select: {

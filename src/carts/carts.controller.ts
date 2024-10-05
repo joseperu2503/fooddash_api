@@ -4,8 +4,10 @@ import { CreateCartDto } from './dto/create-cart.dto';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { Auth } from 'src/auth/decorators/auth.decorator';
+import { ApiExcludeController } from '@nestjs/swagger';
 
 @Controller('carts')
+@ApiExcludeController()
 export class CartController {
   constructor(private readonly cartService: CartsService) {}
 

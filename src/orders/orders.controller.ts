@@ -13,8 +13,10 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
+import { ApiExcludeController } from '@nestjs/swagger';
 
 @Controller('orders')
+@ApiExcludeController()
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 

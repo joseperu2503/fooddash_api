@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Body, Query, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { AddressesService } from './services/addresses.service';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { GoogleMapsService } from './services/google-maps.service';
+import { ApiExcludeController } from '@nestjs/swagger';
 
 @Controller('addresses')
+@ApiExcludeController()
 export class AddressesController {
   constructor(
     private readonly addressesService: AddressesService,
@@ -31,7 +33,6 @@ export class AddressesController {
   @Get('autocomplete')
   @Auth()
   async autocomplete(@Query('input') input: string) {
-   
     return this.googleMapsService.autocomplete(input);
   }
 

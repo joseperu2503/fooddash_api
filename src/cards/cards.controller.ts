@@ -4,7 +4,9 @@ import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { CreateCardDto } from './dto/create-card.dto';
+import { ApiExcludeController } from '@nestjs/swagger';
 
+@ApiExcludeController()
 @Controller('cards')
 export class CardsController {
   constructor(private readonly cardsService: CardsService) {}

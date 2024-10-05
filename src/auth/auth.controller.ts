@@ -10,8 +10,10 @@ import { Auth } from './decorators/auth.decorator';
 import { GetUser } from './decorators/get-user.decorator';
 import { User } from './entities/user.entity';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { ApiExcludeController } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiExcludeController()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

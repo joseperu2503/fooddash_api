@@ -1,9 +1,16 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  ApiExcludeController,
+  ApiExcludeEndpoint,
+  ApiTags,
+} from '@nestjs/swagger';
 import { DishesService } from './dishes.service';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 
+@ApiTags('Dishes')
+@ApiExcludeController()
 @Controller('dishes')
 export class DishesController {
   constructor(private readonly dishesService: DishesService) {}
