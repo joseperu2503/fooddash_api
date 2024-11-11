@@ -15,6 +15,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('FoodDash API')
+    .addBearerAuth()
     .setDescription(
       'API for managing the FoodDash food delivery system. It provides endpoints for order management, real-time tracking, user and restaurant management, and other features related to the food delivery process.',
     )
