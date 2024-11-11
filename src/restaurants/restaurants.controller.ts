@@ -7,8 +7,6 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import {
-  ApiBearerAuth,
-  ApiExcludeEndpoint,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -82,13 +80,13 @@ export class RestaurantsController {
   @Get(':id')
   @Auth(true)
   @ApiOperation({
-    summary: 'Get a restaurant by ID',
+    summary: 'Retrieve toppings for a specific restaurant',
     description:
       'Returns detailed information of a specific restaurant. If the user is authenticated, it also indicates whether the restaurant is a favorite of the user.',
   })
   @ApiParam({
     name: 'id',
-    description: 'Unique identifier of the restaurant',
+    description: 'The ID of the restaurant',
     type: Number,
     example: 1,
   })
@@ -100,20 +98,22 @@ export class RestaurantsController {
   @ApiResponse({
     status: 404,
     description: 'Restaurant not found',
-    schema: {
-      example: {
-        message: 'Restaurant 1 not found',
-        error: 'Not Found',
-        statusCode: 404,
-      },
-    },
   })
   findOne(@Param('id', ParseIntPipe) id: number, @GetUser() user: User) {
     return this.restaurantsService.findOne(id, user);
   }
-
-  @ApiExcludeEndpoint()
   @Get(':id/dishes')
+  @Auth(true)
+  @ApiOperation({
+    summary:
+      'Retrieve a list of categories and dishes for a specific restaurant',
+  })
+  @ApiParam({
+    name: 'id',
+    type: Number,
+    description: 'The ID of the restaurant',
+    example: 1,
+  })
   dishes(@Param('id', ParseIntPipe) id: number) {
     return this.restaurantsService.dishes(id);
   }
