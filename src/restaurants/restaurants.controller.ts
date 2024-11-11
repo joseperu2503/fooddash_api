@@ -80,13 +80,12 @@ export class RestaurantsController {
   }
 
   @Get(':id')
-  @Auth()
+  @Auth(true)
   @ApiOperation({
     summary: 'Get a restaurant by ID',
     description:
       'Returns detailed information of a specific restaurant. If the user is authenticated, it also indicates whether the restaurant is a favorite of the user.',
   })
-  @ApiBearerAuth() // Indica que el endpoint puede llevar un token (pero no es obligatorio)
   @ApiParam({
     name: 'id',
     description: 'Unique identifier of the restaurant',
