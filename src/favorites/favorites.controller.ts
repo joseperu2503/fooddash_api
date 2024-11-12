@@ -15,6 +15,7 @@ import { User } from 'src/auth/entities/user.entity';
 import { FavoriteRestaurantDto } from './dto/favorite-restaurant.dto';
 import {
   ApiBearerAuth,
+  ApiBody,
   ApiOperation,
   ApiQuery,
   ApiResponse,
@@ -28,6 +29,31 @@ export class FavoritesController {
 
   @Post('dish')
   @Auth()
+  @ApiOperation({
+    summary:
+      "Adds or removes a dish from the authenticated user's favorites list.",
+    description:
+      'This endpoint allows the user to add or remove a dish from their favorites list, depending on whether the dish is already present or not.',
+  })
+  @ApiBearerAuth()
+  @ApiBody({
+    type: FavoriteDishDto,
+  })
+  @ApiResponse({
+    status: 201,
+    description:
+      'Successful operation. The dish has been added or removed from the favorites.',
+  })
+  @ApiResponse({
+    status: 404,
+    description:
+      'Dish not found or the user does not have access to perform the requested operation.',
+  })
+  @ApiResponse({
+    status: 401,
+    description:
+      'Unauthorized. The user is not authenticated or lacks sufficient permissions to perform this action.',
+  })
   favoriteDish(
     @Body() favoriteDishDto: FavoriteDishDto,
     @GetUser() user: User,
@@ -77,6 +103,31 @@ export class FavoritesController {
 
   @Post('restaurant')
   @Auth()
+  @ApiOperation({
+    summary:
+      "Adds or removes a restaurant from the authenticated user's favorites list.",
+    description:
+      'This endpoint allows the user to add or remove a restaurant from their favorites list, depending on whether the restaurant is already present or not.',
+  })
+  @ApiBearerAuth()
+  @ApiBody({
+    type: FavoriteRestaurantDto,
+  })
+  @ApiResponse({
+    status: 201,
+    description:
+      'Successful operation. The restaurant has been added or removed from the favorites.',
+  })
+  @ApiResponse({
+    status: 404,
+    description:
+      'Restaurant not found or the user does not have access to perform the requested operation.',
+  })
+  @ApiResponse({
+    status: 401,
+    description:
+      'Unauthorized. The user is not authenticated or lacks sufficient permissions to perform this action.',
+  })
   favoriteRestaurant(
     @Body() favoriteRestaurantDto: FavoriteRestaurantDto,
     @GetUser() user: User,
