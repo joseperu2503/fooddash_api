@@ -17,10 +17,6 @@ import { RestaurantsService } from './restaurants.service';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
-import {
-  RestaurantResponse,
-  FindAllRestaurantsResponse,
-} from './dto/restaurant-response.dto';
 
 @ApiTags('Restaurants')
 @Controller('restaurants')
@@ -48,12 +44,12 @@ export class RestaurantsController {
     name: 'restaurantCategoryId',
     required: false,
     type: Number,
+    example: 1,
     description: 'Optional filter by restaurant category ID',
   })
   @ApiResponse({
     status: 200,
     description: 'List of restaurants successfully retrieved',
-    type: FindAllRestaurantsResponse,
   })
   @ApiResponse({
     status: 400,
@@ -80,7 +76,7 @@ export class RestaurantsController {
   @Get(':id')
   @Auth(true)
   @ApiOperation({
-    summary: 'Retrieve toppings for a specific restaurant',
+    summary: 'Retrieve details of a specific restaurant',
     description:
       'Returns detailed information of a specific restaurant. If the user is authenticated, it also indicates whether the restaurant is a favorite of the user.',
   })
@@ -93,7 +89,6 @@ export class RestaurantsController {
   @ApiResponse({
     status: 200,
     description: 'Successfully retrieved restaurant information',
-    type: RestaurantResponse,
   })
   @ApiResponse({
     status: 404,
@@ -102,6 +97,7 @@ export class RestaurantsController {
   findOne(@Param('id', ParseIntPipe) id: number, @GetUser() user: User) {
     return this.restaurantsService.findOne(id, user);
   }
+
   @Get(':id/dishes')
   @Auth(true)
   @ApiOperation({

@@ -28,6 +28,8 @@ async function bootstrap() {
       .swagger-ui .topbar { background-color: #111719; }
       .swagger-ui .info .title { color: #FE724C; }
       .swagger-ui .info .title small.version-stamp { background-color: #FFC529 !important; }
+      .swagger-ui .opblock.opblock-get { background-color: rgba(255, 197, 41, 0.1); border-color: rgba(255, 197, 41, 1) }
+      .swagger-ui .opblock.opblock-get .opblock-summary-method { background-color: rgba(255, 197, 41, 1) }
     `,
     customSiteTitle: 'FoodDash API',
     customfavIcon:
