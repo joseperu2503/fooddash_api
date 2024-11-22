@@ -13,7 +13,6 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 import {
   ApiBearerAuth,
   ApiBody,
-  ApiExcludeController,
   ApiExcludeEndpoint,
   ApiOperation,
   ApiResponse,

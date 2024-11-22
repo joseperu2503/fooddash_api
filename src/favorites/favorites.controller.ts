@@ -51,8 +51,7 @@ export class FavoritesController {
   })
   @ApiResponse({
     status: 401,
-    description:
-      'Unauthorized. The user is not authenticated or lacks sufficient permissions to perform this action.',
+    description: 'Unauthorized.',
   })
   favoriteDish(
     @Body() favoriteDishDto: FavoriteDishDto,
@@ -125,8 +124,7 @@ export class FavoritesController {
   })
   @ApiResponse({
     status: 401,
-    description:
-      'Unauthorized. The user is not authenticated or lacks sufficient permissions to perform this action.',
+    description: 'Unauthorized.',
   })
   favoriteRestaurant(
     @Body() favoriteRestaurantDto: FavoriteRestaurantDto,

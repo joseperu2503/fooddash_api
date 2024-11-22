@@ -5,29 +5,31 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { GoogleMapsService } from './services/google-maps.service';
-import { ApiExcludeController } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('addresses')
-@ApiExcludeController()
+@ApiTags('Addresses')
 export class AddressesController {
   constructor(
     private readonly addressesService: AddressesService,
     private readonly googleMapsService: GoogleMapsService,
   ) {}
 
+  @Get()
+  @Auth()
+  @ApiBearerAuth()
+  async myAddresses(@GetUser() user: User) {
+    return this.addressesService.MyAddresses(user);
+  }
+
   @Post()
   @Auth()
+  @ApiBearerAuth()
   async create(
     @Body() createAddressDto: CreateAddressDto,
     @GetUser() user: User,
   ) {
     return this.addressesService.create(createAddressDto, user);
-  }
-
-  @Get('my-addresses')
-  @Auth()
-  async myAddresses(@GetUser() user: User) {
-    return this.addressesService.MyAddresses(user);
   }
 
   @Get('autocomplete')
