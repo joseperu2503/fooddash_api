@@ -13,15 +13,29 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { RestaurantsService } from './restaurants.service';
+import { RestaurantsService } from '../services/restaurants.service';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
+import { RestaurantCategoriesService } from 'src/restaurant-categories/services/restaurant-categories.service';
 
 @ApiTags('Restaurants')
 @Controller('restaurants')
 export class RestaurantsController {
-  constructor(private readonly restaurantsService: RestaurantsService) {}
+  constructor(
+    private readonly restaurantsService: RestaurantsService,
+    private readonly restaurantCategoriesService: RestaurantCategoriesService,
+  ) {}
+
+  @Get('categories')
+  @ApiOperation({ summary: 'Retrieve a list of restaurant categories' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of restaurant categories successfully retrieved',
+  })
+  categories() {
+    return this.restaurantCategoriesService.findAll();
+  }
 
   @Get()
   @Auth(true)
@@ -50,14 +64,6 @@ export class RestaurantsController {
   @ApiResponse({
     status: 200,
     description: 'List of restaurants successfully retrieved',
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Invalid request parameters',
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Internal server error',
   })
   findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,

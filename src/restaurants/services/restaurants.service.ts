@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
+import { CreateRestaurantDto } from '../dto/create-restaurant.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Restaurant } from './entities/restaurant.entity';
+import { Restaurant } from '../entities/restaurant.entity';
 import { FindManyOptions, Repository } from 'typeorm';
-import { RestaurantCategoriesService } from 'src/restaurant-categories/restaurant-categories.service';
+import { RestaurantCategoriesService } from 'src/restaurant-categories/services/restaurant-categories.service';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { User } from 'src/auth/entities/user.entity';
 import { FavoriteRestaurant } from 'src/favorites/entities/favorite-restaurant.entity';
@@ -11,7 +11,7 @@ import { DishCategory } from 'src/dish-categories/entities/dish-category.entity'
 import {
   RestaurantResponse,
   FindAllRestaurantsResponse,
-} from './dto/restaurant-response.dto';
+} from '../dto/restaurant-response.dto';
 
 @Injectable()
 export class RestaurantsService {

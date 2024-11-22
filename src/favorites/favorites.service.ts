@@ -13,7 +13,7 @@ import { Dish } from 'src/dishes/entities/dish.entity';
 import { FavoriteRestaurantDto } from './dto/favorite-restaurant.dto';
 import { FavoriteRestaurant } from './entities/favorite-restaurant.entity';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
-import { RestaurantsService } from 'src/restaurants/restaurants.service';
+import { RestaurantsService } from 'src/restaurants/services/restaurants.service';
 import { DishesService } from 'src/dishes/dishes.service';
 
 @Injectable()

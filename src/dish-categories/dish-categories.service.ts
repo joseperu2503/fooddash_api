@@ -3,7 +3,7 @@ import { CreateDishCategoryDto } from './dto/create-dish-category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DishCategory } from './entities/dish-category.entity';
 import { Repository } from 'typeorm';
-import { RestaurantsService } from 'src/restaurants/restaurants.service';
+import { RestaurantsService } from 'src/restaurants/services/restaurants.service';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 
 @Injectable()

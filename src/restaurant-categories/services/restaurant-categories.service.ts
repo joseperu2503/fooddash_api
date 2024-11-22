@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateRestaurantCategoryDto } from './dto/create-restaurant-category.dto';
+import { CreateRestaurantCategoryDto } from '../dto/create-restaurant-category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RestaurantCategory } from './entities/restaurant-category.entity';
+import { RestaurantCategory } from '../entities/restaurant-category.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

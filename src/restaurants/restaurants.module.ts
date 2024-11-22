@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { RestaurantsService } from './restaurants.service';
-import { RestaurantsController } from './restaurants.controller';
+import { RestaurantsService } from './services/restaurants.service';
+import { RestaurantsController } from './controllers/restaurants.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Restaurant } from './entities/restaurant.entity';
 import { RestaurantCategoriesModule } from 'src/restaurant-categories/restaurant-categories.module';
