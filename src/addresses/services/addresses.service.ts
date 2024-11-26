@@ -56,7 +56,7 @@ export class AddressesService {
     return await this.findOne(address.id);
   }
 
-  async MyAddresses(user: User) {
+  async addresses(user: User) {
     const addresses = await this.addressRepository.find({
       where: { user: { id: user.id } },
       select: {
