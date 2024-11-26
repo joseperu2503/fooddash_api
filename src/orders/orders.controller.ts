@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Query,
   DefaultValuePipe,
+  Res,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -40,6 +41,28 @@ export class OrdersController {
       : [];
 
     return this.ordersService.myOrders(user, orderStatusesArray, page, limit);
+  }
+
+  @Get('/hello')
+  @Auth()
+  hello(@Res() response, @GetUser() user: User) {
+    const pdfDoc = this.ordersService.hello();
+
+    response.setHeader('Content-type', 'application/pdf');
+    pdfDoc.info.Title = 'Constancia';
+    pdfDoc.pipe(response);
+    pdfDoc.end();
+  }
+
+  @Get('/employment-letter')
+  @Auth()
+  employmentLetter(@Res() response, @GetUser() user: User) {
+    const pdfDoc = this.ordersService.employmentLetter();
+
+    response.setHeader('Content-type', 'application/pdf');
+    pdfDoc.info.Title = 'Constancia';
+    pdfDoc.pipe(response);
+    pdfDoc.end();
   }
 
   @Get(':id')

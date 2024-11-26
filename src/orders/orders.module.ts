@@ -12,6 +12,7 @@ import { OrderStatus } from './entities/order-status.entity';
 import { OrderStatusesService } from './order-status.service';
 import { CartsModule } from 'src/carts/carts.module';
 import { OrdersGateway } from './orders.gateway';
+import { PrinterModule } from 'src/printer/printer.module';
 
 @Module({
   controllers: [OrdersController],
@@ -27,6 +28,7 @@ import { OrdersGateway } from './orders.gateway';
     DishOrdersModule,
     AuthModule,
     CartsModule,
+    PrinterModule,
   ],
   exports: [OrdersService, OrderStatusesService],
 })

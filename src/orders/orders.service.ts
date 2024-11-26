@@ -18,10 +18,13 @@ import { DishOrdersService } from 'src/dish-orders/dish-orders.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from 'src/addresses/entities/address.entity';
 import { OrderStatus } from './entities/order-status.entity';
-import * as moment from 'moment';
+import moment from 'moment';
 import { CartsService } from 'src/carts/carts.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
+import { PrinterService } from 'src/printer/printer.service';
+import type { StyleDictionary, TDocumentDefinitions } from 'pdfmake/interfaces';
+import { DateFormatter } from 'src/helpers';
 
 @Injectable()
 export class OrdersService {
@@ -29,7 +32,7 @@ export class OrdersService {
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
 
-    private dishOrdersService: DishOrdersService,
+    private readonly dishOrdersService: DishOrdersService,
 
     @InjectRepository(Restaurant)
     private readonly restaurantRepository: Repository<Restaurant>,
@@ -42,9 +45,11 @@ export class OrdersService {
 
     private readonly dataSource: DataSource,
 
-    private cartsService: CartsService,
+    private readonly cartsService: CartsService,
 
-    private eventEmitter: EventEmitter2, // Agrega el event emitter
+    private readonly eventEmitter: EventEmitter2,
+
+    private readonly printerService: PrinterService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto, user: User) {
@@ -394,5 +399,101 @@ export class OrdersService {
         name: true,
       },
     };
+  }
+
+  hello() {
+    const docDefinition: TDocumentDefinitions = {
+      content: ['Hola mundo'],
+      defaultStyle: {
+        font: 'SofiaPro',
+      },
+    };
+
+    const doc = this.printerService.createPdf(docDefinition);
+
+    return doc;
+  }
+
+  employmentLetter() {
+    const styles: StyleDictionary = {
+      header: {
+        fontSize: 22,
+        bold: true,
+        alignment: 'center',
+        margin: [0, 50, 0, 20],
+      },
+      body: {
+        alignment: 'justify',
+
+        margin: [0, 0, 0, 70],
+      },
+      signature: {
+        fontSize: 14,
+        bold: true,
+      },
+      footer: {
+        fontSize: 10,
+        italics: true,
+        alignment: 'center',
+        margin: [0, 0, 0, 20],
+      },
+    };
+
+    const docDefinition: TDocumentDefinitions = {
+      styles: styles,
+      pageMargins: [40, 60, 40, 60],
+      header: {
+        columns: [
+          {
+            image: 'assets/icons/icon.png',
+            width: 100,
+            height: 100,
+            alignment: 'center',
+            margin: [0, 0, 0, 20],
+          },
+          {
+            text: DateFormatter.format(new Date()),
+            alignment: 'right',
+            margin: [20, 20, 20, 20],
+          },
+        ],
+      },
+      content: [
+        {
+          text: 'CONSTANCIA DE EMPLEO',
+          style: 'header',
+        },
+        {
+          text: `Yo, [Nombre del Empleador], en mi calidad de [Cargo del Empleador] de [Nombre de la Empresa], por medio de la presente certifico que [Nombre del Empleado] ha sido empleado en nuestra empresa desde el [Fecha de Inicio del Empleado].
+
+          Durante su empleo, el Sr./Sra. [Nombre del Empleado] ha desempeñado el cargo de [Cargo del Empleado], demostrando responsabilidad, compromiso y habilidades profesionales en sus
+          labores.
+
+          La jornada laboral del Sr./ Sra. [Nombre del Empleado] es de [Número de Horas] horas semanales, con un horario de [Horario de Trabajo], cumpliendo con las políticas y procedimientos establecidos por la empresa.
+
+          Esta constancia se expide a solicitud del interesado para los fines que considere conveniente.`,
+          style: 'body',
+        },
+        {
+          text: `Atentamente,
+          [Nombre del Empleador]
+          [Cargo del Empleador]
+          [Nombre de la Empresa]
+          [Fecha de Emisión]`,
+          style: 'signature',
+        },
+      ],
+      footer: {
+        text: 'Este documento es una constancia de empleo y no representa un compromiso laboral.',
+        style: 'footer',
+      },
+      defaultStyle: {
+        font: 'SofiaPro',
+      },
+    };
+
+    const doc = this.printerService.createPdf(docDefinition);
+
+    return doc;
   }
 }

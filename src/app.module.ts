@@ -24,6 +24,7 @@ import { ToppingDishOrdersModule } from './topping-dish-orders/topping-dish-orde
 import { SeedCommand } from './seed/seed.command';
 import { FavoritesModule } from './favorites/favorites.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { PrinterModule } from './printer/printer.module';
 
 @Module({
   controllers: [AppController],
@@ -60,6 +61,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     DishOrdersModule,
     ToppingDishOrdersModule,
     FavoritesModule,
+    PrinterModule,
   ],
   providers: [SeedCommand],
 })
