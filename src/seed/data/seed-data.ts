@@ -1,4 +1,4 @@
-import { CreateRestaurantCategoryDto } from 'src/restaurant-categories/dto/create-restaurant-category.dto';
+import { CreateRestaurantCategoryDto } from 'src/restaurants/dto/create-restaurant-category.dto';
 import { CreateDishCategoryDto } from 'src/dish-categories/dto/create-dish-category.dto';
 import { CreateDishDto } from 'src/dishes/dto/create-dish.dto';
 import { CreateRestaurantDto } from 'src/restaurants/dto/create-restaurant.dto';

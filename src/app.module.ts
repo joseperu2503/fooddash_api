@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { SeedModule } from './seed/seed.module';
-import { RestaurantCategoriesModule } from './restaurant-categories/restaurant-categories.module';
 import { DishCategoriesModule } from './dish-categories/dish-categories.module';
 import { DishesModule } from './dishes/dishes.module';
 import { AuthModule } from './auth/auth.module';
@@ -43,7 +42,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     EventEmitterModule.forRoot(),
     RestaurantsModule,
     SeedModule,
-    RestaurantCategoriesModule,
     DishCategoriesModule,
     DishesModule,
     AuthModule,

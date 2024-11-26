@@ -1,4 +1,4 @@
-import { RestaurantCategory } from 'src/restaurant-categories/entities/restaurant-category.entity';
+import { RestaurantCategory } from 'src/restaurants/entities/restaurant-category.entity';
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
 import { ToppingCategory } from 'src/topping-categories/entities/topping-category.entity';
 import {

@@ -17,7 +17,7 @@ import { RestaurantsService } from '../services/restaurants.service';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
-import { RestaurantCategoriesService } from 'src/restaurant-categories/services/restaurant-categories.service';
+import { RestaurantCategoriesService } from 'src/restaurants/services/restaurant-categories.service';
 
 @ApiTags('Restaurants')
 @Controller('restaurants')

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { initialData } from './data/seed-data';
 import { RestaurantsService } from 'src/restaurants/services/restaurants.service';
-import { RestaurantCategoriesService } from 'src/restaurant-categories/services/restaurant-categories.service';
+import { RestaurantCategoriesService } from 'src/restaurants/services/restaurant-categories.service';
 import { DataSource } from 'typeorm';
 import { DishCategoriesService } from 'src/dish-categories/dish-categories.service';
 import { DishesService } from 'src/dishes/dishes.service';
