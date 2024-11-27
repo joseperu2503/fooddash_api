@@ -8,7 +8,6 @@ import { DishesModule } from './dishes/dishes.module';
 import { AuthModule } from './auth/auth.module';
 import { ToppingsModule } from './toppings/toppings.module';
 import { ToppingCategoriesModule } from './topping-categories/topping-categories.module';
-import { DishCartsModule } from './dish-carts/dish-carts.module';
 import { ToppingDishCartsModule } from './topping-dish-carts/topping-dish-carts.module';
 import { CartsModule } from './carts/carts.module';
 import { AppController } from './app.controller';
@@ -37,7 +36,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
       username: process.env.DB_USERMAME,
       password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
     }),
     EventEmitterModule.forRoot(),
     RestaurantsModule,
@@ -47,7 +46,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     AuthModule,
     ToppingsModule,
     ToppingCategoriesModule,
-    DishCartsModule,
     ToppingDishCartsModule,
     CartsModule,
     AddressTagsModule,

@@ -1,22 +1,25 @@
 import { Module } from '@nestjs/common';
-import { CartsService } from './carts.service';
-import { CartController } from './carts.controller';
+import { CartsService } from './services/carts.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cart } from './entities/cart.entity';
-import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
-import { DishCartsModule } from 'src/dish-carts/dish-carts.module';
+import { DishCart } from 'src/carts/entities/dish-cart.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { Address } from 'src/addresses/entities/address.entity';
+import { CartController } from './controllers/carts.controller';
+import { DishCartsService } from './services/dish-carts.service';
+import { DishesModule } from 'src/dishes/dishes.module';
+import { ToppingDishCartsModule } from 'src/topping-dish-carts/topping-dish-carts.module';
 
 @Module({
   controllers: [CartController],
-  providers: [CartsService],
+  providers: [CartsService, DishCartsService],
   imports: [
     TypeOrmModule.forFeature([Cart, DishCart, Restaurant, Address]),
-    DishCartsModule,
+    DishesModule,
     AuthModule,
+    ToppingDishCartsModule,
   ],
-  exports: [CartsService, TypeOrmModule],
+  exports: [CartsService, DishCartsService],
 })
 export class CartsModule {}

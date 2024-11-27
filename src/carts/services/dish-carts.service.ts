@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateDishCartDto } from './dto/create-dish-cart.dto';
-import { DishCart } from './entities/dish-cart.entity';
+import { CreateDishCartDto } from '../dto/create-dish-cart.dto';
+import { DishCart } from '../entities/dish-cart.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ToppingDishCartsService } from 'src/topping-dish-carts/topping-dish-carts.service';

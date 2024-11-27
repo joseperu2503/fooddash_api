@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCartDto } from './dto/create-cart.dto';
+import { CreateCartDto } from '../dto/create-cart.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Cart } from './entities/cart.entity';
+import { Cart } from '../entities/cart.entity';
 import { Repository } from 'typeorm';
 import { User } from 'src/auth/entities/user.entity';
-import { DishCartsService } from 'src/dish-carts/dish-carts.service';
+import { DishCartsService } from 'src/carts/services/dish-carts.service';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { Address } from 'src/addresses/entities/address.entity';
 
@@ -24,7 +24,7 @@ export class CartsService {
 
   async create(createCartDto: CreateCartDto, user: User) {
     //**Eliminar el Cart existente */
-    await this.remove(user);
+    await this.emptyCart(user);
 
     //**Crear Cart */
     const cart = this.cartRepository.create();
@@ -33,13 +33,12 @@ export class CartsService {
     const restaurant = await this.restaurantRepository.findOne({
       where: { id: createCartDto.restaurantId },
     });
+
     if (!restaurant) {
       throw new NotFoundException(
         `Restaurant ${createCartDto.restaurantId} not found`,
       );
     }
-
-    cart.restaurant = restaurant;
 
     //**Buscar Address */
     const address = await this.addressRepository.findOne({
@@ -57,18 +56,10 @@ export class CartsService {
       );
     }
 
+    cart.restaurant = restaurant;
     cart.address = address;
-
     cart.user = user;
-
-    const deliveryFee: number = 3.9;
-    const serviceFee: number = 4.9;
-
-    cart.deliveryFee = deliveryFee;
-    cart.serviceFee = serviceFee;
-
     cart.subtotal = 0;
-    cart.total = 0;
 
     await this.cartRepository.save(cart);
 
@@ -83,7 +74,6 @@ export class CartsService {
     }
 
     cart.subtotal = parseFloat(subtotal.toFixed(2));
-    cart.total = parseFloat((subtotal + deliveryFee + serviceFee).toFixed(2));
     await this.cartRepository.save(cart);
 
     const myCart = await this.myCart(user);
@@ -100,9 +90,6 @@ export class CartsService {
       select: {
         id: true,
         subtotal: true,
-        deliveryFee: true,
-        serviceFee: true,
-        total: true,
         address: {
           id: true,
           address: true,
@@ -158,24 +145,7 @@ export class CartsService {
     return cart;
   }
 
-  async findAll() {
-    const carts = await this.cartRepository.find({
-      relations: {
-        dishCarts: {
-          dish: true,
-          toppingDishCarts: {
-            topping: true,
-          },
-        },
-        restaurant: true,
-        user: true,
-      },
-    });
-
-    return carts;
-  }
-
-  async remove(user: User) {
+  async emptyCart(user: User) {
     const cart = await this.cartRepository.findOne({
       where: {
         user: {
@@ -190,6 +160,7 @@ export class CartsService {
 
     return {
       success: true,
+      message: 'Your cart has been successfully emptied.',
     };
   }
 }
