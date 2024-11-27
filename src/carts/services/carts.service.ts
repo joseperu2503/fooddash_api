@@ -139,10 +139,30 @@ export class CartsService {
     });
 
     if (!cart) {
-      return null;
+      return {
+        success: true,
+        data: null,
+      };
     }
-
-    return cart;
+    const { dishCarts, ...rest } = cart;
+    return {
+      success: true,
+      data: {
+        ...rest,
+        dishes: dishCarts.map((dishCart) => {
+          return {
+            ...dishCart.dish,
+            units: dishCart.units,
+            toppings: dishCart.toppingDishCarts.map((toppingDishCart) => {
+              return {
+                ...toppingDishCart.topping,
+                units: toppingDishCart.units,
+              };
+            }),
+          };
+        }),
+      },
+    };
   }
 
   async emptyCart(user: User) {
