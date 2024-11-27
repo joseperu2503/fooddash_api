@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, Query } from '@nestjs/common';
-import { AddressesService } from './services/addresses.service';
-import { CreateAddressDto } from './dto/create-address.dto';
+import { AddressesService } from '../services/addresses.service';
+import { CreateAddressDto } from '../dto/create-address.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
-import { GoogleMapsService } from './services/google-maps.service';
+import { GoogleMapsService } from '../services/google-maps.service';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -13,6 +13,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@Auth()
 @Controller('addresses')
 @ApiTags('Addresses')
 export class AddressesController {
@@ -22,7 +24,6 @@ export class AddressesController {
   ) {}
 
   @Get()
-  @Auth()
   @ApiOperation({
     summary: "Retrieve the authenticated user's addresses",
   })
@@ -35,16 +36,16 @@ export class AddressesController {
     status: 401,
     description: 'Unauthorized.',
   })
-  @ApiBearerAuth()
   async addresses(@GetUser() user: User) {
     return this.addressesService.addresses(user);
   }
 
   @Post()
-  @Auth()
-  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Add a new address for the authenticated user.',
+  })
+  @ApiBody({
+    type: CreateAddressDto,
   })
   @ApiResponse({
     status: 201,
@@ -55,9 +56,6 @@ export class AddressesController {
     status: 401,
     description: 'Unauthorized.',
   })
-  @ApiBody({
-    type: CreateAddressDto,
-  })
   async create(
     @Body() createAddressDto: CreateAddressDto,
     @GetUser() user: User,
@@ -65,9 +63,7 @@ export class AddressesController {
     return this.addressesService.create(createAddressDto, user);
   }
 
-  @ApiBearerAuth()
   @Get('autocomplete')
-  @Auth()
   @ApiOperation({
     summary:
       'Retrieve address suggestions based on input using Google Maps Autocomplete.',
@@ -85,9 +81,7 @@ export class AddressesController {
     return this.googleMapsService.autocomplete(input);
   }
 
-  @ApiBearerAuth()
   @Get('place-details')
-  @Auth()
   @ApiOperation({
     summary:
       'Retrieve detailed information about a place using its placeId from Google Maps.',
@@ -105,9 +99,7 @@ export class AddressesController {
     return this.googleMapsService.placeDetails(placeId);
   }
 
-  @ApiBearerAuth()
   @Get('geocode')
-  @Auth()
   @ApiOperation({
     summary:
       'Retrieve address information based on geographic coordinates (latitude and longitude) from Google Maps.',

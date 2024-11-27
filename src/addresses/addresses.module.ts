@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AddressesService } from './services/addresses.service';
-import { AddressesController } from './addresses.controller';
+import { AddressesController } from './controllers/addresses.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Address } from './entities/address.entity';
 import { AuthModule } from 'src/auth/auth.module';

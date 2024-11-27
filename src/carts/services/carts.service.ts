@@ -22,7 +22,7 @@ export class CartsService {
     private readonly addressRepository: Repository<Address>,
   ) {}
 
-  async create(createCartDto: CreateCartDto, user: User) {
+  async updateCart(createCartDto: CreateCartDto, user: User) {
     //**Eliminar el Cart existente */
     await this.emptyCart(user);
 
