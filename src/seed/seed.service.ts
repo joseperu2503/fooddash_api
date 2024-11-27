@@ -48,8 +48,6 @@ export class SeedService {
     await this.addressSeed();
     await this.favoriteDishSeed();
     await this.favoriteRestaurantSeed();
-
-    return 'SEED EXECUTED';
   }
 
   private async restaurantCategorySeed() {
