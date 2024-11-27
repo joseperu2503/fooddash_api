@@ -9,17 +9,25 @@ import { Address } from 'src/addresses/entities/address.entity';
 import { CartController } from './controllers/carts.controller';
 import { DishCartsService } from './services/dish-carts.service';
 import { DishesModule } from 'src/dishes/dishes.module';
-import { ToppingDishCartsModule } from 'src/topping-dish-carts/topping-dish-carts.module';
+import { ToppingDishCartsService } from 'src/carts/services/topping-dish-carts.service';
+import { ToppingDishCart } from './entities/topping-dish-cart.entity';
+import { Topping } from 'src/toppings/entities/topping.entity';
 
 @Module({
   controllers: [CartController],
-  providers: [CartsService, DishCartsService],
+  providers: [CartsService, DishCartsService, ToppingDishCartsService],
   imports: [
-    TypeOrmModule.forFeature([Cart, DishCart, Restaurant, Address]),
+    TypeOrmModule.forFeature([
+      Cart,
+      DishCart,
+      Restaurant,
+      Address,
+      ToppingDishCart,
+      Topping,
+    ]),
     DishesModule,
     AuthModule,
-    ToppingDishCartsModule,
   ],
-  exports: [CartsService, DishCartsService],
+  exports: [CartsService, DishCartsService, ToppingDishCartsService],
 })
 export class CartsModule {}

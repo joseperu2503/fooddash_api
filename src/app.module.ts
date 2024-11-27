@@ -8,7 +8,6 @@ import { DishesModule } from './dishes/dishes.module';
 import { AuthModule } from './auth/auth.module';
 import { ToppingsModule } from './toppings/toppings.module';
 import { ToppingCategoriesModule } from './topping-categories/topping-categories.module';
-import { ToppingDishCartsModule } from './topping-dish-carts/topping-dish-carts.module';
 import { CartsModule } from './carts/carts.module';
 import { AppController } from './app.controller';
 import { AddressTagsModule } from './address-tags/address-tags.module';
@@ -46,7 +45,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     AuthModule,
     ToppingsModule,
     ToppingCategoriesModule,
-    ToppingDishCartsModule,
     CartsModule,
     AddressTagsModule,
     AddressesModule,

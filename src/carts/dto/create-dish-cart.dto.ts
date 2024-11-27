@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/mapped-types';
 import { Type } from 'class-transformer';
 import { IsArray, IsInt, IsPositive, ValidateNested } from 'class-validator';
-import { CreateToppingDishCartDto } from 'src/topping-dish-carts/dto/create-topping-dish-cart.dto';
+import { CreateToppingDishCartDto } from 'src/carts/dto/create-topping-dish-cart.dto';
 
 export class CreateDishCartDto {
   @IsInt()
