@@ -22,7 +22,7 @@ import { FacebookService } from './services/facebook/facebook.service';
         return {
           secret: process.env.JWT_SECRET,
           signOptions: {
-            expiresIn: '2h',
+            expiresIn: '720h',
           },
         };
       },

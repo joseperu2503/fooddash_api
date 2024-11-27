@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { AddressesService } from '../services/addresses.service';
 import { CreateAddressDto } from '../dto/create-address.dto';
-import { Auth } from 'src/auth/decorators/auth.decorator';
+import { JwtAuth } from 'src/auth/decorators/jwt-auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { GoogleMapsService } from '../services/google-maps.service';
@@ -14,7 +14,7 @@ import {
 } from '@nestjs/swagger';
 
 @ApiBearerAuth()
-@Auth()
+@JwtAuth()
 @Controller('addresses')
 @ApiTags('Addresses')
 export class AddressesController {

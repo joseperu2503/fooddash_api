@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Delete, Put } from '@nestjs/common';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
-import { Auth } from 'src/auth/decorators/auth.decorator';
+import { JwtAuth } from 'src/auth/decorators/jwt-auth.decorator';
 import { CartsService } from '../services/carts.service';
 import { CreateCartDto } from '../dto/create-cart.dto';
 import {
@@ -15,7 +15,7 @@ import {
 @Controller('cart')
 @ApiBearerAuth()
 @ApiTags('Cart')
-@Auth()
+@JwtAuth()
 export class CartController {
   constructor(private readonly cartService: CartsService) {}
 

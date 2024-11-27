@@ -6,7 +6,7 @@ import {
   LoginUserFacebookDto,
   LoginUserGoogleDto,
 } from './dto/login-user-dto';
-import { Auth } from './decorators/auth.decorator';
+import { JwtAuth } from './decorators/jwt-auth.decorator';
 import { GetUser } from './decorators/get-user.decorator';
 import { User } from './entities/user.entity';
 import { UpdateAuthDto } from './dto/update-auth.dto';
@@ -77,7 +77,7 @@ export class AuthController {
 
   @Put('update')
   @ApiExcludeEndpoint()
-  @Auth()
+  @JwtAuth()
   update(@GetUser() user: User, @Body() updateAuthDto: UpdateAuthDto) {
     return this.authService.update(user, updateAuthDto);
   }
@@ -86,7 +86,7 @@ export class AuthController {
   @ApiOperation({
     summary: "Retrieve the authenticated user's details",
   })
-  @Auth()
+  @JwtAuth()
   @ApiResponse({
     status: 401,
     description: 'Unauthorized.',
