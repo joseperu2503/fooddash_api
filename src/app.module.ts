@@ -35,7 +35,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
       username: process.env.DB_USERMAME,
       password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
     EventEmitterModule.forRoot(),
     RestaurantsModule,
