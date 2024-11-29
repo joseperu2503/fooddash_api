@@ -19,12 +19,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from 'src/addresses/entities/address.entity';
 import { OrderStatus } from './entities/order-status.entity';
 import moment from 'moment';
-import { CartsService } from 'src/carts/carts.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { PrinterService } from 'src/printer/printer.service';
 import type { StyleDictionary, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { DateFormatter } from 'src/helpers';
+import { CartsService } from 'src/carts/services/carts.service';
 
 @Injectable()
 export class OrdersService {
@@ -131,7 +131,7 @@ export class OrdersService {
       await this.orderRepository.save(order);
 
       //** Limpiar el Cart del User */
-      this.cartsService.remove(user);
+      this.cartsService.emptyCart(user);
 
       await queryRunner.commitTransaction();
       await queryRunner.release();

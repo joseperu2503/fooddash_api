@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { Auth } from 'src/auth/decorators/auth.decorator';
+import { JwtAuth } from 'src/auth/decorators/jwt-auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { ApiExcludeController } from '@nestjs/swagger';
@@ -22,13 +22,13 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  @Auth()
+  @JwtAuth()
   create(@Body() createOrderDto: CreateOrderDto, @GetUser() user: User) {
     return this.ordersService.create(createOrderDto, user);
   }
 
   @Get('my-orders')
-  @Auth()
+  @JwtAuth()
   myOrders(
     @GetUser() user: User,
     @Query('orderStatuses') orderStatuses: string = '1,2,3,4',
@@ -66,7 +66,7 @@ export class OrdersController {
   }
 
   @Get(':id')
-  @Auth()
+  @JwtAuth()
   findOne(@Param('id', ParseIntPipe) id: number, @GetUser() user: User) {
     return this.ordersService.findOne(user, id);
   }

@@ -1,6 +1,6 @@
 import { Cart } from 'src/carts/entities/cart.entity';
 import { Dish } from 'src/dishes/entities/dish.entity';
-import { ToppingDishCart } from 'src/topping-dish-carts/entities/topping-dish-cart.entity';
+import { ToppingDishCart } from 'src/carts/entities/topping-dish-cart.entity';
 import {
   Column,
   CreateDateColumn,

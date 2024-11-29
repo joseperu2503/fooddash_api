@@ -1,4 +1,4 @@
-import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
+import { DishCart } from 'src/carts/entities/dish-cart.entity';
 import { Topping } from 'src/toppings/entities/topping.entity';
 import {
   Column,

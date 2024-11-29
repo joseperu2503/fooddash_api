@@ -8,8 +8,6 @@ import { DishesModule } from './dishes/dishes.module';
 import { AuthModule } from './auth/auth.module';
 import { ToppingsModule } from './toppings/toppings.module';
 import { ToppingCategoriesModule } from './topping-categories/topping-categories.module';
-import { DishCartsModule } from './dish-carts/dish-carts.module';
-import { ToppingDishCartsModule } from './topping-dish-carts/topping-dish-carts.module';
 import { CartsModule } from './carts/carts.module';
 import { AppController } from './app.controller';
 import { AddressTagsModule } from './address-tags/address-tags.module';
@@ -48,8 +46,6 @@ import { PrinterModule } from './printer/printer.module';
     AuthModule,
     ToppingsModule,
     ToppingCategoriesModule,
-    DishCartsModule,
-    ToppingDishCartsModule,
     CartsModule,
     AddressTagsModule,
     AddressesModule,

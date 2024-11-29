@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateToppingDishCartDto } from './dto/create-topping-dish-cart.dto';
+import { CreateToppingDishCartDto } from '../dto/create-topping-dish-cart.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ToppingDishCart } from './entities/topping-dish-cart.entity';
+import { ToppingDishCart } from '../entities/topping-dish-cart.entity';
 import { Repository } from 'typeorm';
-import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
+import { DishCart } from 'src/carts/entities/dish-cart.entity';
 import { Topping } from 'src/toppings/entities/topping.entity';
 
 @Injectable()

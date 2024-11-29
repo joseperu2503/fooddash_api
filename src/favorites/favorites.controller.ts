@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
 import { FavoriteDishDto } from './dto/favorite-dish.dto';
-import { Auth } from 'src/auth/decorators/auth.decorator';
+import { JwtAuth } from 'src/auth/decorators/jwt-auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { FavoriteRestaurantDto } from './dto/favorite-restaurant.dto';
@@ -28,7 +28,7 @@ export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
   @Post('dish')
-  @Auth()
+  @JwtAuth()
   @ApiOperation({
     summary:
       "Adds or removes a dish from the authenticated user's favorites list.",
@@ -61,7 +61,7 @@ export class FavoritesController {
   }
 
   @Get('dish')
-  @Auth()
+  @JwtAuth()
   @ApiOperation({
     summary: "Retrieve the authenticated user's favorite dishes",
   })
@@ -101,7 +101,7 @@ export class FavoritesController {
   }
 
   @Post('restaurant')
-  @Auth()
+  @JwtAuth()
   @ApiOperation({
     summary:
       "Adds or removes a restaurant from the authenticated user's favorites list.",
@@ -137,7 +137,7 @@ export class FavoritesController {
   }
 
   @Get('restaurant')
-  @Auth()
+  @JwtAuth()
   @ApiOperation({
     summary: "Retrieve the authenticated user's favorite restaurants",
   })

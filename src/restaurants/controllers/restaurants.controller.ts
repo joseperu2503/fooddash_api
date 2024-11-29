@@ -14,7 +14,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RestaurantsService } from '../services/restaurants.service';
-import { Auth } from 'src/auth/decorators/auth.decorator';
+import { JwtAuth } from 'src/auth/decorators/jwt-auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { RestaurantCategoriesService } from 'src/restaurants/services/restaurant-categories.service';
@@ -38,7 +38,7 @@ export class RestaurantsController {
   }
 
   @Get()
-  @Auth(true)
+  @JwtAuth(true)
   @ApiOperation({ summary: 'Retrieve a paginated list of restaurants' })
   @ApiQuery({
     name: 'page',
@@ -80,7 +80,7 @@ export class RestaurantsController {
   }
 
   @Get(':id')
-  @Auth(true)
+  @JwtAuth(true)
   @ApiOperation({
     summary: 'Retrieve details of a specific restaurant',
     description:
@@ -105,7 +105,7 @@ export class RestaurantsController {
   }
 
   @Get(':id/dishes')
-  @Auth(true)
+  @JwtAuth(true)
   @ApiOperation({
     summary:
       'Retrieve a list of categories and dishes for a specific restaurant',

@@ -1,4 +1,4 @@
-import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
+import { DishCart } from 'src/carts/entities/dish-cart.entity';
 import { DishCategory } from 'src/dish-categories/entities/dish-category.entity';
 import { DishOrder } from 'src/dish-orders/entities/dish-order.entity';
 import { FavoriteDish } from 'src/favorites/entities/favorite-dish.entity';

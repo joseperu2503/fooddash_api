@@ -1,6 +1,6 @@
 import { Address } from 'src/addresses/entities/address.entity';
 import { User } from 'src/auth/entities/user.entity';
-import { DishCart } from 'src/dish-carts/entities/dish-cart.entity';
+import { DishCart } from 'src/carts/entities/dish-cart.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import {
   Column,
@@ -37,13 +37,4 @@ export class Cart {
 
   @Column('float')
   subtotal: number;
-
-  @Column('float', { name: 'delivery_fee' })
-  deliveryFee: number;
-
-  @Column('float', { name: 'service_fee' })
-  serviceFee: number;
-
-  @Column('float')
-  total: number;
 }

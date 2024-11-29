@@ -1,7 +1,7 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DishesService } from './dishes.service';
-import { Auth } from 'src/auth/decorators/auth.decorator';
+import { JwtAuth } from 'src/auth/decorators/jwt-auth.decorator';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 
@@ -11,7 +11,7 @@ export class DishesController {
   constructor(private readonly dishesService: DishesService) {}
 
   @Get(':id')
-  @Auth(true)
+  @JwtAuth(true)
   @ApiOperation({
     summary: 'Retrieve details of a specific dish',
     description: 'Returns detailed information about a specific dish by ID.',
