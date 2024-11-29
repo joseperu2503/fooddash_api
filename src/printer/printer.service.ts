@@ -8,6 +8,14 @@ const fonts = {
     bold: 'assets/fonts/sofia-pro/SofiaPro-Regular.otf',
     italics: 'assets/fonts/sofia-pro/SofiaPro-Regular-talic.otf',
   },
+  SofiaProBold: {
+    normal: 'assets/fonts/sofia-pro/SofiaPro-Bold.otf',
+    bold: 'assets/fonts/sofia-pro/SofiaPro-Bold.otf',
+  },
+  SofiaProSemiBold: {
+    normal: 'assets/fonts/sofia-pro/SofiaPro-SemiBold.otf',
+    bold: 'assets/fonts/sofia-pro/SofiaPro-SemiBold.otf',
+  },
 };
 
 @Injectable()

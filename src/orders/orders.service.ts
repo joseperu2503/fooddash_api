@@ -22,9 +22,9 @@ import moment from 'moment';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { PrinterService } from 'src/printer/printer.service';
-import type { StyleDictionary, TDocumentDefinitions } from 'pdfmake/interfaces';
-import { DateFormatter } from 'src/helpers';
+import type { TDocumentDefinitions } from 'pdfmake/interfaces';
 import { CartsService } from 'src/carts/services/carts.service';
+import { orderInvoice } from 'src/printer/reports/order-invoice';
 
 @Injectable()
 export class OrdersService {
@@ -339,7 +339,7 @@ export class OrdersService {
       },
     });
 
-    if (!order) return;
+    if (!order) return null;
 
     return {
       ...order,
@@ -401,96 +401,14 @@ export class OrdersService {
     };
   }
 
-  hello() {
-    const docDefinition: TDocumentDefinitions = {
-      content: ['Hola mundo'],
-      defaultStyle: {
-        font: 'SofiaPro',
-      },
-    };
+  async invoice(user: User, orderId: number) {
+    const order = await this.findOne(user, orderId);
 
-    const doc = this.printerService.createPdf(docDefinition);
+    if (!order) {
+      throw new NotFoundException(`Order ${orderId} not found`);
+    }
 
-    return doc;
-  }
-
-  employmentLetter() {
-    const styles: StyleDictionary = {
-      header: {
-        fontSize: 22,
-        bold: true,
-        alignment: 'center',
-        margin: [0, 50, 0, 20],
-      },
-      body: {
-        alignment: 'justify',
-
-        margin: [0, 0, 0, 70],
-      },
-      signature: {
-        fontSize: 14,
-        bold: true,
-      },
-      footer: {
-        fontSize: 10,
-        italics: true,
-        alignment: 'center',
-        margin: [0, 0, 0, 20],
-      },
-    };
-
-    const docDefinition: TDocumentDefinitions = {
-      styles: styles,
-      pageMargins: [40, 60, 40, 60],
-      header: {
-        columns: [
-          {
-            image: 'assets/icons/icon.png',
-            width: 100,
-            height: 100,
-            alignment: 'center',
-            margin: [0, 0, 0, 20],
-          },
-          {
-            text: DateFormatter.format(new Date()),
-            alignment: 'right',
-            margin: [20, 20, 20, 20],
-          },
-        ],
-      },
-      content: [
-        {
-          text: 'CONSTANCIA DE EMPLEO',
-          style: 'header',
-        },
-        {
-          text: `Yo, [Nombre del Empleador], en mi calidad de [Cargo del Empleador] de [Nombre de la Empresa], por medio de la presente certifico que [Nombre del Empleado] ha sido empleado en nuestra empresa desde el [Fecha de Inicio del Empleado].
-
-          Durante su empleo, el Sr./Sra. [Nombre del Empleado] ha desempeñado el cargo de [Cargo del Empleado], demostrando responsabilidad, compromiso y habilidades profesionales en sus
-          labores.
-
-          La jornada laboral del Sr./ Sra. [Nombre del Empleado] es de [Número de Horas] horas semanales, con un horario de [Horario de Trabajo], cumpliendo con las políticas y procedimientos establecidos por la empresa.
-
-          Esta constancia se expide a solicitud del interesado para los fines que considere conveniente.`,
-          style: 'body',
-        },
-        {
-          text: `Atentamente,
-          [Nombre del Empleador]
-          [Cargo del Empleador]
-          [Nombre de la Empresa]
-          [Fecha de Emisión]`,
-          style: 'signature',
-        },
-      ],
-      footer: {
-        text: 'Este documento es una constancia de empleo y no representa un compromiso laboral.',
-        style: 'footer',
-      },
-      defaultStyle: {
-        font: 'SofiaPro',
-      },
-    };
+    const docDefinition: TDocumentDefinitions = orderInvoice(order, user);
 
     const doc = this.printerService.createPdf(docDefinition);
 

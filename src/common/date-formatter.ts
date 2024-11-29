@@ -1,5 +1,5 @@
 export class DateFormatter {
-  static formatter = new Intl.DateTimeFormat('es-Es', {
+  static formatter = new Intl.DateTimeFormat('en-En', {
     year: 'numeric',
     month: 'long',
     day: '2-digit',

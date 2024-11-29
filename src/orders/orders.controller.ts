@@ -43,21 +43,14 @@ export class OrdersController {
     return this.ordersService.myOrders(user, orderStatusesArray, page, limit);
   }
 
-  @Get('/hello')
-  @Auth()
-  hello(@Res() response, @GetUser() user: User) {
-    const pdfDoc = this.ordersService.hello();
-
-    response.setHeader('Content-type', 'application/pdf');
-    pdfDoc.info.Title = 'Constancia';
-    pdfDoc.pipe(response);
-    pdfDoc.end();
-  }
-
-  @Get('/employment-letter')
-  @Auth()
-  employmentLetter(@Res() response, @GetUser() user: User) {
-    const pdfDoc = this.ordersService.employmentLetter();
+  @Get(':id/invoice')
+  @JwtAuth()
+  async invoice(
+    @Res() response,
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ) {
+    const pdfDoc = await this.ordersService.invoice(user, id);
 
     response.setHeader('Content-type', 'application/pdf');
     pdfDoc.info.Title = 'Constancia';
