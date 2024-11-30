@@ -124,7 +124,7 @@ export const orderInvoice = (
                 margin: [0, 10, 0, 10],
               },
               {
-                text: `Nro ${OrderFormatter.number(order.id)}`,
+                text: `#${OrderFormatter.number(order.id)}`,
                 alignment: 'right',
                 margin: [0, 0, 0, 5],
               },
