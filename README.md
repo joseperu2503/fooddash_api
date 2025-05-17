@@ -15,13 +15,13 @@ nano .env
 ## Para desarrollo
 
 ```bash
-docker compose -f docker-compose.yml up -d --build
+docker compose -f docker-compose.dev.yml --env-file .env.dev -p fooddash_api_dev up --build
 ```
 
 ## Para produccion
 
 ```bash
-docker compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml --env-file .env.prod -p fooddash_api_prod up -d --build
 ```
 
 El parámetro -d en Docker Compose se utiliza para ejecutar los contenedores en segundo plano, es decir, en modo "detached". Esto significa que los contenedores se ejecutan en el fondo y liberan la terminal para que puedas seguir utilizando la línea de comandos sin que queden bloqueados por la salida de los logs de los contenedores.

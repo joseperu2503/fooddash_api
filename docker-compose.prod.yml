@@ -1,29 +1,28 @@
 services:
   api:
-    container_name: fooddash_api
+    container_name: fooddash_api_${ENV}
     build:
       context: .
-      target: production
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     ports:
       - '${SERVER_PORT}:${SERVER_PORT}'
     depends_on:
       - db
-    image: fooddash
+    image: fooddash_api_${ENV}
     networks:
-      - webnet
+      - fooddash_net
     restart: always
     env_file:
-      - .env
+      - .env.${ENV}
 
   db:
-    container_name: fooddash_db
+    container_name: ${DB_HOST}
     image: postgres:14.3
     restart: always
     ports:
-      - '${DB_EXPOSED_PORT}:5432'
+      - '${DB_EXPOSED_PORT}:${DB_PORT}'
     networks:
-      - webnet
+      - fooddash_net
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
@@ -31,4 +30,4 @@ services:
       - ./postgres:/var/lib/postgresql/data
 
 networks:
-  webnet:
+  fooddash_net:
